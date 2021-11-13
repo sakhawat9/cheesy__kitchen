@@ -17,7 +17,7 @@ const Header = () => {
       <div className="container flex flex-wrap items-center justify-between p-5 mx-auto">
         <span className="flex items-center hidden mb-4 font-medium text-gray-900 lg:block title-font md:mb-0">
           <Link href="/">
-            <a className="ml-3 text-xl">Cheesy_kitchen</a>
+            <h4 className="font-extrabold ">Cheesy_kitchen</h4>
           </Link>
         </span>
 
