@@ -36,6 +36,16 @@ const MobileMenu = () => {
             <a>Contact</a>
           </Link>
         </li>
+        <li>
+          <Link href="/courses">
+            <a>Free shipping on all orders</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/courses">
+            <a>Hotline:(+1) 654 567 – 6789</a>
+          </Link>
+        </li>
       </ul>
     </div>
   );
