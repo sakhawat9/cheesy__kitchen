@@ -1,10 +1,12 @@
 import Layout from "components/common/Layout";
+import Hero from "components/Home/Hero/Hero";
 import React from "react";
+import "react-multi-carousel/lib/styles.css";
 
 const HomePage = () => {
   return (
     <Layout>
-      <h2>Hello World!!</h2>
+      <Hero infinite="true" autoPlay="true" deviceType="desktop" />
     </Layout>
   );
 };
