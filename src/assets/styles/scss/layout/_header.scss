@@ -1,7 +1,13 @@
 .header {
-  @apply text-gray-900 font-bold;
+  @apply text-gray-900 font-bold bg-amazon-500;
+  &__top {
+    @apply text-saffron bg-amazon-700;
+    &__wrapper {
+      @apply container items-center justify-between hidden py-4 mx-auto lg:flex;
+    }
+  }
   &__wrapper {
-    @apply container flex flex-wrap items-center justify-between p-5 mx-auto;
+    @apply container flex flex-wrap items-center justify-between p-5 mx-auto text-saffron-500;
     &__drawer {
       @apply inline-block text-3xl lg:hidden;
       &__menu {
