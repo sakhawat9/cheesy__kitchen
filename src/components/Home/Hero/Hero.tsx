@@ -1,4 +1,5 @@
 import React from "react";
+import { FaLongArrowAltRight } from "react-icons/fa";
 import Carousel from "react-multi-carousel";
 
 const responsive = {
@@ -22,8 +23,9 @@ const images = [
   "http://bunch.asiandevelopers.com/wp/radhuni/wp-content/uploads/2015/06/image-1.jpg",
   "http://bunch.asiandevelopers.com/wp/radhuni/wp-content/uploads/2015/06/image-3.jpg",
   "http://bunch.asiandevelopers.com/wp/radhuni/wp-content/uploads/2015/06/image-2.jpg",
+  "https://cdn.pixabay.com/photo/2018/03/07/18/42/menu-3206748_960_720.jpg",
+  "https://image.freepik.com/free-photo/club-sandwiches-with-fried-potatoes-wooden-board_114579-1910.jpg",
 ];
-console.log(images);
 
 const Hero = ({ deviceType, infinite, autoPlay }) => {
   return (
@@ -38,33 +40,32 @@ const Hero = ({ deviceType, infinite, autoPlay }) => {
       infinite={infinite}
       containerClass="carousel-container"
       autoPlay={autoPlay}
-      autoPlaySpeed={3000}
+      autoPlaySpeed={2500}
     >
       {images.map((image, index) => {
         return (
-          <div key={index} className="">
-            <img
-              draggable={false}
-              alt="text"
-              className="w-full h-screen"
-              src={image}
-            />
+          <div key={index} className="hero">
+            <img draggable={false} alt="text" src={image} />
             <div
-              //   className="flex items-center justify-center text-white left-1/2 bg-amazon-500"
               style={{
                 position: "absolute",
                 left: "50%",
+                top: "50%",
                 bottom: "50%",
                 color: "white",
                 transform: " translateX(-50%)",
               }}
             >
-              <h2>Welcome</h2>
-              <h2>Cheesy__kitchen</h2>
-              <p>
+              <h1 className="text-5xl">
+                Welcome <br /> Cheesy__kitchen
+              </h1>
+              <h6>
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit,
                 animi?
-              </p>
+              </h6>
+              <button>
+                Read more <FaLongArrowAltRight />
+              </button>
             </div>
           </div>
         );
