@@ -1,7 +1,6 @@
 import Title from "components/common/Title";
 import Image from "next/image";
 import React from "react";
-import { FaLongArrowAltRight } from "react-icons/fa";
 
 const Categories = () => {
   return (
@@ -15,7 +14,7 @@ const Categories = () => {
           />
         </div>
         <div className="categories__wrapper">
-          <div className="categories__cart">
+          <div className="categories__cart hover:scale-105">
             <div className="categories__cart__image">
               <Image
                 width="150"
@@ -60,9 +59,6 @@ const Categories = () => {
             <h3>Copy</h3>
           </div>
         </div>
-        <button>
-          More Category <FaLongArrowAltRight />
-        </button>
       </div>
     </div>
   );
