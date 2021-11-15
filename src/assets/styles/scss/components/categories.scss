@@ -1,0 +1,27 @@
+.category {
+  @apply bg-gray-50;
+  .categories {
+    @apply container mx-auto section-padding;
+    button {
+      @apply inline-flex gap-2 items-center px-3 py-1 border-0 rounded bg-saffron-500 focus:outline-none hover:bg-saffron-600 mt-6 text-white;
+    }
+    &__wrapper {
+      @apply grid gap-4 lg:grid-cols-4 md:grid-cols-3 grid-cols-2;
+    }
+    &__cart {
+      background-color: #fff;
+      @apply shadow pt-6 rounded  text-center;
+      transition-duration: 0.3s;
+      transition-timing-function: ease-in-out;
+      &__image {
+        @apply inline-flex p-2 align-middle bg-white rounded-full shadow;
+        img {
+          @apply object-cover rounded-full;
+        }
+      }
+      h3 {
+        @apply pt-4;
+      }
+    }
+  }
+}
