@@ -1,3 +1,4 @@
+import Title from "components/common/Title";
 import React from "react";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import Slider from "react-slick";
@@ -57,37 +58,37 @@ const carouselProperties = {
 
 const data = [
   {
-    img: "http://bunch.asiandevelopers.com/wp/radhuni/wp-content/uploads/2015/06/image-1.jpg",
+    img: "https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_960_720.jpg",
     name: "Image 1",
     desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro rerum voluptas praesentium maxime quibusdam deserunt.",
   },
   {
-    img: "http://bunch.asiandevelopers.com/wp/radhuni/wp-content/uploads/2015/06/image-1.jpg",
+    img: "https://cdn.pixabay.com/photo/2021/07/19/16/04/pizza-6478478_960_720.jpg",
     name: "Image 2",
     desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro rerum voluptas praesentium maxime quibusdam deserunt.",
   },
   {
-    img: "http://bunch.asiandevelopers.com/wp/radhuni/wp-content/uploads/2015/06/image-1.jpg",
+    img: "https://cdn.pixabay.com/photo/2020/10/05/19/55/hamburger-5630646_960_720.jpg",
     name: "Image 3",
     desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro rerum voluptas praesentium maxime quibusdam deserunt.",
   },
   {
-    img: "http://bunch.asiandevelopers.com/wp/radhuni/wp-content/uploads/2015/06/image-1.jpg",
+    img: "https://cdn.pixabay.com/photo/2020/03/21/11/17/burger-4953465_960_720.jpg",
     name: "Image 4",
     desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro rerum voluptas praesentium maxime quibusdam deserunt.",
   },
   {
-    img: "http://bunch.asiandevelopers.com/wp/radhuni/wp-content/uploads/2015/06/image-1.jpg",
+    img: "https://cdn.pixabay.com/photo/2013/08/11/19/46/coffee-171653_960_720.jpg",
     name: "Image 5",
     desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro rerum voluptas praesentium maxime quibusdam deserunt.",
   },
   {
-    img: "http://bunch.asiandevelopers.com/wp/radhuni/wp-content/uploads/2015/06/image-1.jpg",
+    img: "https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg",
     name: "Image 6",
     desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro rerum voluptas praesentium maxime quibusdam deserunt.",
   },
   {
-    img: "http://bunch.asiandevelopers.com/wp/radhuni/wp-content/uploads/2015/06/image-1.jpg",
+    img: "https://cdn.pixabay.com/photo/2015/05/07/13/46/cappuccino-756490_960_720.jpg",
     name: "Image 7",
     desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro rerum voluptas praesentium maxime quibusdam deserunt.",
   },
@@ -95,8 +96,14 @@ const data = [
 
 const Testimonials = () => {
   return (
-    <div className="container mx-auto carousel">
-      <h1>Basic carousel</h1>
+    <div className="container mx-auto carousel section-padding">
+      <div>
+        <Title
+          title="Shop by Category"
+          subtitle="Our all category"
+          description=""
+        />
+      </div>
       <Slider {...carouselProperties}>
         {data.map((item, index) => (
           <Card key={index} item={item} />
@@ -108,13 +115,14 @@ const Testimonials = () => {
 
 const Card = ({ item }) => {
   return (
-    <div className="text-center">
+    <div className="m-3">
       <img
         src={item.img}
         alt={item.name}
-        className="object-contain w-full h-44"
+        className="object-contain w-full max-h-40"
       />
-      <p className="text-sm">{item.name}</p>
+      <h3 className="pt-3 text-2xl">{item.name}</h3>
+      <p className="text-sm text-justify">{item.desc}</p>
     </div>
   );
 };
