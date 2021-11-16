@@ -3,6 +3,7 @@ import Layout from "components/common/Layout";
 import FeaturedFoods from "components/FeaturedFoods/FeaturedFoods";
 import Hero from "components/Home/Hero/Hero";
 import LatestFoods from "components/LatestFoods/LatestFoods";
+import Testimonials from "components/Testimonials/Testimonials";
 import React from "react";
 import "react-multi-carousel/lib/styles.css";
 
@@ -13,6 +14,7 @@ const HomePage = () => {
       <Categories />
       <LatestFoods />
       <FeaturedFoods />
+      <Testimonials />
     </Layout>
   );
 };
