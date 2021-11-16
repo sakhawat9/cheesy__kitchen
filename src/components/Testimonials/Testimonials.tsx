@@ -26,15 +26,13 @@ const carouselProperties = {
   prevArrow: <PreviousBtn />,
   nextArrow: <NextBtn />,
   slidesToShow: 3,
-  // infinite={false}
-  //   slidesToScroll={3},
   centerMode: true,
   centerPadding: "200px",
   responsive: [
     {
-      breakpoint: 426,
+      breakpoint: 500,
       settings: {
-        slidesToShow: 1,
+        slidesToShow: 2,
         centerMode: false,
       },
     },
