@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.carousel .slick-arrow.slick-prev,
+.carousel .slick-arrow.slick-next {
+  @apply flex items-center justify-center w-10 h-10 rounded-full;
+  background: #ffffffa1;
+  z-index: 1;
+}
+.carousel .slick-prev {
+  left: 0;
+}
+.carousel .slick-next {
+  right: 0;
+}
+.slick-prev::before,
+.slick-next::before {
+  display: none;
+}
