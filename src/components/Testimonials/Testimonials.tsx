@@ -1,5 +1,7 @@
 import Title from "components/common/Title";
+import Image from "next/image";
 import React from "react";
+import { AiOutlineStar } from "react-icons/ai";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,7 +11,7 @@ const PreviousBtn = (props) => {
   const { className, onClick } = props;
   return (
     <div className={className} onClick={onClick}>
-      <FaLongArrowAltLeft className="p-2 text-4xl font-extrabold text-black rounded-full shadow-lg" />
+      <FaLongArrowAltLeft className="p-2 text-4xl font-extrabold text-white rounded-full shadow-lg" />
     </div>
   );
 };
@@ -17,7 +19,7 @@ const NextBtn = (props) => {
   const { className, onClick } = props;
   return (
     <div className={className} onClick={onClick}>
-      <FaLongArrowAltRight className="p-2 text-4xl text-black rounded-full shadow-lg" />
+      <FaLongArrowAltRight className="p-2 text-4xl text-white rounded-full shadow-lg" />
     </div>
   );
 };
@@ -97,8 +99,8 @@ const Testimonials = () => {
     <div className="container mx-auto carousel section-padding">
       <div>
         <Title
-          title="Shop by Category"
-          subtitle="Our all category"
+          title="Testimonials"
+          subtitle="Our all testimonials"
           description=""
         />
       </div>
@@ -113,14 +115,35 @@ const Testimonials = () => {
 
 const Card = ({ item }) => {
   return (
-    <div className="m-3">
-      <img
-        src={item.img}
-        alt={item.name}
-        className="object-contain w-full max-h-40"
-      />
+    <div className="p-2 m-3 text-center shadow-lg">
+      <div className="inline-flex p-2 align-middle bg-white rounded-full shadow">
+        <Image
+          width="100"
+          height="100"
+          className="object-cover rounded-full"
+          src={item.img}
+          alt={item.name}
+        />
+      </div>
       <h3 className="pt-3 text-2xl">{item.name}</h3>
       <p className="text-sm text-justify">{item.desc}</p>
+      <ul className="flex mt-3">
+        <li>
+          <AiOutlineStar className="text-2xl text-yellow-400" />
+        </li>
+        <li>
+          <AiOutlineStar className="text-2xl text-yellow-400" />
+        </li>
+        <li>
+          <AiOutlineStar className="text-2xl text-yellow-400" />
+        </li>
+        <li>
+          <AiOutlineStar className="text-2xl text-yellow-400" />
+        </li>
+        <li>
+          <AiOutlineStar className="text-2xl text-yellow-400" />
+        </li>
+      </ul>
     </div>
   );
 };
