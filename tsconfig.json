@@ -20,7 +20,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/pages/api/foods/index.js"
+    "src/pages/api/foods/index.js",
+    "src/pages/foods/[slug].tsx"
   ],
   "exclude": ["node_modules"]
 }
