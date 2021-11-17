@@ -9,7 +9,7 @@ const FeaturedFoods = () => {
     <div className="bg-gray-50">
       <div className="container mx-auto section-padding">
         <div className="text-center ">
-          <Title title="Featured Produce" subtitle="" description="" />
+          <Title title="Featured Food" subtitle="" description="" />
         </div>
         <div className="grid grid-cols-2 gap-4 featuredFoods__wrapper md:grid-cols-3">
           <div className="p-6 transition duration-300 ease-in-out transform bg-white rounded shadow featuredFoods__cart hover:scale-105">
