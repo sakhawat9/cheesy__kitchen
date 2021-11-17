@@ -1,0 +1,8 @@
+.hero {
+  img {
+    @apply w-full h-screen;
+  }
+  button {
+    @apply inline-flex gap-2 items-center px-3 py-1 border-0 rounded bg-saffron-500 focus:outline-none hover:bg-saffron-600 md:mt-0;
+  }
+}
