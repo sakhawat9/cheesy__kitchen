@@ -34,7 +34,9 @@ const Header = () => {
       <div className="header__wrapper">
         <span className="flex items-center hidden mb-4 font-medium lg:block title-font md:mb-0">
           <Link href="/">
-            <h4 className="font-extrabold">Cheesy_kitchen</h4>
+            <a>
+              <h4 className="font-extrabold">Cheesy_kitchen</h4>
+            </a>
           </Link>
         </span>
         <button className="header__wrapper__drawer" onClick={toggleDrawer}>

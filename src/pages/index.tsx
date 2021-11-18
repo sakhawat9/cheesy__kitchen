@@ -17,8 +17,8 @@ const HomePage = (props) => {
       <Hero infinite="true" autoPlay="true" deviceType="desktop" />
       <Categories />
       <LatestFoods foods={foods} />
-      <FeaturedFoods />
       <Testimonials />
+      <FeaturedFoods />
     </Layout>
   );
 };
