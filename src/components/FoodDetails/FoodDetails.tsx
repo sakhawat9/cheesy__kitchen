@@ -1,15 +1,45 @@
+import axios from "axios";
 import Title from "components/common/Title";
-import React from "react";
+import React, { useContext } from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { IFood } from "type";
+import { Store } from "utils/Store";
 
 interface IProp {
   singleFood: IFood;
 }
 
 const FoodDetails = ({ singleFood }: IProp) => {
+  const { state, dispatch } = useContext(Store);
+  console.log(state);
+
   const { name, image, price, description } = singleFood;
+  const addToCartHandler = async () => {
+    const { data } = await axios.get(`/api/foods/${singleFood._id}`);
+    if (data.countInStock <= 0) {
+      window.alert("Sorry. Product is out of stock");
+      return;
+    }
+    dispatch({
+      type: "CART_ADD_ITEM",
+      payload: { ...singleFood, quantity: 1 },
+    });
+  };
+
+  // const addToCartHandler = async () => {
+  //   const existItem = state.cart.cartItems.find(
+  //     (x) => x._id === singleFood._id
+  //   );
+  //   const quantity = existItem ? existItem.quantity + 1 : 1;
+  //   const { data } = await axios.get(`/api/foods/${singleFood._id}`);
+  //   if (data.countInStock < quantity) {
+  //     window.alert("Sorry. Product is out of stock");
+  //     return;
+  //   }
+  //   dispatch({ type: "CART_ADD_ITEM", payload: { ...singleFood, quantity } });
+  //   // router.push("/cart");
+  // };
 
   return (
     <div className="bg-gray-50">
@@ -42,7 +72,10 @@ const FoodDetails = ({ singleFood }: IProp) => {
             </ul>
             <p>${price}</p>
             <p>{description}</p>
-            <button className="inline-flex items-center gap-2 px-3 py-1 mt-6 text-white border-0 rounded bg-saffron-500 focus:outline-none hover:bg-saffron-600">
+            <button
+              className="inline-flex items-center gap-2 px-3 py-1 mt-6 text-white border-0 rounded bg-saffron-500 focus:outline-none hover:bg-saffron-600"
+              onClick={addToCartHandler}
+            >
               Add To Card <FaLongArrowAltRight />
             </button>
           </div>
