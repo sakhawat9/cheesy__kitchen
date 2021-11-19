@@ -1,0 +1,28 @@
+.cart-head {
+  @apply px-24 py-20 bg-gray-200;
+}
+
+.cart-content {
+  @apply flex flex-col md:flex-row gap-5;
+  &__item {
+    @apply flex flex-col items-start flex-grow md:w-1/2;
+    .cart-course-list {
+      @apply w-auto;
+      li {
+        .course-image {
+          img {
+            @apply rounded-md;
+          }
+        }
+        .CourseName-instructor {
+          img {
+            @apply rounded-md;
+          }
+          span {
+            @apply ml-1 py-2;
+          }
+        }
+      }
+    }
+  }
+}

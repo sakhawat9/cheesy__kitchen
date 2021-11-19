@@ -21,7 +21,8 @@
     "**/*.ts",
     "**/*.tsx",
     "src/pages/api/foods/index.js",
-    "src/pages/foods/[slug].tsx"
+    "src/pages/foods/[slug].tsx",
+    "src/utils/Store.js"
   ],
   "exclude": ["node_modules"]
 }
