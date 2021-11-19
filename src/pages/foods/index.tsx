@@ -10,7 +10,7 @@ const AllFoods = (props) => {
   console.log(foods);
 
   return (
-    <Layout title="All Food">
+    <Layout title="Cheesy__kitchen all food">
       <div className="all-food">
         <div className="all-food__wrapper">
           <Title
