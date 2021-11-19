@@ -26,9 +26,9 @@
     &__icons {
       @apply flex gap-4 mt-2;
       li {
-        @apply rounded-full items-center justify-center flex hover:bg-saffron-600 w-12 h-12 bg-saffron-500;
+        @apply rounded-full items-center justify-center flex hover:bg-saffron-600 w-10 h-10 bg-saffron-500;
         svg {
-          @apply text-3xl  text-amazon-600;
+          @apply text-2xl  text-amazon-600;
         }
       }
     }

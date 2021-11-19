@@ -1,14 +1,17 @@
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import { AiOutlineCloseSquare, AiOutlineShoppingCart } from "react-icons/ai";
 import { BsCheck } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
 import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
+import { Store } from "utils/Store";
 import MobileMenu from "./MobileMenu";
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { state } = useContext(Store);
+  const { cart } = state;
 
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
@@ -34,7 +37,9 @@ const Header = () => {
       <div className="header__wrapper">
         <span className="flex items-center hidden mb-4 font-medium lg:block title-font md:mb-0">
           <Link href="/">
-            <h4 className="font-extrabold">Cheesy_kitchen</h4>
+            <a>
+              <h4 className="font-extrabold">Cheesy_kitchen</h4>
+            </a>
           </Link>
         </span>
         <button className="header__wrapper__drawer" onClick={toggleDrawer}>
@@ -77,7 +82,7 @@ const Header = () => {
         </nav>
 
         <span className="header__wrapper__cart">
-          <Link href="#">
+          <Link href="/cartFood">
             <a>
               <span className="text-xl cart__ico">
                 <AiOutlineShoppingCart />
@@ -85,7 +90,7 @@ const Header = () => {
             </a>
           </Link>
           <span className="header__wrapper__cart__number">
-            {/* {cart.cartItems.length} */}0
+            {cart.cartItems.length}
           </span>
         </span>
         {/* {userInfo ? (
