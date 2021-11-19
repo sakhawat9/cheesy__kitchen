@@ -82,7 +82,7 @@ const Header = () => {
         </nav>
 
         <span className="header__wrapper__cart">
-          <Link href="#">
+          <Link href="/cartFood">
             <a>
               <span className="text-xl cart__ico">
                 <AiOutlineShoppingCart />

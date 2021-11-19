@@ -27,24 +27,10 @@ const FoodDetails = ({ singleFood }: IProp) => {
     });
   };
 
-  // const addToCartHandler = async () => {
-  //   const existItem = state.cart.cartItems.find(
-  //     (x) => x._id === singleFood._id
-  //   );
-  //   const quantity = existItem ? existItem.quantity + 1 : 1;
-  //   const { data } = await axios.get(`/api/foods/${singleFood._id}`);
-  //   if (data.countInStock < quantity) {
-  //     window.alert("Sorry. Product is out of stock");
-  //     return;
-  //   }
-  //   dispatch({ type: "CART_ADD_ITEM", payload: { ...singleFood, quantity } });
-  //   // router.push("/cart");
-  // };
-
   return (
-    <div className="bg-gray-50">
+    <>
       <div className="container mx-auto section-padding">
-        <div className="text-center ">
+        <div className="text-center">
           <Title title={name} subtitle="" description="" />
         </div>
         <div className="grid items-center gap-4 featuredFoods__wrapper md:grid-cols-2">
@@ -81,7 +67,7 @@ const FoodDetails = ({ singleFood }: IProp) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
