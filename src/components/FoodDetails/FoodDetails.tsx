@@ -1,5 +1,6 @@
 import axios from "axios";
 import Title from "components/common/Title";
+import { useRouter } from "next/router";
 import React, { useContext } from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import { FaLongArrowAltRight } from "react-icons/fa";
@@ -11,6 +12,7 @@ interface IProp {
 }
 
 const FoodDetails = ({ singleFood }: IProp) => {
+  const router = useRouter();
   const { state, dispatch } = useContext(Store);
   console.log(state);
 
@@ -25,6 +27,7 @@ const FoodDetails = ({ singleFood }: IProp) => {
       type: "CART_ADD_ITEM",
       payload: { ...singleFood, quantity: 1 },
     });
+    router.push("/cartFood");
   };
 
   return (
@@ -62,7 +65,7 @@ const FoodDetails = ({ singleFood }: IProp) => {
               className="inline-flex items-center gap-2 px-3 py-1 mt-6 text-white border-0 rounded bg-saffron-500 focus:outline-none hover:bg-saffron-600"
               onClick={addToCartHandler}
             >
-              Add To Card <FaLongArrowAltRight />
+              Add To Cart <FaLongArrowAltRight />
             </button>
           </div>
         </div>
