@@ -15,7 +15,7 @@ const CartFood = () => {
   } = state;
 
   return (
-    <Layout>
+    <Layout title="Your Shopping Cart">
       <div className="text-center cart-head">
         <div className="container">
           <h2> Your Shopping Cart</h2>
@@ -29,7 +29,7 @@ const CartFood = () => {
                 Cart is empty.{" "}
                 <Link href="#">
                   <a className="inline-flex items-center gap-2 px-3 py-1 mt-6 text-white border-0 rounded bg-saffron-500 focus:outline-none hover:bg-saffron-600">
-                    Go Courses Page <FaLongArrowAltRight />
+                    Go Foods Page <FaLongArrowAltRight />
                   </a>
                 </Link>
               </div>
@@ -61,10 +61,10 @@ const CartFood = () => {
               </h6>
             </div>
             <button
-              className="w-full h-10 text-xl font-semibold rounded-sm bg-royal-blue hover:bg-royal-blue-800"
+              className="inline-flex items-center gap-2 px-3 py-1 mt-6 text-white border-0 rounded bg-saffron-500 focus:outline-none hover:bg-saffron-600"
               onClick={() => router.push("#f")}
             >
-              Check out
+              Check out <FaLongArrowAltRight />
             </button>
           </div>
         </div>

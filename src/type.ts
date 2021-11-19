@@ -5,6 +5,7 @@ export interface IFood {
   category: string;
   image: string;
   price: number;
+  quantity?: number;
   prichard: boolean;
   rating: number;
   countInStock: number;
