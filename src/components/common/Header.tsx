@@ -11,7 +11,7 @@ import MobileMenu from "./MobileMenu";
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const { state } = useContext(Store);
-  const { cart } = state;
+  const { cart, userInfo } = state;
 
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
@@ -93,17 +93,18 @@ const Header = () => {
             {cart.cartItems.length}
           </span>
         </span>
-        {/* {userInfo ? (
-          <Usermenu userInfo={userInfo} />
-        ) : ( */}
-        <Link href="#">
-          <a>
-            <button className="font-bold header__wrapper__login-btn text-amazon">
-              Login/Registation
-            </button>
-          </a>
-        </Link>
-        {/* )} */}
+        {userInfo ? (
+          // <UserMenu userInfo={userInfo} />
+          <span className="text-xl cart__ico">{userInfo.name}</span>
+        ) : (
+          <Link href="/login">
+            <a>
+              <button className="font-bold header__wrapper__login-btn text-amazon">
+                Login/Registation
+              </button>
+            </a>
+          </Link>
+        )}
       </div>
     </header>
   );
