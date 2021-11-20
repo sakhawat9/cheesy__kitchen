@@ -64,7 +64,7 @@ const FeaturedFoods = () => {
             </div>
           </div>
         </div>
-        <button className="inline-flex items-center gap-2 px-3 py-1 mt-6 text-white border-0 rounded bg-saffron-500 focus:outline-none hover:bg-saffron-600">
+        <button className="btn-brand">
           More Featured Foods <FaLongArrowAltRight />
         </button>
       </div>
