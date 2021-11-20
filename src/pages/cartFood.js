@@ -62,7 +62,7 @@ function CartScreen() {
             <div className="py-20 text-xl ">
               Cart is empty.{" "}
               <Link href="/foods">
-                <a className="inline-flex items-center gap-2 px-3 py-1 mt-6 text-white border-0 rounded bg-saffron-500 focus:outline-none hover:bg-saffron-600">
+                <a className="btn-brand">
                   Go Foods Page <FaLongArrowAltRight />
                 </a>
               </Link>

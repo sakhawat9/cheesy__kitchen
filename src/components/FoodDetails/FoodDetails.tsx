@@ -61,10 +61,7 @@ const FoodDetails = ({ singleFood }: IProp) => {
             </ul>
             <p>${price}</p>
             <p>{description}</p>
-            <button
-              className="inline-flex items-center gap-2 px-3 py-1 mt-6 text-white border-0 rounded bg-saffron-500 focus:outline-none hover:bg-saffron-600"
-              onClick={addToCartHandler}
-            >
+            <button className="btn-brand" onClick={addToCartHandler}>
               Add To Cart <FaLongArrowAltRight />
             </button>
           </div>
