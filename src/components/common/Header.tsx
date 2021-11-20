@@ -7,6 +7,7 @@ import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import { Store } from "utils/Store";
 import MobileMenu from "./MobileMenu";
+import UserMenu from "./UserMenu";
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -94,9 +95,9 @@ const Header = () => {
           </span>
         </span>
         {userInfo ? (
-          // <UserMenu userInfo={userInfo} />
-          <span className="text-xl cart__ico">{userInfo.name}</span>
+          <UserMenu userInfo={userInfo} />
         ) : (
+          // <span className="text-xl cart__ico">{userInfo.name}</span>
           <Link href="/login">
             <a>
               <button className="font-bold header__wrapper__login-btn text-amazon">
