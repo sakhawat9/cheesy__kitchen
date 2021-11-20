@@ -1,60 +1,54 @@
 // eslint-disable-next-line react/jsx-props-no-spreading
 // import img from "assets/images/cycle.png";
-import axios from "axios";
 import Layout from "components/common/Layout";
 import Title from "components/common/Title";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
 import { Store } from "utils/Store";
 
 const Shipping = () => {
-  const [user, setUser] = useState(false);
-  const [instructor, setInstructor] = useState(false);
   const {
     handleSubmit,
     register,
     formState: { errors },
+    setValue,
   } = useForm();
   const router = useRouter();
   const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
-  const { userInfo } = state;
-
+  const {
+    userInfo,
+    cart: { shippingAddress },
+  } = state;
   useEffect(() => {
-    if (userInfo) {
-      router.push("/");
+    if (!userInfo) {
+      return router.push("/login?redirect=/shipping");
     }
+    setValue("fullName", shippingAddress?.fullName);
+    setValue("address", shippingAddress?.address);
+    setValue("city", shippingAddress?.city);
+    setValue("postalCode", shippingAddress?.postalCode);
+    setValue("country", shippingAddress?.country);
   }, []);
 
-  const submitHandler = async ({ name, email, password, confirmPassword }) => {
-    if (password !== confirmPassword) {
-      Swal.fire({
-        icon: "error",
-        text: "Password don't match",
-      });
-      return;
-    }
-    try {
-      const { data } = await axios.post("/api/users/register", {
-        name,
-        email,
-        password,
-        user,
-        instructor,
-      });
-
-      dispatch({ type: "USER_LOGIN", payload: data });
-      Cookies.set("userInfo", JSON.stringify(data));
-      // router.push(redirect || "/");
-    } catch (err) {
-      Swal.fire({
-        icon: "error",
-        text: err.message ? "Your email already added" : "",
-      });
-    }
+  const submitHandler = ({ fullName, address, city, postalCode, country }) => {
+    dispatch({
+      type: "SAVE_SHIPPING_ADDRESS",
+      payload: { fullName, address, city, postalCode, country },
+    });
+    Cookies.set(
+      "shippingAddress",
+      JSON.stringify({
+        fullName,
+        address,
+        city,
+        postalCode,
+        country,
+      })
+    );
+    router.push(redirect || "/payment");
   };
 
   return (

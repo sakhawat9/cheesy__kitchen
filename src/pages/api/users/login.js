@@ -1,0 +1,33 @@
+import bcrypt from "bcryptjs";
+import nc from "next-connect";
+import User from "../../../models/User";
+import { signToken } from "../../../utils/auth";
+import db from "../../../utils/db";
+
+const handler = nc();
+
+handler.post(async (req, res) => {
+  await db.connect();
+  const user = await User.findOne({ email: req.body.email });
+  await db.disconnect();
+  if (user && bcrypt.compareSync(req.body.password, user.password)) {
+    const token = signToken(user);
+    res.send({
+      token,
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      img: user.img,
+      facebook: user.facebook,
+      linkedIn: user.linkedIn,
+      twitter: user.twitter,
+      user: user.user,
+      instructor: user.instructor,
+    });
+  } else {
+    res.status(401).send({ message: "Invalid user or password" });
+  }
+});
+
+export default handler;
