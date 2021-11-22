@@ -11,7 +11,6 @@ import { Store } from "utils/Store";
 
 const Register = () => {
   const [user, setUser] = useState(false);
-  const [instructor, setInstructor] = useState(false);
   const {
     handleSubmit,
     register,
@@ -42,7 +41,6 @@ const Register = () => {
         email,
         password,
         user,
-        instructor,
       });
 
       dispatch({ type: "USER_LOGIN", payload: data });
@@ -163,8 +161,8 @@ const Register = () => {
             </span>
           </label>
           <div className="form-element">
-            <div className="flex items-center gap-4 py-2">
-              <div className="flex items-center mb-4">
+            <div className="flex items-center justify-between gap-4 py-2">
+              <div className="flex items-center">
                 <input
                   id="user"
                   onClick={(e) => setUser(e.target.checked)}
@@ -174,28 +172,18 @@ const Register = () => {
                 />
                 <label htmlFor="user">User</label>
               </div>
-              <div className="flex items-center mb-4">
+              <label className="flex items-center">
                 <input
-                  id="instructor"
-                  onClick={(e) => setInstructor(e.target.checked)}
                   className="register__checkbox"
-                  type="radio"
-                  name="user"
+                  type="checkbox"
+                  name=""
+                  id=""
                 />
-                <label htmlFor="instructor">Instructor</label>
-              </div>
+                <span className="tracking-wide">Remember me</span>
+              </label>
             </div>
           </div>
-     
-          <label className="flex items-center">
-            <input
-              className="register__checkbox"
-              type="checkbox"
-              name=""
-              id=""
-            />
-            <span className="tracking-wide">Remember me</span>
-          </label>
+
           <span className="w-full">
             <input
               type="submit"
