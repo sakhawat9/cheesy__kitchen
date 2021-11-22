@@ -1,0 +1,21 @@
+.register {
+  @apply min-h-screen mx-auto section-padding md:w-7/12;
+  &__wrapper {
+    @apply container mx-auto;
+  }
+  &__form {
+    &__title {
+      @apply block text-lg tracking-wide py-1 text-gray-900;
+    }
+    input {
+      @apply block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-md shadow focus:ring-amazon-400 focus:border-amazon-400 focus:outline-none focus:ring-1 mb-3;
+    }
+  }
+  &__checkbox {
+    width: 5px !important;
+    padding-left: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+  }
+}

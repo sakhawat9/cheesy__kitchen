@@ -75,7 +75,7 @@ const Login = () => {
            ${errors.email ? "ring-2 ring-red-500" : null}`}
               placeholder="Email"
             />
-            <span className="login__form__title">{errors?.email?.message}</span>
+            <span className="py-2 text-sm text-red-400">{errors?.email?.message}</span>
           </label>
 
           <label>
@@ -106,7 +106,6 @@ const Login = () => {
               <a className="border-b border-saffron-600">Forgot Password?</a>
             </Link>
           </div>
-
           <span className="w-full">
             <input type="submit" className="btn-brand" value="Log in now" />
           </span>
