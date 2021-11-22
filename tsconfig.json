@@ -23,7 +23,10 @@
     "src/pages/api/foods/index.js",
     "src/pages/foods/[slug].tsx",
     "src/utils/Store.js",
-    "src/components/CartItem/CartItem.tsx"
+    "src/components/CartItem/CartItem.tsx",
+    "src/pages/cartFood.js",
+    "src/pages/shipping.js",
+    "src/components/Login/Login.js"
   ],
   "exclude": ["node_modules"]
 }

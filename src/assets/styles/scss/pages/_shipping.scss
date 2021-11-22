@@ -1,0 +1,14 @@
+.shipping {
+  @apply min-h-screen section-padding md:w-9/12 mx-auto;
+  &__wrapper {
+    @apply container mx-auto;
+  }
+  &__form {
+    &__title {
+      @apply block text-lg tracking-wide text-gray-900;
+    }
+    input {
+      @apply block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-md shadow focus:ring-amazon-400 focus:border-amazon-400 focus:outline-none focus:ring-1 mb-3;
+    }
+  }
+}
