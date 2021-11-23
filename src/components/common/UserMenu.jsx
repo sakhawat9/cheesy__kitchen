@@ -39,7 +39,7 @@ export default function Example({ userInfo }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       {userInfo && (
-        <Menu.Button className="inline-flex justify-center w-full px-4 py-2 ml-3 text-sm font-medium rounded-md bg-amazon text-saffron focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <Menu.Button className="inline-flex justify-center w-full px-4 py-2 ml-3 font-medium rounded-md bg-amazon text-saffron focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
           {userInfo?.name}
           <ChevronDownIcon
             className="w-5 h-5 ml-2 -mr-1 text-saffron-600"
