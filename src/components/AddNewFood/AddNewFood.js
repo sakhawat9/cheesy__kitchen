@@ -36,12 +36,12 @@ function reducer(state, action) {
 const AddNewFood = () => {
   const router = useRouter();
 
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [shortDesc, setShortDesc] = useState("");
-  const [categories, setCategories] = useState("");
+  const [category, setCategory] = useState("");
   const [price, setPrice] = useState(0);
-  const [desc, setDesc] = useState("");
+  const [description, setDescription] = useState("");
   const [img, setImg] = useState("");
   const { state } = useContext(Store);
   const { userInfo } = state;
@@ -86,13 +86,12 @@ const AddNewFood = () => {
 
     try {
       const { data } = await axios.post("/api/addFood/addFood", {
-        userInfo,
-        title,
+        name,
         slug,
         shortDesc,
-        categories,
+        category,
         price,
-        desc,
+        description,
         img,
       });
       Swal.fire({
@@ -114,14 +113,14 @@ const AddNewFood = () => {
       <form action="" onSubmit={handleSubmit}>
           <div className="flex flex-col px-4 ">
             <div className="mb-4">
-              <label htmlFor="title">Title</label>
+              <label htmlFor="name">Name</label>
               <input
-                onChange={(e) => setTitle(e.target.value)}
-                id="title"
+                onChange={(e) => setName(e.target.value)}
+                id="name"
                 className="w-full px-4 py-3 rounded focus:border-royal-blue"
                 type="text"
-                name="title"
-                placeholder="Write your course title here..."
+                name="name"
+                placeholder="Write your food name here..."
               />
             </div>
             <div className="mb-4">
@@ -132,7 +131,7 @@ const AddNewFood = () => {
                 className="w-full px-4 py-3 rounded focus:border-royal-blue"
                 type="text"
                 name="slug"
-                placeholder="Write your course title here..."
+                placeholder="Write your food name here..."
               />
             </div>
 
@@ -148,11 +147,11 @@ const AddNewFood = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="categories">Food Category</label>
+              <label htmlFor="category">Food Category</label>
               <select
-                onChange={(e) => setCategories(e.target.value)}
-                id="categories"
-                name="categories"
+                onChange={(e) => setCategory(e.target.value)}
+                id="category"
+                name="category"
                 className="w-full px-4 py-3 rounded form-select focus:border-royal-blue"
               >
                 <option value="javascript">Select Category</option>
@@ -176,13 +175,13 @@ const AddNewFood = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="desc">Food Overview</label>
+              <label htmlFor="description">Food Overview</label>
               <textarea
-                onChange={(e) => setDesc(e.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
                 className="w-full px-4 py-3 rounded focus:border-royal-blue"
                 placeholder="Write your food overview..."
-                id="desc"
-                name="desc"
+                id="description"
+                name="description"
               ></textarea>
             </div>
           </div>

@@ -59,7 +59,7 @@ const Footer = () => {
 
             <div>
               <div className="footer-top__title">
-                <h4>Categories</h4>
+                <h4>Category</h4>
               </div>
               <div className="footer-top__content">
                 <ul>
