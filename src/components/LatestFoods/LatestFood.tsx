@@ -17,9 +17,7 @@ const LatestFood = ({ food }: IProp) => {
             <div className="images">
               <img src={image} alt={name} />
             </div>
-
             <h4>{name}</h4>
-            <p>{description}</p>
           </div>
         </a>
       </Link>

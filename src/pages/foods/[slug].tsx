@@ -1,3 +1,4 @@
+import Comments from "components/Comments/Comments";
 import Layout from "components/common/Layout";
 import FoodDetails from "components/FoodDetails/FoodDetails";
 import Food from "models/Food";
@@ -22,6 +23,7 @@ const courseDetails = (props: IProps) => {
   return (
     <Layout title={singleFoods.name}>
       <FoodDetails singleFood={singleFoods} />
+      <Comments />
     </Layout>
   );
 };
