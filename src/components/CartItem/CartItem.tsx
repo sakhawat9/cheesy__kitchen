@@ -9,8 +9,6 @@ interface IProp {
 }
 
 function CartItem({ item }: IProp) {
-  console.log(item);
-
   const { dispatch } = useContext(Store);
   const { name, image, price, quantity, slug } = item;
   const removeItemHandler = (item: IFood) => {
