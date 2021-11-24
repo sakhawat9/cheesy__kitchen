@@ -1,4 +1,3 @@
-// import Courses from "models/Courses";
 import type { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
 import Food from "../../models/Food";
