@@ -3,6 +3,7 @@ export interface IFood {
   _id: number;
   slug: string;
   category: string;
+  shortDesc: string;
   image: string;
   price: number;
   quantity?: number;
