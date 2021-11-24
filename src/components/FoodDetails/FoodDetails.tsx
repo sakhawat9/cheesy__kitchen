@@ -14,7 +14,6 @@ interface IProp {
 const FoodDetails = ({ singleFood }: IProp) => {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
-  console.log(state);
 
   const { name, image, price, description } = singleFood;
   const addToCartHandler = async () => {

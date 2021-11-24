@@ -7,7 +7,6 @@ import db from "utils/db";
 
 const AllFoods = (props) => {
   const { foods } = props;
-  console.log(foods);
 
   return (
     <Layout title="Cheesy__kitchen all food">
