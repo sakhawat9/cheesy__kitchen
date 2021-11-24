@@ -13,11 +13,7 @@ const AllFoods = (props) => {
     <Layout title="Cheesy__kitchen all food">
       <div className="all-food">
         <div className="all-food__wrapper">
-          <Title
-            title="All Courses"
-            subtitle="Find your course"
-            description=""
-          />
+          <Title title="All Foods" subtitle="Find your course" description="" />
           <div className="all-food__wrapper__cart">
             {foods.map((food) => (
               <AllFood key={food._id} food={food} />

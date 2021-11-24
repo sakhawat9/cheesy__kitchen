@@ -39,7 +39,7 @@ export default function Example({ userInfo }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       {userInfo && (
-        <Menu.Button className="inline-flex justify-center w-full px-4 py-2 ml-3 text-sm font-medium rounded-md bg-amazon text-saffron focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <Menu.Button className="inline-flex justify-center w-full px-4 py-2 ml-3 font-medium rounded-md bg-amazon text-saffron focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
           {userInfo?.name}
           <ChevronDownIcon
             className="w-5 h-5 ml-2 -mr-1 text-saffron-600"
@@ -66,9 +66,7 @@ export default function Example({ userInfo }) {
                       {({ active }) => (
                         <button
                           className={`${
-                            active
-                              ? "bg-amazon text-saffron"
-                              : "text-gray-900"
+                            active ? "bg-amazon text-saffron" : "text-gray-900"
                           } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                         >
                           {active ? (
@@ -94,9 +92,7 @@ export default function Example({ userInfo }) {
                       {({ active }) => (
                         <button
                           className={`${
-                            active
-                              ? "bg-amazon text-saffron"
-                              : "text-gray-900"
+                            active ? "bg-amazon text-saffron" : "text-gray-900"
                           } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                         >
                           {active ? (
@@ -170,90 +166,59 @@ export default function Example({ userInfo }) {
               </a>
             </Link>
           )}
-          {userInfo.instructor && (
-            <>
-              <Link href="/dashboard">
-                <a>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        className={`${
-                          active ? "bg-amazon text-saffron" : "text-gray-900"
-                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                      >
-                        {active ? (
-                          <BiUserCheck
-                            className="w-5 h-5 mr-2"
-                            aria-hidden="true"
-                          />
-                        ) : (
-                          <BiUserCheck
-                            className="w-5 h-5 mr-2"
-                            aria-hidden="true"
-                          />
-                        )}
-                        Instructor dashboard
-                      </button>
+          <Link href="/dashboard/foods/addFoods">
+            <a>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? "bg-amazon text-saffron" : "text-gray-900"
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  >
+                    {active ? (
+                      <BiMessageAltAdd
+                        className="w-5 h-5 mr-2"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <BiMessageAltAdd
+                        className="w-5 h-5 mr-2"
+                        aria-hidden="true"
+                      />
                     )}
-                  </Menu.Item>
-                </a>
-              </Link>
+                    Add new food
+                  </button>
+                )}
+              </Menu.Item>
+            </a>
+          </Link>
 
-              <Link href="/dashboard/courses/addcourse">
-                <a>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        className={`${
-                          active ? "bg-amazon text-saffron" : "text-gray-900"
-                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                      >
-                        {active ? (
-                          <BiMessageAltAdd
-                            className="w-5 h-5 mr-2"
-                            aria-hidden="true"
-                          />
-                        ) : (
-                          <BiMessageAltAdd
-                            className="w-5 h-5 mr-2"
-                            aria-hidden="true"
-                          />
-                        )}
-                        Add new course
-                      </button>
+          <Link href="/dashboard/foods/manageFoods">
+            <a>
+              <Menu.Item>
+                {({ active }) => (
+                  <button
+                    className={`${
+                      active ? "bg-amazon text-saffron" : "text-gray-900"
+                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                  >
+                    {active ? (
+                      <GrDocumentUpdate
+                        className="w-5 h-5 mr-2"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <GrDocumentUpdate
+                        className="w-5 h-5 mr-2"
+                        aria-hidden="true"
+                      />
                     )}
-                  </Menu.Item>
-                </a>
-              </Link>
-
-              <Link href="/dashboard/courses/managecourses">
-                <a>
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        className={`${
-                          active ? "bg-amazon text-saffron" : "text-gray-900"
-                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                      >
-                        {active ? (
-                          <GrDocumentUpdate
-                            className="w-5 h-5 mr-2"
-                            aria-hidden="true"
-                          />
-                        ) : (
-                          <GrDocumentUpdate
-                            className="w-5 h-5 mr-2"
-                            aria-hidden="true"
-                          />
-                        )}
-                        Manage courses
-                      </button>
-                    )}
-                  </Menu.Item>
-                </a>
-              </Link>
-            </>
-          )}
+                    Manage Food
+                  </button>
+                )}
+              </Menu.Item>
+            </a>
+          </Link>
 
           <div className="px-1 py-1">
             <Menu.Item onClick={(e) => loginMenuCloseHandler(e, "/profile")}>
