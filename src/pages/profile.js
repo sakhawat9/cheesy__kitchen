@@ -1,5 +1,6 @@
 // eslint-disable-next-line react/jsx-props-no-spreading
 import axios from "axios";
+import Layout from "components/common/Layout";
 import Title from "components/common/Title";
 import Cookies from "js-cookie";
 import dynamic from "next/dynamic";
@@ -81,7 +82,7 @@ function Profile() {
   };
 
   return (
-    <>
+    <Layout>
       <div className="register">
         <div className="register__wrapper">
           <Title title="Create an account" subtitle="" description="" />
@@ -267,7 +268,7 @@ function Profile() {
           </span>
         </form>
       </div>
-    </>
+    </Layout>
   );
 }
 
