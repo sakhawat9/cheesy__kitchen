@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { FaFacebookF, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 
@@ -91,13 +92,25 @@ const Footer = () => {
                 <p>sakhawathossain7969@gmail.com</p>
                 <ul className="footer-top__icons">
                   <li>
-                    <FaFacebookF />
+                    <Link href="https://www.facebook.com/sakawat.hossain.338211">
+                      <a target="_blank">
+                        <FaFacebookF />
+                      </a>
+                    </Link>
                   </li>
                   <li>
-                    <FaLinkedinIn />
+                    <Link href="www.linkedin.com/in/shjsdev">
+                      <a target="_blank">
+                        <FaLinkedinIn />
+                      </a>
+                    </Link>
                   </li>
                   <li>
-                    <FaTwitter />
+                    <Link href="#">
+                      <a target="_blank">
+                        <FaTwitter />
+                      </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
