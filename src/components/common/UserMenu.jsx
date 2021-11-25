@@ -1,6 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import Cookies from "js-cookie";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Fragment, useContext, useState } from "react";
@@ -38,12 +39,13 @@ export default function Example({ userInfo }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       {userInfo && (
-        <Menu.Button className="inline-flex justify-center w-full px-4 py-2 ml-3 font-medium rounded-md bg-amazon text-saffron focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+        <Menu.Button className="inline-flex items-center justify-center w-full px-4 ml-3 font-medium rounded-md bg-amazon text-saffron focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
           {userInfo?.name}
           <ChevronDownIcon
-            className="w-5 h-5 ml-2 -mr-1 text-saffron-600"
+            className="w-5 h-5 mx-2 -mr-1 text-saffron-600"
             aria-hidden="true"
           />
+          <Image className="rounded-full" width="40" height="40" src={userInfo?.img} alt="" />
         </Menu.Button>
       )}
       <Transition
