@@ -28,7 +28,9 @@
     "src/pages/shipping.js",
     "src/components/Login/Login.js",
     "src/pages/api/comments/index.js",
-    "src/components/AddNewFood/AddNewFood.js"
+    "src/components/AddNewFood/AddNewFood.js",
+    "src/pages/contact-form.js",
+    "src/pages/api/contact/index.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -41,11 +41,15 @@ const ReviewForm = () => {
       });
 
       dispatch({ type: "USER_LOGIN", payload: data });
+      Swal.fire({
+        icon: "success",
+        text: "Your Email successfully",
+      });
       router.push("/");
     } catch (err) {
       Swal.fire({
         icon: "error",
-        text: err.message ? "Your email already added" : "",
+        text: err.message,
       });
     }
   };
