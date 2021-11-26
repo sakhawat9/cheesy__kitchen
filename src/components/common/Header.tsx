@@ -77,7 +77,7 @@ const Header = () => {
             <a>Review</a>
           </Link>
 
-          <Link href="#">
+          <Link href="/contact-form">
             <a>Contact</a>
           </Link>
         </nav>
