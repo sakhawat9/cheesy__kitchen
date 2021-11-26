@@ -45,7 +45,7 @@ export default function Example({ userInfo }) {
             className="w-5 h-5 mx-2 -mr-1 text-saffron-600"
             aria-hidden="true"
           />
-          <Image className="rounded-full" width="40" height="40" src={userInfo?.img} alt="" />
+          <Image className="object-cover rounded-full" width="40" height="40" src={userInfo?.img} alt={userInfo?.name} />
         </Menu.Button>
       )}
       <Transition
@@ -61,7 +61,7 @@ export default function Example({ userInfo }) {
           <div className="px-1 py-1">
             {userInfo.user && (
               <>
-                <Link href="/review">
+                <Link href="/review-form">
                   <a>
                     <Menu.Item>
                       {({ active }) => (

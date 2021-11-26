@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const contactSchema = new mongoose.Schema(
+const reviewSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true },
@@ -10,5 +10,5 @@ const contactSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Contact = mongoose.models.contact || mongoose.model("contact", contactSchema);
-export default Contact;
+const Review = mongoose.models.review || mongoose.model("review", reviewSchema);
+export default Review;
