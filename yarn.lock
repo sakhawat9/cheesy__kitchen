@@ -369,6 +369,11 @@ amdefine@>=0.0.4:
   resolved "https://registry.npmjs.org/amdefine/-/amdefine-1.0.1.tgz"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
+animate.css@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
+  integrity sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==
+
 anser@1.4.9:
   version "1.4.9"
   resolved "https://registry.npmjs.org/anser/-/anser-1.4.9.tgz"
@@ -887,7 +892,7 @@ cloudinary@^1.27.1:
     lodash "^4.17.11"
     q "^1.5.1"
 
-clsx@^1.0.4:
+clsx@^1.0.4, clsx@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/clsx/-/clsx-1.1.1.tgz"
   integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
@@ -2770,6 +2775,11 @@ node-sass@4.14.1:
     stdout-stream "^1.4.0"
     "true-case-path" "^1.0.2"
 
+nodemailer@^6.7.1:
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.7.1.tgz#09f72f8b375f7b259291757007bcd902c0174c6e"
+  integrity sha512-E1C8G3rnXrGjznwGP1k+OrW5k4rl0XtqTEB19f7vtJAMYwfxZVSsAu2iY5xJkrZsbVYr6PwwAwRmFlakPoFC0A==
+
 "nopt@2 || 3":
   version "3.0.6"
   resolved "https://registry.npmjs.org/nopt/-/nopt-3.0.6.tgz"
@@ -3303,6 +3313,13 @@ react-slick@^0.28.1:
     json2mq "^0.2.0"
     lodash.debounce "^4.0.8"
     resize-observer-polyfill "^1.5.0"
+
+react-toastify@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-8.1.0.tgz#acaca4e8c4415c8474562dd84a14e6f390ed7f17"
+  integrity sha512-M+Q3rTmEw/53Csr7NsV/YnldJe4c7uERcY7Tma9mvLU98QT2VhIkKwjBzzxZkJRk/oBKyUAtkyMjMgO00hx6gQ==
+  dependencies:
+    clsx "^1.1.1"
 
 react-transition-group@^4.4.0:
   version "4.4.2"

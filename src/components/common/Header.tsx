@@ -73,11 +73,8 @@ const Header = () => {
           <Link href="#">
             <a>Gallery</a>
           </Link>
-          <Link href="#">
-            <a>Review</a>
-          </Link>
 
-          <Link href="#">
+          <Link href="/contact">
             <a>Contact</a>
           </Link>
         </nav>

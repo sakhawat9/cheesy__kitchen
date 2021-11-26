@@ -1,51 +1,47 @@
 // eslint-disable-next-line react/jsx-props-no-spreading
 import axios from "axios";
 import Title from "components/common/Title";
-import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { Store } from "utils/Store";
 
-const Register = () => {
-  const [user, setUser] = useState(false);
+const ReviewForm = () => {
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
+
   const {
     handleSubmit,
     register,
     formState: { errors },
+    setValue,
   } = useForm();
-  const router = useRouter();
-  const { redirect } = router.query;
-  const { state, dispatch } = useContext(Store);
-  const { userInfo } = state;
 
   useEffect(() => {
-    if (userInfo) {
-      router.push("/");
+    if (!userInfo) {
+      return router.push("/login");
     }
+    setValue("name", userInfo?.name);
+    setValue("email", userInfo?.email);
+    setValue("img", userInfo?.img);
+    setValue("description", userInfo?.description);
   }, []);
 
-  const submitHandler = async ({ name, email, password, confirmPassword }) => {
-    if (password !== confirmPassword) {
-      Swal.fire({
-        icon: "error",
-        text: "Password don't match",
-      });
-      return;
-    }
+  const router = useRouter();
+
+  const submitHandler = async ({ name, email, img, description }) => {
     try {
-      const { data } = await axios.post("/api/users/register", {
+      const { data } = await axios.post("/api/review", {
         name,
         email,
-        password,
-        user,
+        img,
+        description,
       });
 
       dispatch({ type: "USER_LOGIN", payload: data });
-      Cookies.set("userInfo", JSON.stringify(data));
-      router.push(redirect || "/");
+      router.push("/");
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -60,11 +56,7 @@ const Register = () => {
         <div className="register__wrapper">
           <Title title="Create an account" subtitle="" description="" />
         </div>
-        <form
-          className="register__form"
-          // login__form
-          onSubmit={handleSubmit(submitHandler)}
-        >
+        <form className="register__form" onSubmit={handleSubmit(submitHandler)}>
           <label>
             <span className="register__form__title">Name</span>
             <input
@@ -114,75 +106,36 @@ const Register = () => {
             </span>
           </label>
           <label>
-            <span className="register__form__title">Password</span>
-            <input
-              type="password"
-              name="password"
-              {...register("password", {
-                required: {
-                  value: true,
-                  message: "You most enter password",
-                },
-                minLength: {
-                  value: 6,
-                  message: "Password lenth is more then 5",
-                },
-              })}
-              className={`${errors.password ? "ring-2 ring-red-500" : null}`}
-              placeholder="Password"
-            />
-            <span className="py-2 text-sm text-red-400">
-              {errors?.password?.message}
+            <span className="login__form__title">Image</span>
+            <span className="block">
+              <input
+                onChange={() => {}}
+                type="text"
+                name="img"
+                {...register("img", {})}
+                placeholder="Image URL"
+              />
+              <span className="py-2 text-sm text-red-400"></span>
             </span>
           </label>
           <label>
-            <span className="register__form__title">Conform Password</span>
+            <span className="register__form__title">Description</span>
             <input
-              type="password"
-              name="confirmPassword"
-              {...register("confirmPassword", {
+              type="text"
+              name="description"
+              {...register("description", {
                 required: {
                   value: true,
-                  message: "You most enter confirm Password",
-                },
-                minLength: {
-                  value: 6,
-                  message: "confirm Password lenth is more then 5",
+                  message: "You most enter description",
                 },
               })}
-              className={` ${
-                errors.confirmPassword ? "ring-2 ring-red-500" : null
-              }`}
-              placeholder="Confirm Password"
+              className={`${errors.description ? "ring-2 ring-red-500" : null}`}
+              placeholder="Your Description"
             />
             <span className="py-2 text-sm text-red-400">
-              {errors?.confirmPassword?.message}
+              {errors?.description?.message}
             </span>
           </label>
-          <div className="form-element">
-            <div className="flex items-center justify-between gap-4 py-2">
-              <div className="flex items-center">
-                <input
-                  id="user"
-                  onClick={(e) => setUser(e.target.checked)}
-                  className="register__checkbox"
-                  type="radio"
-                  name="user"
-                />
-                <label htmlFor="user">User</label>
-              </div>
-              <label className="flex items-center">
-                <input
-                  className="register__checkbox"
-                  type="checkbox"
-                  name=""
-                  id=""
-                />
-                <span className="tracking-wide">Remember me</span>
-              </label>
-            </div>
-          </div>
-
           <span className="w-full">
             <input
               type="submit"
@@ -204,4 +157,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ReviewForm;
