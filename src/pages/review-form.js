@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { Store } from "utils/Store";
 
-const ContactForm = () => {
+const ReviewForm = () => {
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
 
@@ -33,7 +33,7 @@ const ContactForm = () => {
 
   const submitHandler = async ({ name, email, img, description }) => {
     try {
-      const { data } = await axios.post("/api/contact", {
+      const { data } = await axios.post("/api/review", {
         name,
         email,
         img,
@@ -157,4 +157,4 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+export default ReviewForm;
