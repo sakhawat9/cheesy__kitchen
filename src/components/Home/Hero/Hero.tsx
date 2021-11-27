@@ -50,8 +50,8 @@ const Hero = ({ deviceType, infinite, autoPlay }) => {
               style={{
                 position: "absolute",
                 left: "50%",
-                top: "50%",
-                bottom: "50%",
+                top: "40%",
+                bottom: "60%",
                 color: "white",
                 transform: " translateX(-50%)",
               }}
