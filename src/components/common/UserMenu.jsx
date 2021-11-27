@@ -115,7 +115,7 @@ export default function Example({ userInfo }) {
 
           {userInfo.isAdmin && (
             <>
-              <Link href="/dashboard">
+              <Link href="/dashboard/foods/addFoods">
                 <a>
                   <Menu.Item>
                     {({ active }) => (

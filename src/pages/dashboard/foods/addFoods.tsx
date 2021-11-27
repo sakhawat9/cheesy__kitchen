@@ -2,15 +2,15 @@
 // import Sidebar from 'components/Dashboard/Sidebar';
 // import Layout from 'components/utilities/Layout';
 import AddNewFood from "components/AddNewFood/AddNewFood";
-import Layout from "components/common/Layout";
 import Title from "components/common/Title";
+import Sidebar from "components/Dashboard/Sidebar";
 import React from "react";
 
 const addFood = () => {
   return (
-    <Layout>
+    <>
       <div className="flex items-stretch w-full bg-gray-200">
-        {/* <Sidebar /> */}
+        <Sidebar />
         <div className="w-full min-h-screen p-5 transition-all bg-white section-padding">
           <Title
             title="Add new food"
@@ -20,7 +20,7 @@ const addFood = () => {
           <AddNewFood />
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 
