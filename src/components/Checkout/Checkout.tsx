@@ -44,7 +44,7 @@ const Checkout = () => {
       });
       dispatch({ type: "CART_CLEAR" });
       Cookies.remove("cartItems");
-      router.push("/enrollcourse");
+      // router.push("/enrollcourse");
     } catch (err: any) {
       setError(err);
     }
@@ -112,7 +112,7 @@ const Checkout = () => {
             onClick={() => setShow(true)}
             className="flex items-center gap-3 mb-3"
           >
-            <input checked type="radio" id="stripe" name="method" value="CSS" />{" "}
+            <input type="radio" id="stripe" name="method" value="CSS" />{" "}
             <label htmlFor="stripe">New Payment Card</label>
           </div>
           <div
@@ -139,10 +139,8 @@ const Checkout = () => {
         {cartItems.length == 0 ? (
           <div className="py-20 text-xl ">
             Cart is empty.{" "}
-            <Link href="/courses">
-              <a className="px-6 py-2 text-white rounded bg-royal-blue hover:bg-royal-blue-800">
-                Go Courses Page
-              </a>
+            <Link href="/foods">
+              <a className="btn-brand">Go Courses Page</a>
             </Link>
           </div>
         ) : (

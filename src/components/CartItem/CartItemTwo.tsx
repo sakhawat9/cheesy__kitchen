@@ -9,7 +9,7 @@ interface IProp {
 
 function CartItem({ item }: IProp) {
   const { state, dispatch } = useContext(Store);
-  const { price, slug } = item;
+  const { price, slug, image, name } = item;
   const removeItemHandler = (item: IFood) => {
     dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
@@ -23,7 +23,7 @@ function CartItem({ item }: IProp) {
                 width="50"
                 height="50"
                 className="object-cover"
-                src="{img}"
+                src={image}
                 alt=""
               />
             </a>
@@ -32,13 +32,13 @@ function CartItem({ item }: IProp) {
         <div className="CourseName-instructor">
           <Link href={`/courses/${slug}`}>
             <a className="hover:underline hover:text-royal-blue">
-              <h6 className="m-0">This is Title</h6>
+              <h6 className="m-0">{name}</h6>
             </a>
           </Link>
         </div>
       </div>
       <div className="price">
-        <span className="mb-2 text-lg font-semibold">- ${price}</span>
+        <span className="mb-2 text-lg font-semibold">${price}</span>
       </div>
     </li>
   );

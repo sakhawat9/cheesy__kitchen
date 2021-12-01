@@ -7,7 +7,7 @@ import { Store } from "utils/Store";
 const Payments = () => {
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
-
+console.log(userInfo);
   const router = useRouter();
   useEffect(() => {
     if (!userInfo) {

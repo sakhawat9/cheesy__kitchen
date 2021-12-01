@@ -3,11 +3,10 @@ import {
   CardExpiryElement,
   CardNumberElement,
   useElements,
-  useStripe,
+  useStripe
 } from "@stripe/react-stripe-js";
 import { useRouter } from "next/router";
-import React, { useContext, useMemo, useState } from "react";
-import { Store } from "utils/Store";
+import React, { useMemo, useState } from "react";
 
 const useOptions = () => {
   const options = useMemo(() => ({
@@ -88,7 +87,7 @@ const SimpleCardForm = ({ handlePayment, err }) => {
       {paymentError && <p style={{ color: "red" }}>{paymentError}</p>}
       {err && (
         <p style={{ color: "red" }}>
-          {err.message ? "Your course already added" : ""}
+          {err.message ? "Your food already added" : ""}
         </p>
       )}
       <ul className="pt-8">
