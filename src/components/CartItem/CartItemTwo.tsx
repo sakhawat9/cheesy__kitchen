@@ -17,7 +17,7 @@ function CartItem({ item }: IProp) {
     <li className="flex items-center justify-between gap-6 p-5 mb-3 border border-gray-00">
       <div className="flex items-center gap-4">
         <div className="course-image ">
-          <Link href={`/courses/${slug}`}>
+          <Link href={`/foods/${slug}`}>
             <a>
               <Image
                 width="50"
@@ -30,7 +30,7 @@ function CartItem({ item }: IProp) {
           </Link>
         </div>
         <div className="CourseName-instructor">
-          <Link href={`/courses/${slug}`}>
+          <Link href={`/foods/${slug}`}>
             <a className="hover:underline hover:text-royal-blue">
               <h6 className="m-0">{name}</h6>
             </a>
