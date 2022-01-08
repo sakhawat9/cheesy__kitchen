@@ -1,7 +1,7 @@
 // eslint-disable-next-line react/jsx-props-no-spreading
 import axios from "axios";
+import Layout from "components/common/Layout";
 import Title from "components/common/Title";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -55,10 +55,10 @@ const ReviewForm = () => {
   };
 
   return (
-    <>
+    <Layout>
       <div className="register">
         <div className="register__wrapper">
-          <Title title="Create an account" subtitle="" description="" />
+          <Title title="Add Review" subtitle="" description="" />
         </div>
         <form className="register__form" onSubmit={handleSubmit(submitHandler)}>
           <label>
@@ -144,20 +144,12 @@ const ReviewForm = () => {
             <input
               type="submit"
               className="w-full text-white rounded bg-saffron-600"
-              value="Create an Account"
+              value="Add Review"
             />
           </span>
         </form>
-        <p className="text-center d-block">
-          Don't have an account?{" "}
-          <Link href="/login">
-            <a className="border-b border-saffron-600 text-amazon-600">
-              Log in now
-            </a>
-          </Link>
-        </p>
       </div>
-    </>
+    </Layout>
   );
 };
 

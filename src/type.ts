@@ -1,4 +1,5 @@
 export interface IFood {
+  map: any;
   name: string;
   _id: number;
   slug: string;

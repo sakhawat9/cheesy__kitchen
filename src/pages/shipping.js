@@ -1,5 +1,4 @@
 // eslint-disable-next-line react/jsx-props-no-spreading
-// import img from "assets/images/cycle.png";
 import Layout from "components/common/Layout";
 import Title from "components/common/Title";
 import Cookies from "js-cookie";
@@ -18,6 +17,7 @@ const Shipping = () => {
   const router = useRouter();
   const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
+  console.log('state', state);
   const {
     userInfo,
     cart: { shippingAddress },
@@ -48,7 +48,7 @@ const Shipping = () => {
         country,
       })
     );
-    router.push(redirect || "/payment");
+    router.push(redirect || "/payments");
   };
 
   return (
