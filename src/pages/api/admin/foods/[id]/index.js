@@ -3,7 +3,6 @@ import Food from "../../../../../models/Food";
 import { isAuth } from "../../../../../utils/auth";
 import db from "../../../../../utils/db";
 
-
 const handler = nc();
 handler.use(isAuth);
 
