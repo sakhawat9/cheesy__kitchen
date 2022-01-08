@@ -105,21 +105,21 @@ const ManageFood = ({ food }: IProp) => {
         <div className="mt-4">
           <Link href={`/foods/${slug}`}>
             <a>
-              <button className="px-4 py-2 mb-3 text-white bg-indigo-600 border-0 rounded cursor-pointer focus:outline-none hover:bg-aquamarine-800">
+              <button className="px-4 py-2 mb-3 text-white bg-green-600 border-0 rounded cursor-pointer focus:outline-none hover:bg-aquamarine-800">
                 <AiFillEye className="text-2xl" />
               </button>
             </a>
           </Link>
           <Link href={`/dashboard/admin/${_id}`}>
             <a>
-              <button className="px-4 py-2 mx-4 mb-3 text-white bg-indigo-600 border-0 rounded cursor-pointer focus:outline-none hover:bg-aquamarine-800">
+              <button className="px-4 py-2 mx-4 mb-3 text-white bg-green-600 border-0 rounded cursor-pointer focus:outline-none hover:bg-aquamarine-800">
                 <FiEdit className="text-2xl" />
               </button>
             </a>
           </Link>
           <button
             onClick={() => deleteHandler(_id)}
-            className="px-4 py-2 mb-3 text-white bg-indigo-600 border-0 rounded cursor-pointer focus:outline-none hover:bg-aquamarine-800"
+            className="px-4 py-2 mb-3 text-white bg-green-600 border-0 rounded cursor-pointer focus:outline-none hover:bg-aquamarine-800"
           >
             <RiDeleteBin7Line className="text-2xl" />
           </button>
