@@ -67,8 +67,8 @@ const Header = () => {
             <a>Foods</a>
           </Link>
 
-          <Link href="#">
-            <a>Menu</a>
+          <Link href="/category">
+            <a>Category</a>
           </Link>
           <Link href="#">
             <a>Gallery</a>
