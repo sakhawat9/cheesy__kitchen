@@ -96,7 +96,7 @@ const AddNewFood = () => {
       });
       Swal.fire({
         icon: "success",
-        text: "Course uploaded successfully",
+        text: "Food uploaded successfully",
       });
 
       router.push("/foods");
@@ -109,7 +109,7 @@ const AddNewFood = () => {
   };
 
   return (
-    <div className="addNewCourse">
+    <div>
       <form action="" onSubmit={handleSubmit}>
           <div className="flex flex-col px-4 ">
             <div className="mb-4">

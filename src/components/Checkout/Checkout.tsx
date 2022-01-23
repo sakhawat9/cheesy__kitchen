@@ -44,7 +44,6 @@ const Checkout = () => {
       });
       dispatch({ type: "CART_CLEAR" });
       Cookies.remove("cartItems");
-      // router.push("/enrollcourse");
     } catch (err: any) {
       setError(err);
     }
@@ -140,7 +139,7 @@ const Checkout = () => {
           <div className="py-20 text-xl ">
             Cart is empty.{" "}
             <Link href="/foods">
-              <a className="btn-brand">Go Courses Page</a>
+              <a className="btn-brand">Go foods Page</a>
             </Link>
           </div>
         ) : (

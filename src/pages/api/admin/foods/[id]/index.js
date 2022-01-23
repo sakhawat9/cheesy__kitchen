@@ -15,37 +15,37 @@ handler.get(async (req, res) => {
 
 handler.put(async (req, res) => {
   await db.connect();
-  const courses = await Food.findById(req.query.id);
-  if (courses) {
-    courses.title = req.body.title;
-    courses.slug = req.body.slug;
-    courses.shortDesc = req.body.shortDesc;
-    courses.categories = req.body.categories;
-    courses.level = req.body.level;
-    courses.price = req.body.price;
-    courses.videoUrl = req.body.videoUrl;
-    courses.prichard = Boolean(req.body.prichard);
-    courses.img = req.body.img;
-    courses.desc = req.body.desc;
-    await courses.save();
+  const foods = await Food.findById(req.query.id);
+  if (foods) {
+    foods.title = req.body.title;
+    foods.slug = req.body.slug;
+    foods.shortDesc = req.body.shortDesc;
+    foods.categories = req.body.categories;
+    foods.level = req.body.level;
+    foods.price = req.body.price;
+    foods.videoUrl = req.body.videoUrl;
+    foods.prichard = Boolean(req.body.prichard);
+    foods.img = req.body.img;
+    foods.desc = req.body.desc;
+    await foods.save();
     await db.disconnect();
-    res.send({ message: "Courses Updated Successfully" });
+    res.send({ message: "Foods Updated Successfully" });
   } else {
     await db.disconnect();
-    res.status(404).send({ message: "Courses Not Found" });
+    res.status(404).send({ message: "Foods Not Found" });
   }
 });
 
 handler.delete(async (req, res) => {
   await db.connect();
-  const courses = await Food.findById(req.query.id);
-  if (courses) {
-    await courses.remove();
+  const foods = await Food.findById(req.query.id);
+  if (foods) {
+    await foods.remove();
     await db.disconnect();
-    res.send({ message: 'Courses Deleted' });
+    res.send({ message: 'Foods Deleted' });
   } else {
     await db.disconnect();
-    res.status(404).send({ message: 'Courses Not Found' });
+    res.status(404).send({ message: 'Foods Not Found' });
   }
 });
 

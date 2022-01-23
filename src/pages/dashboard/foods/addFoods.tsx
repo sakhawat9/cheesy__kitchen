@@ -1,5 +1,3 @@
-// import AddNewCourse from 'components/AddNewCourse/AddNewCourse';
-// import Sidebar from 'components/Dashboard/Sidebar';
 import AddNewFood from "components/AddNewFood/AddNewFood";
 import Title from "components/common/Title";
 import Sidebar from "components/Dashboard/Sidebar";
