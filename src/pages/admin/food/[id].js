@@ -30,7 +30,7 @@ function reducer(state, action) {
   }
 }
 
-function CourseEdit({ params }) {
+function FoodEdit({ params }) {
   const productId = params.id;
   const { state } = useContext(Store);
   const [{ loading, error, loadingUpdate, loadingUpload }, dispatch] =
@@ -55,7 +55,7 @@ function CourseEdit({ params }) {
       const fetchData = async () => {
         try {
           dispatch({ type: "FETCH_REQUEST" });
-          const { data } = await axios.get(`/api/admin/courses/${productId}`, {
+          const { data } = await axios.get(`/api/admin/foods/${productId}`, {
             headers: { authorization: `Bearer ${userInfo.token}` },
           });
           dispatch({ type: "FETCH_SUCCESS" });
@@ -65,12 +65,11 @@ function CourseEdit({ params }) {
           setValue("categories", data.categories);
           setValue("level", data.level);
           setValue("price", data.price);
-          setValue("courseProvider", data.courseProvider);
+          setValue("foodProvider", data.foodProvider);
           setValue("videoUrl", data.videoUrl);
           setValue("img", data.img);
           setValue("description", data.description);
         } catch (err) {
-
           Swal.fire({
             icon: "error",
             text: err.message,
@@ -81,7 +80,6 @@ function CourseEdit({ params }) {
     }
   }, []);
 
-
   const submitHandler = async ({
     title,
     slug,
@@ -89,7 +87,7 @@ function CourseEdit({ params }) {
     categories,
     level,
     price,
-    courseProvider,
+    foodProvider,
     videoUrl,
     img,
     description,
@@ -97,7 +95,7 @@ function CourseEdit({ params }) {
     try {
       dispatch({ type: "UPDATE_REQUEST" });
       const { data } = await axios.put(
-        `/api/admin/courses/${productId}`,
+        `/api/admin/foods/${productId}`,
         {
           title,
           slug,
@@ -105,7 +103,7 @@ function CourseEdit({ params }) {
           categories,
           level,
           price,
-          courseProvider,
+          foodProvider,
           videoUrl,
           img,
           description,
@@ -113,14 +111,14 @@ function CourseEdit({ params }) {
         { headers: { authorization: `Bearer ${userInfo.token}` } }
       );
       dispatch({ type: "UPDATE_SUCCESS" });
-      alert("Courses updated successfully");
+      alert("Foods updated successfully");
     } catch (err) {
       alert(err.message);
     }
   };
 
   return (
-    <Layout>
+    <Layout title="Food Update">
       <div className="flex items-center justify-center min-h-screen overflow-x-hidden lg:overflow-x-auto lg:overflow-hidden">
         <div className="flex flex-col flex-wrap justify-between w-full login-container lg:w-4/5 lg:flex-nowrap lg:flex-row group">
           <div className="order-1 w-full min-h-screen lg:order-2">
@@ -128,7 +126,7 @@ function CourseEdit({ params }) {
               <div className="w-full space-y-2">
                 <div className="flex items-end justify-center mb-8 space-x-3 text-center form-caption">
                   <span className="text-3xl font-semibold text-royal-blue">
-                    Course Update
+                    Food Update
                   </span>
                 </div>
                 <form onSubmit={handleSubmit(submitHandler)}>
@@ -285,17 +283,17 @@ function CourseEdit({ params }) {
                   <div className="form-element">
                     <label className="space-y-0.5 w-full lg:w-4/5 block mx-auto">
                       <span className="block text-lg tracking-wide text-gray-800">
-                        CourseProvider
+                        FoodProvider
                       </span>
                       <span className="block">
                         <input
                           type="text"
-                          name="courseProvider"
+                          name="foodProvider"
                           // eslint-disable-next-line react/jsx-props-no-spreading
-                          {...register("courseProvider", {
+                          {...register("foodProvider", {
                             required: {
                               value: true,
-                              message: "You most enter courseProvider",
+                              message: "You most enter foodProvider",
                             },
                           })}
                           className={`block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-md shadow focus:ring-blue-500 focus:border-blue-500 focus:outline-none focus:ring-2
@@ -364,7 +362,7 @@ function CourseEdit({ params }) {
                   <div className="form-element">
                     <label className="space-y-0.5 w-full lg:w-4/5 block mx-auto">
                       <span className="block text-lg tracking-wide text-gray-800">
-                      description
+                        description
                       </span>
                       <span className="block">
                         <input
@@ -412,4 +410,4 @@ export async function getServerSideProps({ params }) {
   };
 }
 
-export default dynamic(() => Promise.resolve(CourseEdit), { ssr: false });
+export default dynamic(() => Promise.resolve(FoodEdit), { ssr: false });

@@ -38,7 +38,7 @@ function reducer(state, action) {
 }
 
 
-function CourseEdit({ params }) {
+function FoodEdit({ params }) {
   const productId = params.id;
   const { state } = useContext(Store);
   const [{ loading, error, loadingUpdate, loadingUpload }, dispatch] =
@@ -147,7 +147,7 @@ function CourseEdit({ params }) {
       dispatch({ type: "UPDATE_SUCCESS" });
       Swal.fire({
         icon: "success",
-        text: "Course updated successfully",
+        text: "Foods updated successfully",
       });
     } catch (err) {
       Swal.fire({
@@ -168,7 +168,7 @@ function CourseEdit({ params }) {
                 <div className="relative flex items-center min-h-screen px-10 pt-16 form-wrapper lg:pt-0">
                   <div className="w-full space-y-2">
                     <Title
-                      title="Course update"
+                      title="Food update"
                       subtitle=""
                       description=""
                     ></Title>
@@ -369,7 +369,7 @@ function CourseEdit({ params }) {
                           <input
                             type="submit"
                             className="flex px-6 py-3 text-lg text-white bg-indigo-700 border-0 rounded cursor-pointer focus:outline-none hover:bg-aquamarine-800"
-                            value="Update Course"
+                            value="Update Food"
                           ></input>
                         </span>
                       </div>
@@ -391,4 +391,4 @@ export async function getServerSideProps({ params }) {
   };
 }
 
-export default dynamic(() => Promise.resolve(CourseEdit), { ssr: false });
+export default dynamic(() => Promise.resolve(FoodEdit), { ssr: false });

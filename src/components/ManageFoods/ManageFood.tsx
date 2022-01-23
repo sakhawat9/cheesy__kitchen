@@ -81,7 +81,7 @@ const ManageFood = ({ food }: IProp) => {
       dispatch({ type: "DELETE_SUCCESS" });
       Swal.fire({
         icon: "success",
-        text: "Course deleted successfully",
+        text: "Food deleted successfully",
       });
 
       window.location.reload();

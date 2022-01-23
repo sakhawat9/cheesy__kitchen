@@ -122,20 +122,20 @@ const Sidebar = () => {
                 {
                   title: "Manage Food",
                   itemId: "/dashboard/foods/managefoods",
-                  elemBefore: () => <FaEdit name="courses" />,
+                  elemBefore: () => <FaEdit name="food" />,
                 },
 
                 {
-                  title: "Add new course",
+                  title: "Add new food",
                   itemId: "/dashboard/foods/addFoods",
                   elemBefore: () => <BiImageAdd name="foods" />,
                 },
 
-                {
-                  title: "Food Category",
-                  itemId: "/dashboard/courses/addcategories",
-                  elemBefore: () => <BsBook name="book" />,
-                },
+                // {
+                //   title: "Food Category",
+                //   itemId: "/dashboard/courses/addcategories",
+                //   elemBefore: () => <BsBook name="book" />,
+                // },
                 {
                   title: "View All Order",
                   itemId: "/dashboard/report/viewAllOrder",
@@ -146,11 +146,11 @@ const Sidebar = () => {
                   itemId: "/dashboard/admin/manageAdmin",
                   elemBefore: () => <BiMessageRoundedEdit name="project" />,
                 },
-                {
-                  title: "Manage Food",
-                  itemId: "/dashboard/admin/manageFood",
-                  elemBefore: () => <FaEdit name="project" />,
-                },
+                // {
+                //   title: "Manage Food",
+                //   itemId: "/dashboard/admin/manageFood",
+                //   elemBefore: () => <FaEdit name="project" />,
+                // },
                 {
                   title: "Add Admin",
                   itemId: "/dashboard/admin/addadmin",

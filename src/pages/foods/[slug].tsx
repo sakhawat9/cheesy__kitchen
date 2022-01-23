@@ -9,7 +9,7 @@ interface IProps {
   course: IFood;
 }
 
-const courseDetails = (props: IProps) => {
+const foodDetails = (props: IProps) => {
   const { singleFoods }: any = props;
 
   if (!singleFoods) {
@@ -28,14 +28,14 @@ const courseDetails = (props: IProps) => {
   );
 };
 
-export default courseDetails;
+export default foodDetails;
 
 export async function getServerSideProps(context: { params: any }) {
   const { params } = context;
   const { slug } = params;
   await db.connect();
-  const course = await Food.findOne({ slug }).lean();
-  const singleFoods = JSON.parse(JSON.stringify(course));
+  const food = await Food.findOne({ slug }).lean();
+  const singleFoods = JSON.parse(JSON.stringify(food));
   await db.disconnect();
   return {
     props: {
