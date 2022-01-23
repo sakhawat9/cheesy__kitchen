@@ -227,7 +227,7 @@ const AddNewFood = () => {
                 </div>
               </div>
             </div>
-            <input className="text-center btn-brand" type="submit" />
+            <input className="w-20 text-center btn-brand" type="submit" />
           </div>
       </form>
     </div>

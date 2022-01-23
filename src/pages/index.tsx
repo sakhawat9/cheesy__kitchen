@@ -19,7 +19,7 @@ const HomePage = (props) => {
       <Categories />
       <LatestFoods foods={foods} />
       <Testimonials data={review} />
-      <FeaturedFoods />
+      <FeaturedFoods foods={foods} />
     </Layout>
   );
 };
