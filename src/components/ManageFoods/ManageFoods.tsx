@@ -7,8 +7,6 @@ interface IProp {
 }
 
 const ManageFoods = ({ foods }: IProp) => {
-  // console.log(foods);
-
   return (
     <div className="manageCourse">
       <div className="title">

@@ -36,8 +36,6 @@ function reducer(state: any, action: any) {
 }
 
 const ManageFood = ({ food }: IProp) => {
-  console.log("food", food);
-
   const { image, name, slug, _id } = food;
 
   const { state } = useContext(Store);

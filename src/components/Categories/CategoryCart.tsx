@@ -1,7 +1,5 @@
 import Link from "next/link";
 const CategoryCart = ({ fd }: any) => {
-  console.log(fd);
-
   return (
     <Link href="{fd.link}">
       <a>
