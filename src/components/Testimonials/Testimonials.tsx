@@ -53,6 +53,14 @@ const carouselProperties = {
         slidesToScroll: 2,
       },
     },
+    {
+      breakpoint: 2000,
+      settings: {
+        slidesToShow: 5,
+        centerMode: false,
+        slidesToScroll: 2,
+      },
+    },
   ],
 };
 

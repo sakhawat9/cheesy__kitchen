@@ -40,10 +40,10 @@ const Footer = () => {
               <div className="footer-top__content">
                 <ul>
                   <li>
-                    <a href="#">Login</a>
+                    <a href="/login">Login</a>
                   </li>
                   <li>
-                    <a href="#">Register</a>
+                    <a href="/register">Register</a>
                   </li>
                   <li>
                     <a href="#">Account settings</a>
@@ -89,7 +89,7 @@ const Footer = () => {
                   15/e Lake circus
                   <br /> Kalabagan, Dhaka.
                 </p>
-                <p>sakhawathossain7969@gmail.com</p>
+                <p className="text-sm">sakhawathossain7969@gmail.com</p>
                 <ul className="footer-top__icons">
                   <li>
                     <Link href="https://www.facebook.com/sakawat.hossain.338211">

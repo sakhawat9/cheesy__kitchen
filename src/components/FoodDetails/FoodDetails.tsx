@@ -26,7 +26,7 @@ const FoodDetails = ({ singleFood }: IProp) => {
       type: "CART_ADD_ITEM",
       payload: { ...singleFood, quantity: 1 },
     });
-    router.push("/cartFood");
+    router.push("/shipping");
   };
 
   return (

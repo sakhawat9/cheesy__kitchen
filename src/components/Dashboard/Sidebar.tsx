@@ -121,7 +121,7 @@ const Sidebar = () => {
                 },
                 {
                   title: "Manage Food",
-                  itemId: "/dashboard/courses/manageFood",
+                  itemId: "/dashboard/foods/managefoods",
                   elemBefore: () => <FaEdit name="courses" />,
                 },
 

@@ -85,7 +85,7 @@ function Profile() {
     <Layout>
       <div className="register">
         <div className="register__wrapper">
-          <Title title="Create an account" subtitle="" description="" />
+          <Title title="Update your account" subtitle="" description="" />
         </div>
         <form className="login__form" onSubmit={handleSubmit(submitHandler)}>
           <label>
