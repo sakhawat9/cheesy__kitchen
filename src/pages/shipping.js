@@ -17,7 +17,6 @@ const Shipping = () => {
   const router = useRouter();
   const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
-  console.log('state', state);
   const {
     userInfo,
     cart: { shippingAddress },
