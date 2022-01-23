@@ -1,6 +1,5 @@
 // import AddNewCourse from 'components/AddNewCourse/AddNewCourse';
 // import Sidebar from 'components/Dashboard/Sidebar';
-// import Layout from 'components/utilities/Layout';
 import AddNewFood from "components/AddNewFood/AddNewFood";
 import Title from "components/common/Title";
 import Sidebar from "components/Dashboard/Sidebar";

@@ -24,7 +24,7 @@ handler.put(async (req, res) => {
     courses.level = req.body.level;
     courses.price = req.body.price;
     courses.videoUrl = req.body.videoUrl;
-    
+    courses.prichard = Boolean(req.body.prichard);
     courses.img = req.body.img;
     courses.desc = req.body.desc;
     await courses.save();
