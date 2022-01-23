@@ -53,35 +53,16 @@ const carouselProperties = {
         slidesToScroll: 2,
       },
     },
+    {
+      breakpoint: 2000,
+      settings: {
+        slidesToShow: 5,
+        centerMode: false,
+        slidesToScroll: 2,
+      },
+    },
   ],
 };
-
-// const data = [
-//   {
-//     img: "https://cdn.pixabay.com/photo/2015/03/11/00/31/chicken-667935_960_720.jpg",
-//     name: "Chicken",
-//   },
-//   {
-//     img: "https://cdn.pixabay.com/photo/2019/04/24/12/11/burger-4152013_960_720.jpg",
-//     name: "Bargar",
-//   },
-//   {
-//     img: "https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_960_720.jpg",
-//     name: "Pizza",
-//   },
-//   {
-//     img: "https://cdn.pixabay.com/photo/2015/05/07/13/46/cappuccino-756490_960_720.jpg",
-//     name: "Copy",
-//   },
-//   {
-//     img: "https://res.cloudinary.com/medsy/image/upload/v1641531885/sangita-banerjee15186255515a84630e16787_ibgjqs.jpg",
-//     name: "Checkin Chap",
-//   },
-//   {
-//     img: "https://res.cloudinary.com/medsy/image/upload/v1641531884/beef-biryani-tehari-rice-chili-lime-plate-white-background-73398894_gmy9c4.jpg",
-//     name: "Tehari",
-//   },
-// ];
 
 const Categories = () => {
   return (

@@ -5,6 +5,7 @@
   }
   &__form {
     @apply container mx-auto;
+    width: 60% !important;
     &__title {
       @apply block text-lg tracking-wide py-1 text-gray-900;
     }
