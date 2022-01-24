@@ -81,7 +81,7 @@ const ManageFood = ({ food }: IProp) => {
       dispatch({ type: "DELETE_SUCCESS" });
       Swal.fire({
         icon: "success",
-        text: "Course deleted successfully",
+        text: "Food deleted successfully",
       });
 
       window.location.reload();
@@ -108,7 +108,7 @@ const ManageFood = ({ food }: IProp) => {
               </button>
             </a>
           </Link>
-          <Link href={`/dashboard/admin/${_id}`}>
+          <Link href={`/dashboard/foods/${_id}`}>
             <a>
               <button className="px-4 py-2 mx-4 mb-3 text-white bg-green-600 border-0 rounded cursor-pointer focus:outline-none hover:bg-aquamarine-800">
                 <FiEdit className="text-2xl" />

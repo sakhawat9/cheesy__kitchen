@@ -25,5 +25,5 @@
 }
 
 .btn-brand {
-  @apply inline-flex items-center gap-2 px-3 py-1 mt-6 text-white border-0 rounded bg-saffron-500 focus:outline-none hover:bg-saffron-600;
+  @apply inline-flex items-center gap-2 px-3 py-1 mt-6 font-bold text-white border-0 rounded bg-saffron-500 focus:outline-none hover:bg-saffron-600;
 }

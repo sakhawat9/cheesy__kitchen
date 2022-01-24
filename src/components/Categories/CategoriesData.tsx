@@ -15,6 +15,7 @@ const CategoriesData = [
     id: 3,
     img: "https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_960_720.jpg",
     name: "Pizza",
+    link: "/search?query=pizza",
   },
   {
     id: 4,

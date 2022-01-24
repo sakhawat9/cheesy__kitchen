@@ -70,7 +70,7 @@ const Categories = () => {
       <div className="container mx-auto carousel section-padding">
         <div>
           <Title
-            title="Shop by Category"
+            title="Choice by Category"
             subtitle="Our all Categories"
             description=""
           />
