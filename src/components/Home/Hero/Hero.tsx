@@ -40,7 +40,7 @@ const Hero = ({ deviceType, infinite, autoPlay }) => {
       infinite={infinite}
       containerClass="carousel-container"
       autoPlay={autoPlay}
-      autoPlaySpeed={2500}
+      autoPlaySpeed={5000}
     >
       {images.map((image, index) => {
         return (

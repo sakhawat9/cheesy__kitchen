@@ -138,7 +138,7 @@ const Sidebar = () => {
                 // },
                 {
                   title: "View All Order",
-                  itemId: "/dashboard/report/viewAllOrder",
+                  itemId: "/dashboard/allOrder",
                   elemBefore: () => <HiViewList name="view" />,
                 },
                 {
