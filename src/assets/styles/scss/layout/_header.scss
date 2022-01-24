@@ -17,7 +17,7 @@
     &__menu {
       @apply flex flex-wrap items-center justify-center hidden text-base md:ml-auto md:mr-auto lg:block;
       a {
-        @apply mr-5;
+        @apply mr-3 rounded hover:bg-saffron-600 p-2 hover:text-white;
       }
     }
     &__cart {
@@ -32,12 +32,11 @@
   }
 }
 .mobile-menu {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-.mobile-menu li a {
-  display: block;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #f1f1f1;
+  @apply my-5;
+  li {
+    a {
+      @apply py-2 pl-2 block hover:bg-saffron-600 hover:text-white;
+      border-bottom: 1px solid #f1f1f1;
+    }
+  }
 }
