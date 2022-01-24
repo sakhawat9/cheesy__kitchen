@@ -2,8 +2,6 @@ import Title from "components/common/Title";
 import React from "react";
 
 const ViewAllOrder = ({ orderFood }) => {
-  console.log("orderFood", orderFood);
-
   return (
     <div>
       <Title title="All Order" subtitle="" description="" />

@@ -1,6 +1,12 @@
 import Link from "next/link";
 import React from "react";
-import { FaFacebookF, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaLinkedinIn,
+  FaPinterestP,
+  FaTwitter,
+  FaWhatsapp,
+} from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -89,7 +95,7 @@ const Footer = () => {
                   15/e Lake circus
                   <br /> Kalabagan, Dhaka.
                 </p>
-                <p className="text-sm">sakhawathossain7969@gmail.com</p>
+                <p className="text-xs">sakhawathossain7969@gmail.com</p>
                 <ul className="footer-top__icons">
                   <li>
                     <Link href="https://www.facebook.com/sakawat.hossain.338211">
@@ -109,6 +115,20 @@ const Footer = () => {
                     <Link href="#">
                       <a target="_blank">
                         <FaTwitter />
+                      </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="#">
+                      <a target="_blank">
+                        <FaPinterestP />
+                      </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="#">
+                      <a target="_blank">
+                        <FaWhatsapp />
                       </a>
                     </Link>
                   </li>

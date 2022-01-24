@@ -24,11 +24,11 @@
       }
     }
     &__icons {
-      @apply flex gap-4 mt-2;
+      @apply flex gap-2 mt-2;
       li {
-        @apply rounded-full items-center justify-center flex hover:bg-saffron-600 w-10 h-10 bg-saffron-500;
+        @apply rounded-full items-center justify-center flex hover:bg-saffron-600 w-8 h-8 bg-saffron-500;
         svg {
-          @apply text-2xl  text-amazon-600;
+          @apply text-xl  text-amazon-600;
         }
       }
     }

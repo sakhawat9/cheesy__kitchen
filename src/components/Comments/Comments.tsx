@@ -91,7 +91,7 @@ const Comments = () => {
             <input
               type="submit"
               className="w-full text-white rounded bg-saffron-600"
-              value="Upload"
+              value="Upload Comment"
             />
           </span>
         </form>

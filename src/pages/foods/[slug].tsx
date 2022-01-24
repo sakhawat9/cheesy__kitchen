@@ -1,6 +1,6 @@
-import Comments from "components/Comments/Comments";
 import Layout from "components/common/Layout";
 import FoodDetails from "components/FoodDetails/FoodDetails";
+import FoodDetailsBottom from "components/FoodDetails/FoodDetailsBottom";
 import Food from "models/Food";
 import { IFood } from "type";
 import db from "../../utils/db";
@@ -23,7 +23,7 @@ const foodDetails = (props: IProps) => {
   return (
     <Layout title={singleFoods.name}>
       <FoodDetails singleFood={singleFoods} />
-      <Comments />
+      <FoodDetailsBottom singleFood={singleFoods} />
     </Layout>
   );
 };
