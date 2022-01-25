@@ -21,7 +21,7 @@ const CategoryFood = () => {
         <div className="container">
           <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
             {data?.map((fd: ICategory) => (
-              <CategoryCart fd={fd} />
+              <CategoryCart key={fd.id} fd={fd} />
             ))}
           </div>
         </div>
