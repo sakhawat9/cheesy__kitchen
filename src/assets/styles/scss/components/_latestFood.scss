@@ -25,3 +25,25 @@
     }
   }
 }
+
+.add__icon {
+  @apply absolute bottom-52 hidden  left-36 right-24;
+  transition: var(--transition);
+  button {
+    @apply inline-block w-14 h-14 bg-white;
+    box-shadow: 0 10px 30px #00000012;
+    border-radius: 50px;
+    transition: var(--transition);
+    svg {
+      @apply w-14 h-14 rounded-full p-4 bg-amazon-500 text-white hover:bg-saffron-600;
+    }
+  }
+}
+
+.latest-food__wrapper__cart__items:hover {
+  @apply opacity-75;
+}
+
+.latest-food__wrapper__cart__items:hover .add__icon {
+  @apply block;
+}

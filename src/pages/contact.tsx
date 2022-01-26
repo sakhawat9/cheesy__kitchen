@@ -1,7 +1,7 @@
 import "animate.css/animate.min.css";
 import axios, { AxiosRequestConfig } from "axios";
 import Layout from "components/common/Layout";
-import Title from "components/common/Title";
+import ContactAvailable from "components/ContactAvailable";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { cssTransition, toast, ToastContainer } from "react-toastify";
@@ -48,13 +48,13 @@ export default function Home() {
   return (
     <Layout>
       <ToastContainer />
-      <div className="register">
-        <div className="register__wrapper">
-          <Title title="Contact Us" subtitle="" description="" />
-        </div>
-        <form onSubmit={handleSubmit(onSubmitForm)} className="register__form">
+      <div className="min-h-screen section-padding">
+        <form onSubmit={handleSubmit(onSubmitForm)} className="w-3/5 mx-auto">
+          <h1 className="text-center">Contact Us</h1>
           <label>
-            <span className="register__form__title">Name</span>
+            <span className="block py-1 text-lg tracking-wide text-gray-900">
+              Name
+            </span>
             <input
               type="text"
               name="name"
@@ -64,7 +64,9 @@ export default function Home() {
                   message: "You most enter name",
                 },
               })}
-              className={`${errors.name ? "ring-2 ring-red-500" : null}`}
+              className={`block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-md shadow focus:ring-amazon-400 focus:border-amazon-400 focus:outline-none focus:ring-1 mb-3 ${
+                errors.name ? "ring-2 ring-red-500" : null
+              }`}
               placeholder="Full name"
             />
             <span className="py-2 text-sm text-red-400">
@@ -72,7 +74,9 @@ export default function Home() {
             </span>
           </label>
           <label>
-            <span className="register__form__title">Email</span>
+            <span className="block py-1 text-lg tracking-wide text-gray-900">
+              Email
+            </span>
             <input
               type="email"
               name="Email"
@@ -94,7 +98,9 @@ export default function Home() {
                   message: "invalid email address",
                 },
               })}
-              className={`${errors.email ? "ring-2 ring-red-500" : null}`}
+              className={`block w-full px-4 py-3 placeholder-gray-500 border-gray-300 rounded-md shadow focus:ring-amazon-400 focus:border-amazon-400 focus:outline-none focus:ring-1 mb-3${
+                errors.email ? "ring-2 ring-red-500" : null
+              }`}
               placeholder="Email"
             />
             <span className="py-2 text-sm text-red-400">
@@ -103,8 +109,11 @@ export default function Home() {
           </label>
 
           <label>
-            <span className="register__form__title">Phone</span>
+            <span className="block py-1 text-lg tracking-wide text-gray-900">
+              Phone
+            </span>
             <input
+              className="block w-full px-4 py-3 mb-3 placeholder-gray-500 border-gray-300 rounded-md shadow focus:ring-amazon-400 focus:border-amazon-400 focus:outline-none focus:ring-1"
               type="text"
               name="phone"
               {...register("phone")}
@@ -113,7 +122,9 @@ export default function Home() {
           </label>
 
           <label>
-            <span className="register__form__title">Message</span>
+            <span className="block py-1 text-lg tracking-wide text-gray-900">
+              Message
+            </span>
 
             <textarea
               name="message"
@@ -146,6 +157,7 @@ export default function Home() {
           />
         </form>
       </div>
+      <ContactAvailable />
     </Layout>
   );
 }

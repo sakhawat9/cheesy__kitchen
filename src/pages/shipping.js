@@ -51,7 +51,7 @@ const Shipping = () => {
   };
 
   return (
-    <Layout>
+    <Layout title="Shipping Page">
       <div className="shipping">
         <div className="shipping__wrapper">
           <Title
