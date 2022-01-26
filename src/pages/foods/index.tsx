@@ -1,12 +1,22 @@
 import AllFood from "components/AllFood/AllFood";
 import Layout from "components/common/Layout";
 import Title from "components/common/Title";
+import Pagination from "components/Pagination";
 import Food from "models/Food";
-import React from "react";
+import React, { useState } from "react";
 import db from "utils/db";
 
 const AllFoods = (props) => {
   const { foods } = props;
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(6);
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = foods.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <Layout title="Cheesy__kitchen all food">
@@ -14,10 +24,17 @@ const AllFoods = (props) => {
         <div className="all-food__wrapper">
           <Title title="All Foods" subtitle="Find your food" description="" />
           <div className="all-food__wrapper__cart">
-            {foods.map((food) => (
+            {currentPosts.map((food) => (
               <AllFood key={food._id} food={food} />
             ))}
           </div>
+        </div>
+        <div className="container">
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={foods.length}
+            paginate={paginate}
+          />
         </div>
       </div>
     </Layout>

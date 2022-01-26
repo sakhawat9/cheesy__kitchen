@@ -22,6 +22,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
+import { BiErrorCircle } from "react-icons/bi";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Store } from "../utils/Store";
 
@@ -53,14 +54,14 @@ function CartScreen() {
     <Layout title="Your Shopping Cart">
       <div className="section-padding">
         <Title
-          title="Shopping Cart"
-          subtitle="Find your cart food"
+          title="Your Shopping Cart"
+          subtitle="Start your order and enjoy the tastiest food."
           description=""
         />
         <div className="container">
           {cartItems.length === 0 ? (
-            <div className="py-20 text-xl ">
-              Cart is empty.{" "}
+            <div className="py-20 text-xl">
+              <p className="flex gap-4 p-4 rounded-lg shadow-lg bg-blue-50"><BiErrorCircle /> Your cart is currently empty.</p>
               <Link href="/foods">
                 <a className="btn-brand">
                   Go Foods Page <FaLongArrowAltRight />

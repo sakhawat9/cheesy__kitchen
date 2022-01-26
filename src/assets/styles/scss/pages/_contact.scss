@@ -1,0 +1,20 @@
+.contact {
+  @apply py-24;
+  background-color: #f5e7c1;
+  &__wrapper {
+    @apply mx-auto container;
+  }
+  &__content {
+    &__title {
+      @apply text-amazon-600  font-bold text-5xl md:text-7xl md:mb-8 mb-5;
+    }
+  }
+  &__form {
+    @apply w-3/5 mx-auto;
+  }
+  &__map {
+    iframe {
+      @apply w-full md:h-full h-96 p-4 rounded bg-white;
+    }
+  }
+}

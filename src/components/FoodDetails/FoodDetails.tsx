@@ -57,25 +57,30 @@ const FoodDetails = ({ singleFood }: IProp) => {
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-12 md:col-span-7">
                   <div className="p-6">
-                    <h2 className="text-2xl">{name}</h2>
-                    <ul className="flex my-3">
-                      <li>
-                        <AiOutlineStar className="text-2xl text-yellow-400" />
-                      </li>
-                      <li>
-                        <AiOutlineStar className="text-2xl text-yellow-400" />
-                      </li>
-                      <li>
-                        <AiOutlineStar className="text-2xl text-yellow-400" />
-                      </li>
-                      <li>
-                        <AiOutlineStar className="text-2xl text-yellow-400" />
-                      </li>
-                      <li>
-                        <AiOutlineStar className="text-2xl text-yellow-400" />
-                      </li>
-                    </ul>
-                    <p>${price}</p>
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-2xl">{name}</h2>
+                      <h2 className="text-2xl">${price}</h2>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <ul className="flex my-3">
+                        <li>
+                          <AiOutlineStar className="text-2xl text-yellow-400" />
+                        </li>
+                        <li>
+                          <AiOutlineStar className="text-2xl text-yellow-400" />
+                        </li>
+                        <li>
+                          <AiOutlineStar className="text-2xl text-yellow-400" />
+                        </li>
+                        <li>
+                          <AiOutlineStar className="text-2xl text-yellow-400" />
+                        </li>
+                        <li>
+                          <AiOutlineStar className="text-2xl text-yellow-400" />
+                        </li>
+                      </ul>
+                      <p>10 Review</p>
+                    </div>
                     <p>{shortDesc}</p>
                     <button className="btn-brand" onClick={addToCartHandler}>
                       Add To Cart <FaLongArrowAltRight />

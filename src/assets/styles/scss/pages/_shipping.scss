@@ -1,9 +1,10 @@
 .shipping {
-  @apply min-h-screen section-padding md:w-9/12 mx-auto;
+  @apply min-h-screen section-padding;
   &__wrapper {
     @apply container mx-auto;
   }
   &__form {
+    @apply container mx-auto;
     width: 60% !important;
     &__title {
       @apply block text-lg tracking-wide text-gray-900;

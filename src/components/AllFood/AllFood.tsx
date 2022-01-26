@@ -7,7 +7,7 @@ interface IProp {
 }
 
 const AllFood = ({ food }: IProp) => {
-  const { slug, image, name, description } = food;
+  const { slug, image, name, price } = food;
 
   return (
     <div className="all-food__wrapper__cart__items">
@@ -17,7 +17,10 @@ const AllFood = ({ food }: IProp) => {
             <div className="images">
               <img src={image} alt={name} />
             </div>
-            <h4>{name}</h4>
+            <div className="flex items-center justify-between">
+              <h4>{name}</h4>
+              <h4>${price}</h4>
+            </div>
           </div>
         </a>
       </Link>
