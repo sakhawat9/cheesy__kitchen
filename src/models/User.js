@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema(
       default:
         "https://res.cloudinary.com/academist/image/upload/v1635867877/instagram-3814050_960_720_tuxecu.png",
     },
-    user: { type: Boolean, required: true },
+    user: { type: Boolean, required: true, default: true },
   },
   { timestamps: true }
 );
