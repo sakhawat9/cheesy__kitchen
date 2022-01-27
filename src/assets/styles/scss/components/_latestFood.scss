@@ -35,7 +35,7 @@
     border-radius: 50px;
     transition: var(--transition);
     svg {
-      @apply w-14 h-14 rounded-full p-4 bg-amazon-500 text-white hover:bg-saffron-600;
+      @apply w-14 h-14 rounded-full p-4 bg-amazon-500 hover:bg-saffron-600;
     }
   }
 }

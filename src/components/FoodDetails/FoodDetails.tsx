@@ -87,35 +87,35 @@ const FoodDetails = ({ singleFood }: IProp) => {
                     </button>
                     <ul className="flex gap-2 mt-4">
                       <li className="flex items-center justify-center w-8 h-8 bg-blue-900 rounded-full hover:bg-blue-800">
-                        <Link href="https://www.facebook.com/sakawat.hossain.338211">
+                        <Link href="https://www.facebook.com">
                           <a target="_blank">
                             <FaFacebookF className="text-xl text-white" />
                           </a>
                         </Link>
                       </li>
                       <li className="flex items-center justify-center w-8 h-8 bg-blue-500 rounded-full hover:bg-blue-400">
-                        <Link href="#">
+                        <Link href="https://twitter.com">
                           <a target="_blank">
                             <FaTwitter className="text-xl text-white" />
                           </a>
                         </Link>
                       </li>
                       <li className="flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full hover:bg-blue-700">
-                        <Link href="www.linkedin.com/in/shjsdev">
+                        <Link href="www.linkedin.com">
                           <a target="_blank">
                             <FaLinkedinIn className="text-xl text-white" />
                           </a>
                         </Link>
                       </li>
                       <li className="flex items-center justify-center w-8 h-8 bg-red-600 rounded-full hover:bg-red-500">
-                        <Link href="#">
+                        <Link href="https://www.pinterest.com">
                           <a target="_blank">
                             <FaPinterestP className="text-xl text-white" />
                           </a>
                         </Link>
                       </li>
                       <li className="flex items-center justify-center w-8 h-8 bg-green-600 rounded-full hover:bg-green-500">
-                        <Link href="#">
+                        <Link href="https://www.whatsapp.com">
                           <a target="_blank">
                             <FaWhatsapp className="text-xl text-white" />
                           </a>

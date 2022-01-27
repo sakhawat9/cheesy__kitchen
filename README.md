@@ -1,4 +1,4 @@
-# Cheesy\_\_Kitchen[Live_Link](https://cheesykitchen.vercel.app/)
+# Cheesy\_\_Kitchen [Live_Link](https://cheesykitchen.vercel.app/)
 
 ## About the project
 

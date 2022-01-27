@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import Carousel from "react-multi-carousel";
@@ -27,7 +28,9 @@ const images = [
   "https://image.freepik.com/free-photo/club-sandwiches-with-fried-potatoes-wooden-board_114579-1910.jpg",
 ];
 
-const Hero = ({ deviceType, infinite, autoPlay }) => {
+const Hero = ({ foods, deviceType, infinite, autoPlay }) => {
+  const prichardCurse = foods.filter((food) => food?.prichard === true);
+  console.log(foods);
   return (
     <Carousel
       ssr
@@ -42,30 +45,36 @@ const Hero = ({ deviceType, infinite, autoPlay }) => {
       autoPlay={autoPlay}
       autoPlaySpeed={5000}
     >
-      {images.map((image, index) => {
+      {prichardCurse.map((foods) => {
         return (
-          <div key={index} className="hero">
-            <img draggable={false} alt="text" src={image} />
+          <div key={foods._id} className="hero">
+            <img draggable={false} alt="text" src={foods.image} />
             <div
               style={{
                 position: "absolute",
                 left: "50%",
-                top: "40%",
-                bottom: "60%",
+                top: "25%",
+                bottom: "75%",
                 color: "white",
                 transform: " translateX(-50%)",
               }}
             >
-              <h1 className="text-5xl">
-                Welcome <br /> Cheesy__kitchen
-              </h1>
-              <h6>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit,
-                animi?
-              </h6>
-              <button>
-                Read more <FaLongArrowAltRight />
-              </button>
+              <div
+                className="p-8 rounded"
+                style={{ backgroundColor: "#0610496f" }}
+              >
+                <h1 className="md:text-5xl text-3xl">
+                  Welcome <br /> Cheesy__kitchen
+                </h1>
+                <p className="mb-3">{foods.shortDesc}</p>
+                <button>
+                  <Link href={`/foods/${foods.slug}`}>
+                    <a className="flex items-center gap-2 p-2">
+                      Read more <FaLongArrowAltRight />
+                    </a>
+                  </Link>
+                </button>
+              </div>
             </div>
           </div>
         );
