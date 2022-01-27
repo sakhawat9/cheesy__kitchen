@@ -43,7 +43,7 @@ const LatestFood = ({ food }: IProp) => {
           <button onClick={addToCartHandler}>
             <Link href={`/foods/${slug}`}>
               <a>
-                <GrView className="text-white" />
+                <GrView />
               </a>
             </Link>
           </button>

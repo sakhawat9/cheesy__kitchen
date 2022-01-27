@@ -1,6 +1,6 @@
-import AllFood from "components/AllFood/AllFood";
 import Layout from "components/common/Layout";
 import Title from "components/common/Title";
+import LatestFood from "components/LatestFoods/LatestFood";
 import Pagination from "components/Pagination";
 import Food from "models/Food";
 import React, { useState } from "react";
@@ -23,9 +23,9 @@ const AllFoods = (props) => {
       <div className="all-food">
         <div className="all-food__wrapper">
           <Title title="All Foods" subtitle="Find your food" description="" />
-          <div className="all-food__wrapper__cart">
+          <div className="latest-food__wrapper__cart">
             {currentPosts.map((food) => (
-              <AllFood key={food._id} food={food} />
+              <LatestFood key={food._id} food={food} />
             ))}
           </div>
         </div>

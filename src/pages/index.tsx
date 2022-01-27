@@ -16,7 +16,12 @@ const HomePage = (props) => {
 
   return (
     <Layout>
-      <Hero infinite="true" autoPlay="true" deviceType="desktop" />
+      <Hero
+        foods={foods}
+        infinite="true"
+        autoPlay="true"
+        deviceType="desktop"
+      />
       <Categories />
       <LatestFoods foods={foods} />
       <Testimonials data={review} />
