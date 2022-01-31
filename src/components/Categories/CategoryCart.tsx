@@ -1,7 +1,7 @@
 import Link from "next/link";
 const CategoryCart = ({ fd }: any) => {
   return (
-    <Link href={fd.link}>
+    <Link href="#">
       <a>
         <div className="h-full p-8 text-center rounded shadow-lg bg-white-100 hover:bg-amazon-500 hover:text-white ">
           <div className="flex justify-center">

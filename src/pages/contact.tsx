@@ -49,7 +49,10 @@ export default function Home() {
     <Layout>
       <ToastContainer />
       <div className="min-h-screen section-padding">
-        <form onSubmit={handleSubmit(onSubmitForm)} className="w-3/5 mx-auto">
+        <form
+          onSubmit={handleSubmit(onSubmitForm)}
+          className="w-full p-8 mx-auto md:p-0 md:w-3/5"
+        >
           <h1 className="text-center">Contact Us</h1>
           <label>
             <span className="block py-1 text-lg tracking-wide text-gray-900">
@@ -150,11 +153,13 @@ export default function Home() {
               {errors?.message?.message}
             </span>
           </label>
-          <input
-            type="submit"
-            className="w-full mt-4 text-white rounded bg-saffron-600"
-            value="Submit"
-          />
+          <div className="flex justify-center">
+            <input
+              type="submit"
+              className="w-full py-3 mt-4 font-bold text-white rounded md:w-3/5 bg-saffron-500 hover:bg-saffron-600"
+              value="Submit"
+            />
+          </div>
         </form>
       </div>
       <ContactAvailable />
