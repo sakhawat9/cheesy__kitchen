@@ -29,8 +29,7 @@ const images = [
 ];
 
 const Hero = ({ foods, deviceType, infinite, autoPlay }) => {
-  const prichardCurse = foods.filter((food) => food?.prichard === true);
-  console.log(foods);
+  const featuredFood = foods.filter((food) => food?.prichard === true);
   return (
     <Carousel
       ssr
@@ -45,7 +44,7 @@ const Hero = ({ foods, deviceType, infinite, autoPlay }) => {
       autoPlay={autoPlay}
       autoPlaySpeed={5000}
     >
-      {prichardCurse.map((foods) => {
+      {featuredFood.map((foods) => {
         return (
           <div key={foods._id} className="hero">
             <img draggable={false} alt="text" src={foods.image} />
