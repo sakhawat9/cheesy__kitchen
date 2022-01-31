@@ -21,7 +21,7 @@ const ordersSchema = new mongoose.Schema(
     cartItems: [
       {
         name: { type: String, required: true },
-        slug: { type: String, required: true, unique: true },
+        slug: { type: String, required: true },
         shortDesc: { type: String, required: true },
         category: { type: String, required: true },
         image: { type: String, required: true },

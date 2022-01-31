@@ -14,6 +14,7 @@
 
 - Next.js
 - mongoDB
+- mongoose
 - Node.js
 - Typescript
 - React icons
