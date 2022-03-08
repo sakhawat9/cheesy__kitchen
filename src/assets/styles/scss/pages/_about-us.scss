@@ -1,0 +1,17 @@
+.about-us {
+    &__content {
+      @apply py-24;
+      &__wrapper {
+        @apply container;
+      }
+      &__subtitle {
+        @apply mt-12 text-gray-500 font-medium text-lg mb-8;
+        line-height: 30px;
+      }
+      &__description {
+        @apply text-base text-gray-600;
+        line-height: 27px;
+      }
+    }
+  }
+  

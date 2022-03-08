@@ -8,7 +8,7 @@ const addFood = () => {
     <>
       <div className="flex items-stretch w-full bg-gray-200">
         <Sidebar />
-        <div className="w-full min-h-screen p-5 transition-all bg-white section-padding">
+        <div className="w-full min-h-screen p-5 m-5 transition-all bg-white section-padding">
           <Title
             title="Add new food"
             subtitle=""

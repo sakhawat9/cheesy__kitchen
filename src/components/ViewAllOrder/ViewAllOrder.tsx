@@ -5,7 +5,7 @@ const ViewAllOrder = ({ orderFood }) => {
   return (
     <div>
       <Title title="All Order" subtitle="" description="" />
-      <table className="table-auto">
+      <table className="table-auto w-full">
         <thead className="text-white border-gray-300 bg-amazon-500">
           <tr>
             <th className="px-4 py-4">User name</th>
