@@ -34,6 +34,7 @@
     "react-slick": "^0.28.1",
     "react-tabs": "^3.2.3",
     "react-toastify": "^8.1.0",
+    "recharts": "^2.1.9",
     "slick-carousel": "^1.8.1",
     "streamifier": "^0.1.1",
     "sweetalert2": "^11.1.10",

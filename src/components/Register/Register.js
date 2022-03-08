@@ -4,13 +4,12 @@ import Title from "components/common/Title";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { Store } from "utils/Store";
 
 const Register = () => {
-  const [user, setUser] = useState(false);
   const {
     handleSubmit,
     register,
@@ -40,11 +39,11 @@ const Register = () => {
         name,
         email,
         password,
-        user,
       });
 
       dispatch({ type: "USER_LOGIN", payload: data });
       Cookies.set("userInfo", JSON.stringify(data));
+      Swal.fire(`Welcome`, "You signup in successfully!", "success");
       router.push(redirect || "/");
     } catch (err) {
       Swal.fire({
@@ -159,29 +158,6 @@ const Register = () => {
               {errors?.confirmPassword?.message}
             </span>
           </label>
-          <div className="form-element">
-            <div className="flex items-center justify-between gap-4 py-2">
-              <div className="flex items-center">
-                <input
-                  id="user"
-                  onClick={(e) => setUser(e.target.checked)}
-                  className="register__checkbox"
-                  type="radio"
-                  name="user"
-                />
-                <label htmlFor="user">User</label>
-              </div>
-              <label className="flex items-center">
-                <input
-                  className="register__checkbox"
-                  type="checkbox"
-                  name=""
-                  id=""
-                />
-                <span className="tracking-wide">Remember me</span>
-              </label>
-            </div>
-          </div>
 
           <span className="w-full">
             <input
