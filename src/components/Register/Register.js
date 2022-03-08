@@ -43,6 +43,7 @@ const Register = () => {
 
       dispatch({ type: "USER_LOGIN", payload: data });
       Cookies.set("userInfo", JSON.stringify(data));
+      Swal.fire(`Welcome`, "You signup in successfully!", "success");
       router.push(redirect || "/");
     } catch (err) {
       Swal.fire({
