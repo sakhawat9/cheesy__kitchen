@@ -66,6 +66,21 @@ const Sidebar = () => {
               </a>
             </Link>
           </div>
+          <div>
+            {userInfo?.isAdmin && (
+              <div className="text-center mb-4">
+                <div className="flex justify-center">
+                  <img
+                    src={userInfo?.img}
+                    className="h-20 w-20 mb-3 rounded-full bg-gray-400 p-2"
+                    alt="Admin logo"
+                  />
+                </div>
+                <h3 className="text-lg font-bold">{userInfo?.name}</h3>
+                <p>{userInfo?.email}</p>
+              </div>
+            )}
+          </div>
 
           {userInfo?.admin && (
             <Navigation
