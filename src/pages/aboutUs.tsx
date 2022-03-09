@@ -1,5 +1,6 @@
 import React from "react";
 import AboutUsContent from "components/AboutUs/AboutUsContent";
+import AboutUsChief from "components/AboutUs/AboutUsChief";
 import Layout from "components/common/Layout";
 import Testimonials from "components/Testimonials/Testimonials";
 import Review from "models/Review";
@@ -9,6 +10,7 @@ const aboutUs = ({ review }) => {
   return (
     <Layout title="About Us | Restaurant Website.">
       <AboutUsContent />
+      <AboutUsChief />
       <Testimonials data={review} />
     </Layout>
   );
