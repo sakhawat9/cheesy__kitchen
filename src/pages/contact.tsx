@@ -1,6 +1,7 @@
 import "animate.css/animate.min.css";
 import axios, { AxiosRequestConfig } from "axios";
 import Layout from "components/common/Layout";
+import Title from "components/common/Title";
 import ContactAvailable from "components/ContactAvailable";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
@@ -46,14 +47,14 @@ export default function Home() {
   }
 
   return (
-    <Layout>
+    <Layout title="Contact Us | Restaurant Website.">
       <ToastContainer />
       <div className="min-h-screen section-padding">
         <form
           onSubmit={handleSubmit(onSubmitForm)}
           className="w-full p-8 mx-auto md:p-0 md:w-3/5"
         >
-          <h1 className="text-center">Contact Us</h1>
+          <Title title="Contact Us" subtitle="Fill In Your Information & We Will Be In Touch As Soon As We Can" />
           <label>
             <span className="block py-1 text-lg tracking-wide text-gray-900">
               Name
