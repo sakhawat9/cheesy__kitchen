@@ -82,7 +82,7 @@ function Profile() {
   };
 
   return (
-    <Layout>
+    <Layout title={`${userInfo.name} profile | Restaurant Website.`}>
       <div className="register">
         <div className="register__wrapper">
           <Title title="Update your account" subtitle="" description="" />

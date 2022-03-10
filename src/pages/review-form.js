@@ -55,7 +55,7 @@ const ReviewForm = () => {
   };
 
   return (
-    <Layout>
+    <Layout title="Review Form | Restaurant Website.">
       <div className="register">
         <div className="register__wrapper">
           <Title title="Add Review" subtitle="" description="" />
