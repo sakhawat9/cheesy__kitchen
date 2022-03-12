@@ -31,6 +31,6 @@
     "src/components/AddNewFood/AddNewFood.js",
     "src/pages/contact-form.js",
     "src/pages/api/contact/index.js"
-  ],
+, "src/pages/category/chicken.js"  ],
   "exclude": ["node_modules"]
 }

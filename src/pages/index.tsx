@@ -22,7 +22,7 @@ const HomePage = (props) => {
         autoPlay="true"
         deviceType="desktop"
       />
-      <Categories />
+      <Categories foods={foods} />
       <LatestFoods foods={foods} />
       <Testimonials data={review} />
       <FeaturedFoods foods={foods} />

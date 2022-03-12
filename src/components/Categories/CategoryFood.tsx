@@ -13,13 +13,13 @@ const CategoryFood = () => {
 
   return (
     <>
-      <div className="py-20 text-center bg-gray-50">
+      <div className="category-food">
         <Title title="Explore Category" subtitle="" description="" />
       </div>
 
-      <div className="py-20 bg-white-100">
+      <div className="category-food__area">
         <div className="container">
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+          <div className="category-food__area__wrapper">
             {data?.map((fd: ICategory) => (
               <CategoryCart key={fd.id} fd={fd} />
             ))}
