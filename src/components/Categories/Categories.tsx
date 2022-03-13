@@ -1,5 +1,6 @@
 import Title from "components/common/Title";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
 import Slider from "react-slick";
@@ -64,7 +65,7 @@ const carouselProperties = {
   ],
 };
 
-const Categories = () => {
+const Categories = ({ foods }: any) => {
   return (
     <div className="bg-gray-200">
       <div className="container mx-auto carousel section-padding">
@@ -87,18 +88,24 @@ const Categories = () => {
 
 const Card = ({ item }) => {
   return (
-    <div className="p-2 m-3 text-center bg-white shadow-lg">
-      <div className="inline-flex p-2 align-middle rounded-full shadow-lg">
-        <Image
-          width="100"
-          height="100"
-          className="object-cover rounded-full"
-          src={item.img}
-          alt={item.name}
-        />
-      </div>
-      <h3 className="pt-3 text-2xl">{item.name}</h3>
-    </div>
+    <>
+      <Link href={`/category/${item.link}`}>
+        <a>
+          <div className="p-2 m-3 text-center bg-white shadow-lg">
+            <div className="inline-flex p-2 align-middle rounded-full shadow-lg">
+              <Image
+                width="100"
+                height="100"
+                className="object-cover rounded-full"
+                src={item.img}
+                alt={item.name}
+              />
+            </div>
+            <h3 className="pt-3 text-2xl">{item.name}</h3>
+          </div>
+        </a>
+      </Link>
+    </>
   );
 };
 

@@ -1,0 +1,18 @@
+.category-food {
+    @apply py-20 text-center bg-gray-50;
+    &__area {
+        @apply py-20 bg-white;
+        &__wrapper {
+            @apply grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4;
+            &__item {
+                @apply h-full p-8 text-center rounded shadow-lg bg-white hover:bg-amazon-500 hover:text-white;
+                &__image {
+                    @apply flex justify-center;
+                    img {
+                        @apply object-cover p-1 mb-4 rounded-full shadow-lg hover:bg-white w-36 h-36;
+                    }
+                }
+            }
+        }
+    }
+}
