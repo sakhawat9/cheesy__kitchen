@@ -23,23 +23,23 @@ const CategoriesData = [
   {
     id: 4,
     img: "https://cdn.pixabay.com/photo/2015/05/07/13/46/cappuccino-756490_960_720.jpg",
-    name: "Copy",
-    slug: "copy",
-    link: "/copy",
+    name: "coffee",
+    slug: "coffee",
+    link: "/coffee",
   },
   {
     id: 5,
+    img: "https://res.cloudinary.com/medsy/image/upload/v1641531884/beef-biryani-tehari-rice-chili-lime-plate-white-background-73398894_gmy9c4.jpg",
+    name: "Biryani",
+    slug: "biryani",
+    link: "/biryani",
+  },
+  {
+    id: 6,
     img: "https://res.cloudinary.com/medsy/image/upload/v1641531885/sangita-banerjee15186255515a84630e16787_ibgjqs.jpg",
     name: "Chicken Chap",
     slug: "chicken-chap",
     link: "/chicken-chap",
-  },
-  {
-    id: 6,
-    img: "https://res.cloudinary.com/medsy/image/upload/v1641531884/beef-biryani-tehari-rice-chili-lime-plate-white-background-73398894_gmy9c4.jpg",
-    name: "Tehari",
-    slug: "tehari",
-    link: "/tehari",
   },
 ];
 

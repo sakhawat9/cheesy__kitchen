@@ -135,15 +135,14 @@ const Sidebar = () => {
                   elemBefore: () => <BsFillInboxesFill name="inbox" />,
                 },
                 {
-                  title: "Manage Food",
-                  itemId: "/dashboard/foods/managefoods",
-                  elemBefore: () => <FaEdit name="food" />,
-                },
-
-                {
                   title: "Add new food",
                   itemId: "/dashboard/foods/addFoods",
                   elemBefore: () => <BiImageAdd name="foods" />,
+                },
+                {
+                  title: "Manage Food",
+                  itemId: "/dashboard/foods/managefoods",
+                  elemBefore: () => <FaEdit name="food" />,
                 },
 
                 // {
