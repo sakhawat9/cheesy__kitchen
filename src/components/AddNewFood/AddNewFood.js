@@ -155,10 +155,11 @@ const AddNewFood = () => {
                 className="w-full px-4 py-3 rounded form-select focus:border-royal-blue"
               >
                 <option value="javascript">Select Category</option>
-                <option value="copy">Copy</option>
+                <option value="coffee">Coffee</option>
                 <option value="pizza">Pizza</option>
                 <option value="bargar">Bargar</option>
                 <option value="chicken">Chicken</option>
+                <option value="biryani">Biryani</option>
               </select>
             </div>
 

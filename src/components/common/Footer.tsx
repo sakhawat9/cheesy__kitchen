@@ -77,7 +77,7 @@ const Footer = () => {
                     <a href="#">Pizza</a>
                   </li>
                   <li>
-                    <a href="#">Copy</a>
+                    <a href="#">coffee</a>
                   </li>
                   <li>
                     <a href="#">Chicken</a>
