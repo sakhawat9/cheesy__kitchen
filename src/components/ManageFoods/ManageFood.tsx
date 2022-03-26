@@ -35,7 +35,7 @@ function reducer(state: any, action: any) {
   }
 }
 
-const manageFood = ({ food }: IProp) => {
+const ManageFood = ({ food }: IProp) => {
   const { image, name, slug, _id } = food;
 
   const { state } = useContext(Store);
@@ -106,4 +106,4 @@ const manageFood = ({ food }: IProp) => {
   );
 };
 
-export default manageFood;
+export default ManageFood;
