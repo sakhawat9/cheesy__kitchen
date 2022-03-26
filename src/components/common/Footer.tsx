@@ -21,19 +21,16 @@ const Footer = () => {
               <div className="footer-top__content">
                 <ul>
                   <li>
-                    <a href="https://academist.vercel.app/">About us</a>
+                    <a href="/foods">Foods</a>
                   </li>
                   <li>
-                    <a href="#">Blog</a>
+                    <a href="/aboutUs">About us</a>
                   </li>
                   <li>
-                    <a href="#">Check out</a>
+                    <a href="/shipping">Check out</a>
                   </li>
                   <li>
-                    <a href="#">Contact</a>
-                  </li>
-                  <li>
-                    <a href="#">Service</a>
+                    <a href="/contact">Contact</a>
                   </li>
                 </ul>
               </div>
@@ -52,13 +49,10 @@ const Footer = () => {
                     <a href="/register">Register</a>
                   </li>
                   <li>
-                    <a href="#">Account settings</a>
+                    <a href="/profile">Account settings</a>
                   </li>
                   <li>
-                    <a href="#">Shopping cart</a>
-                  </li>
-                  <li>
-                    <a href="#">Shop</a>
+                    <a href="/cartFood">Shopping cart</a>
                   </li>
                 </ul>
               </div>
@@ -71,16 +65,16 @@ const Footer = () => {
               <div className="footer-top__content">
                 <ul>
                   <li>
-                    <a href="#">Bargar</a>
+                    <a href="/barger">Bargar</a>
                   </li>
                   <li>
-                    <a href="#">Pizza</a>
+                    <a href="/pizza">Pizza</a>
                   </li>
                   <li>
-                    <a href="#">coffee</a>
+                    <a href="/coffee">coffee</a>
                   </li>
                   <li>
-                    <a href="#">Chicken</a>
+                    <a href="/chicken">Chicken</a>
                   </li>
                 </ul>
               </div>
@@ -105,7 +99,7 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link href="www.linkedin.com/in/shjsdev">
+                    <Link href="https://www.linkedin.com/in/shjsdev">
                       <a target="_blank">
                         <FaLinkedinIn />
                       </a>
