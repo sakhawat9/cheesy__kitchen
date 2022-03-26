@@ -9,7 +9,7 @@ import {
   BiCog,
   BiLogOutCircle,
   BiMessageAltAdd,
-  BiUserCheck
+  BiUserCheck,
 } from "react-icons/bi";
 import { GrDocumentUpdate } from "react-icons/gr";
 import { MdOutlineRateReview } from "react-icons/md";
@@ -18,9 +18,9 @@ import { Store } from "utils/Store";
 export default function Example({ userInfo }) {
   const router = useRouter();
   const { dispatch } = useContext(Store);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorel, setAnchorel] = useState(null);
   const logoutClickHandler = () => {
-    setAnchorEl(null);
+    setAnchorel(null);
     dispatch({ type: "USER_LOGOUT" });
     Cookies.remove("cartItems");
     Cookies.remove("userInfo");
@@ -29,7 +29,7 @@ export default function Example({ userInfo }) {
   };
 
   const loginMenuCloseHandler = (e, redirect) => {
-    setAnchorEl(null);
+    setAnchorel(null);
     if (redirect) {
       router.push(redirect);
     }
@@ -41,7 +41,13 @@ export default function Example({ userInfo }) {
         <Menu.Button className="inline-flex items-center justify-center w-full px-4 ml-3 font-medium rounded-md bg-amazon text-saffron focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
           <span className="mr-5">{userInfo?.name}</span>
 
-          <Image className="object-cover rounded-full" width="40" height="40" src={userInfo?.img} alt={userInfo?.name} />
+          <Image
+            className="object-cover rounded-full"
+            width="40"
+            height="40"
+            src={userInfo?.img}
+            alt={userInfo?.name}
+          />
         </Menu.Button>
       )}
       <Transition
@@ -219,7 +225,7 @@ export default function Example({ userInfo }) {
             <Menu.Item>
               {({ active }) => (
                 <button
-                  anchorEl={anchorEl}
+                  anchorel={anchorel}
                   onClick={logoutClickHandler}
                   className={`${
                     active ? "bg-amazon text-saffron" : "text-gray-900"

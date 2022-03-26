@@ -1,8 +1,8 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { useContext } from "react";
+import { AiFillEye } from "react-icons/ai";
 import { BsPlusLg } from "react-icons/bs";
-import { GrView } from "react-icons/gr";
 import { IFood } from "type";
 import { Store } from "utils/Store";
 
@@ -43,7 +43,7 @@ const LatestFood = ({ food }: IProp) => {
           <button onClick={addToCartHandler}>
             <Link href={`/foods/${slug}`}>
               <a>
-                <GrView />
+                <AiFillEye />
               </a>
             </Link>
           </button>
