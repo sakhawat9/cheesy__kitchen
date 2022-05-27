@@ -2,7 +2,7 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useContext, useEffect, useReducer } from "react";
+import React, { useContext, useReducer } from "react";
 import { AiFillEye } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin7Line } from "react-icons/ri";
@@ -39,34 +39,13 @@ const ManageFood = ({ food }: IProp) => {
   const { image, name, slug, _id } = food;
 
   const { state } = useContext(Store);
-  const router = useRouter();
   const { userInfo } = state;
 
-  const [{ successDelete }, dispatch] = useReducer(reducer, {
+  const [ dispatch] = useReducer(reducer, {
     loading: true,
     products: [],
     error: "",
   });
-
-  useEffect(() => {
-    if (!userInfo) {
-      router.push("/login");
-    }
-    const fetchData = async () => {
-      try {
-        dispatch({ type: "FETCH_REQUEST" });
-        const { data } = await axios.get(`/api/admin/admincourses`, {
-          headers: { authorization: `Bearer ${userInfo.token}` },
-        });
-        dispatch({ type: "FETCH_SUCCESS", payload: data });
-      } catch (err: any) {}
-    };
-    if (successDelete) {
-      dispatch({ type: "DELETE_RESET" });
-    } else {
-      fetchData();
-    }
-  }, [successDelete]);
 
   const deleteHandler = async (productId: number) => {
     if (!window.confirm("Are you sure?")) {
