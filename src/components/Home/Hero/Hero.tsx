@@ -48,15 +48,7 @@ const Hero = ({ foods, deviceType, infinite, autoPlay }) => {
         return (
           <div key={foods._id} className="hero">
             <img draggable={false} alt="text" src={foods.image} />
-            <div
-              style={{
-                position: "absolute",
-                left: "50%",
-                top: "25%",
-                bottom: "75%",
-                color: "white",
-                transform: " translateX(-50%)",
-              }}
+            <div className="hero__content"
             >
               <div
                 className="p-8 rounded"

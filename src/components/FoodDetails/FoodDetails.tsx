@@ -50,7 +50,7 @@ const FoodDetails = ({ singleFood }: IProp) => {
         </div>
         <div className="grid items-center gap-4 featuredFoods__wrapper md:grid-cols-12">
           <div className="col-span-12 p-6 lg:col-span-5">
-            <img src={image} alt={name} />
+            <img style={{height: "310px"}} src={image} alt={name} />
           </div>
           <div className="col-span-12 lg:col-span-7">
             <div className="row">

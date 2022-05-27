@@ -66,19 +66,21 @@ const carouselProperties = {
 
 const Testimonials = ({ data }) => {
   return (
-    <div className="container pb-24 mx-auto carousel">
-      <div>
-        <Title
-          title="Testimonials"
-          subtitle="Our all testimonials"
-          description=""
-        />
+    <div className="section-padding bg-gray-50">
+      <div className="container mx-auto carousel">
+        <div>
+          <Title
+            title="Testimonials"
+            subtitle="Our all testimonials"
+            description=""
+          />
+        </div>
+        <Slider {...carouselProperties}>
+          {data.map((item, index) => (
+            <Card key={index} item={item} />
+          ))}
+        </Slider>
       </div>
-      <Slider {...carouselProperties}>
-        {data.map((item, index) => (
-          <Card key={index} item={item} />
-        ))}
-      </Slider>
     </div>
   );
 };
