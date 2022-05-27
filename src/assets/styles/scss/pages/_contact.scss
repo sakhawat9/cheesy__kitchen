@@ -1,6 +1,5 @@
 .contact {
-  @apply py-24;
-  background-color: #f5e7c1;
+  @apply py-24 bg-gray-50;
   &__wrapper {
     @apply mx-auto container;
   }
