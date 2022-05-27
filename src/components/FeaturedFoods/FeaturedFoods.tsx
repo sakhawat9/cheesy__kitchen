@@ -7,8 +7,8 @@ const FeaturedFoods = ({ foods }) => {
   const prichardCurse = foods.filter((food) => food?.prichard === true);
 
   return (
-    <div className="bg-gray-50">
-      <div className="container mx-auto section-padding">
+    <div className="section-padding">
+      <div className="container mx-auto">
         <div className="text-center ">
           <Title title="Featured Food" subtitle="" description="" />
         </div>
