@@ -1,21 +1,26 @@
-import { Fraunces, Inter } from "next/font/google";
+import { Cormorant_Garamond, Jost } from "next/font/google";
 
-// Fraunces is a soft, high-contrast serif with a slight wobble to its curves —
-// warm and hand-made rather than corporate, which is what a kitchen brand
-// wants. Inter carries the body copy and every UI label.
+// Cormorant Garamond is a high-contrast old-style serif drawn from Garamond —
+// it is the typeface of a printed menu, and at display sizes the thin strokes
+// and long extenders give the page the elegance a dining room wants. It is
+// deliberately not the geometric display serif the watch brand uses.
 //
-// Loaded via next/font so there's no render-blocking @import and the fonts
+// Jost carries every label, nav item and paragraph: a geometric sans with warm,
+// almost-circular bowls that keeps the UI friendly rather than corporate.
+//
+// Loaded via next/font so there's no render-blocking @import and both fonts
 // self-host with zero layout shift.
-export const headingFont = Fraunces({
+export const displayFont = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-heading",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
   display: "swap",
 });
 
-export const bodyFont = Inter({
+export const bodyFont = Jost({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
   variable: "--font-body",
   display: "swap",
 });

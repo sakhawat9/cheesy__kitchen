@@ -1,17 +1,13 @@
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 
 /**
- * Description / details tabs for a dish.
+ * Description / details tabs for a dish, on the dark ground so the band reads
+ * as a break between the ordering panel above and the related dishes below.
  *
- * Replaces the react-tabs implementation (and its unstyled default stylesheet,
- * the only thing that dependency was used for) with Headless UI, which is
- * already in the project and handles the roving tabindex and aria-controls
- * wiring properly.
- *
- * The old "Reviews" tab rendered a <Reviews /> component that fetched every
- * review in the database, not the ones for this dish — so each dish showed
- * identical, unrelated reviews. Until reviews are associated with a dish, the
- * second tab shows the kitchen notes that are genuinely dish-specific.
+ * The old "Reviews" tab fetched every review in the database rather than the
+ * ones for this dish, so each dish showed identical, unrelated reviews. Until
+ * reviews are associated with a dish, the second tab shows the ordering notes
+ * that are genuinely dish-agnostic and useful here.
  */
 export default function FoodTabs({ food }: any) {
   const tabs = [
@@ -24,15 +20,15 @@ export default function FoodTabs({ food }: any) {
   ];
 
   return (
-    <section className="section-sm section-bg">
+    <section className="section-sm surface-dark on-dark">
       <div className="container">
-        <div className="mx-auto max-w-prose">
+        <div className="max-w-3xl mx-auto">
           <TabGroup>
-            <TabList className="flex gap-1 mb-6 border-b border-cream-300">
+            <TabList className="flex flex-wrap gap-8 mb-8 border-b border-white/10">
               {tabs.map((tab) => (
                 <Tab
                   key={tab.label}
-                  className="px-4 py-3 -mb-px text-sm font-semibold transition-colors border-b-2 border-transparent outline-none text-charcoal-500 hover:text-charcoal-900 data-[selected]:border-ember-600 data-[selected]:text-ember-700"
+                  className="pb-4 -mb-px text-label font-medium uppercase transition-colors border-b-2 border-transparent outline-none text-oat-400 hover:text-oat-100 data-[selected]:border-saffron-500 data-[selected]:text-saffron-400"
                 >
                   {tab.label}
                 </Tab>
@@ -43,7 +39,7 @@ export default function FoodTabs({ food }: any) {
               {tabs.map((tab) => (
                 <TabPanel
                   key={tab.label}
-                  className="leading-relaxed outline-none text-charcoal-600"
+                  className="text-lg leading-relaxed outline-none text-oat-300 animate-rise"
                 >
                   {tab.content}
                 </TabPanel>

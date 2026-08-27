@@ -8,12 +8,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { BiErrorCircle } from "react-icons/bi";
+import { LuCircleAlert } from "react-icons/lu";
 import { toast } from "react-toastify";
+import foodRepo from "repositories/foodRepo";
 import { Store } from "utils/Store";
 import { useMounted } from "utils/useMounted";
 
-export default function LoginPage() {
+export default function LoginPage({ heroImage }: any) {
   const router = useRouter();
   const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
@@ -53,8 +54,9 @@ export default function LoginPage() {
   return (
     <Layout title="Sign in" description="Sign in to your Cheesy_Kitchen account.">
       <AuthShell
+        image={heroImage}
         title="Welcome back"
-        subtitle="Sign in to reorder in a couple of taps."
+        subtitle="Sign in and your delivery details are already filled in."
         footer={
           <>
             Don&apos;t have an account?{" "}
@@ -67,7 +69,7 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           {formError && (
             <p className="mb-5 alert alert-danger" role="alert">
-              <BiErrorCircle className="w-5 h-5 shrink-0" aria-hidden="true" />
+              <LuCircleAlert className="w-5 h-5 shrink-0" aria-hidden="true" />
               <span>{formError}</span>
             </p>
           )}
@@ -112,7 +114,7 @@ export default function LoginPage() {
             )}
           </Field>
 
-          <Button type="submit" variant="accent" size="lg" block loading={isSubmitting}>
+          <Button type="submit" variant="order" size="lg" block loading={isSubmitting}>
             Sign in
           </Button>
         </form>
@@ -120,8 +122,8 @@ export default function LoginPage() {
         {/* The demo credentials were already published on this page; they're
             kept, but presented as the development aid they are rather than as
             a bulleted list styled like account settings. */}
-        <div className="p-4 mt-8 text-sm rounded-card bg-cream-100 text-charcoal-600">
-          <p className="mb-2 font-semibold text-charcoal-800">Demo accounts</p>
+        <div className="p-4 mt-8 text-sm rounded-panel bg-oat-200 text-espresso-600">
+          <p className="mb-2 font-semibold text-espresso-800">Demo accounts</p>
           <p>
             Admin — <span className="tabular-nums">admin@gmail.com</span> / 123456
           </p>
@@ -132,4 +134,9 @@ export default function LoginPage() {
       </AuthShell>
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  const foods = await foodRepo.listAll();
+  return { props: { heroImage: foods[0]?.image ?? null } };
 }

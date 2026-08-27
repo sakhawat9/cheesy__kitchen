@@ -23,7 +23,7 @@ import { Store } from "../../utils/Store";
  * and wrapped a <button> inside a <Link>, which is invalid HTML and meant the
  * keyboard focus order ran through each entry twice.
  */
-export default function UserMenu({ userInfo }: any) {
+export default function UserMenu({ userInfo, floating = false }: any) {
   const router = useRouter();
   const { dispatch } = useContext(Store);
 
@@ -55,14 +55,18 @@ export default function UserMenu({ userInfo }: any) {
 
   return (
     <Menu as="div" className="relative inline-block ml-1 text-left">
-      <MenuButton className="flex items-center gap-2 px-2 py-1.5 text-sm font-medium transition-colors rounded-full text-charcoal-800 hover:bg-cream-100">
+      <MenuButton
+        className={`flex items-center gap-2 p-1 text-sm font-medium transition-colors rounded-full ${
+          floating ? "text-oat-100 hover:bg-white/10" : "text-espresso-800 hover:bg-oat-200"
+        }`}
+      >
         {/* An initial avatar rather than next/image on `userInfo.img`: that
             field is a remote URL from an arbitrary host, and the old markup
             crashed the header outright when it was empty. */}
-        <span className="flex items-center justify-center w-8 h-8 text-sm font-semibold text-white rounded-full bg-ember-600 shrink-0">
+        <span className="flex items-center justify-center text-sm font-medium rounded-full w-9 h-9 font-display text-oat-50 bg-chilli-600 shrink-0">
           {initial}
         </span>
-        <span className="hidden max-w-[8rem] truncate sm:inline">{userInfo?.name}</span>
+        <span className="sr-only">Account menu for {userInfo?.name}</span>
       </MenuButton>
 
       <Transition
@@ -74,20 +78,20 @@ export default function UserMenu({ userInfo }: any) {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <MenuItems className="absolute right-0 z-50 w-56 mt-2 origin-top-right bg-white border rounded-card border-cream-300 shadow-popover focus:outline-none">
-          <div className="px-4 py-3 border-b border-cream-200">
-            <p className="text-sm font-semibold truncate text-charcoal-900">
+        <MenuItems className="absolute right-0 z-50 w-60 mt-3 origin-top-right border rounded-card bg-oat-50 border-oat-300 shadow-popover focus:outline-none">
+          <div className="px-5 py-4 border-b border-oat-200">
+            <p className="text-base truncate font-display text-espresso-900">
               {userInfo?.name}
             </p>
-            <p className="text-xs truncate text-charcoal-500">{userInfo?.email}</p>
+            <p className="text-xs truncate text-espresso-500">{userInfo?.email}</p>
           </div>
 
-          <div className="p-1.5">
+          <div className="p-2">
             {items.map(({ href, label, icon: Icon }) => (
               <MenuItem key={href}>
                 <Link
                   href={href}
-                  className="flex items-center w-full gap-2.5 px-2.5 py-2 text-sm rounded text-charcoal-700 data-[focus]:bg-cream-100 data-[focus]:text-charcoal-900"
+                  className="flex items-center w-full gap-3 px-3 py-2.5 text-sm rounded-full text-espresso-600 data-[focus]:bg-oat-200 data-[focus]:text-espresso-900"
                 >
                   <Icon className="w-4 h-4 shrink-0" aria-hidden="true" />
                   {label}
@@ -96,12 +100,12 @@ export default function UserMenu({ userInfo }: any) {
             ))}
           </div>
 
-          <div className="p-1.5 border-t border-cream-200">
+          <div className="p-2 border-t border-oat-200">
             <MenuItem>
               <button
                 type="button"
                 onClick={logout}
-                className="flex items-center w-full gap-2.5 px-2.5 py-2 text-sm rounded text-danger data-[focus]:bg-danger-soft"
+                className="flex items-center w-full gap-3 px-3 py-2.5 text-sm rounded-full text-danger data-[focus]:bg-danger-soft"
               >
                 <BiLogOutCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
                 Log out

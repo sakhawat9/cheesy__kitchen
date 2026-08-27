@@ -1,10 +1,9 @@
 import { categoryLabel } from "../../utils/format";
-import SectionHeading from "../ui/SectionHeading";
-import FoodGrid from "./FoodGrid";
+import SectionIntro from "../ui/SectionIntro";
+import DishGrid from "./DishGrid";
 
 /**
- * "More like this" band on the dish page. The old detail page ended abruptly
- * after the tabs with no route onward except the browser's back button.
+ * "More like this" band on the dish page.
  *
  * The row is always filled to three: with a menu this short a category can
  * hold a single other dish, and one lone card floating in a three-column grid
@@ -21,21 +20,22 @@ export default function RelatedFoods({ foods = [], current }: any) {
   const related = [...sameCategory, ...rest].slice(0, 3);
   if (related.length === 0) return null;
 
-  // Only claim the row is all one category when it actually is.
   const allSameCategory = related.length <= sameCategory.length;
 
   return (
-    <section className="section">
+    <section className="section surface-cream">
       <div className="container">
-        <SectionHeading
-          eyebrow="Keep going"
+        <SectionIntro
+          label="Keep going"
           title={
             allSameCategory
               ? `More ${categoryLabel(current.category).toLowerCase()}`
               : "You might also like"
           }
+          align="center"
+          className="mb-14"
         />
-        <FoodGrid foods={related} />
+        <DishGrid foods={related} />
       </div>
     </section>
   );

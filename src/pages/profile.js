@@ -2,7 +2,7 @@ import axios from "axios";
 import Layout from "components/common/Layout";
 import Button from "components/ui/Button";
 import Field, { inputClass } from "components/ui/Field";
-import PageHeader from "components/ui/PageHeader";
+import PageMasthead from "components/ui/PageMasthead";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
@@ -78,21 +78,21 @@ export default function ProfilePage() {
   };
 
   return (
-    <Layout title="Account settings">
-      <PageHeader
-        eyebrow="Your account"
+    <Layout heroPage title="Account settings">
+      <PageMasthead
+        label="Your account"
         title="Account settings"
         crumbs={[{ label: "Account settings" }]}
       />
 
-      <div className="section">
+      <div className="section surface-cream">
         <div className="container">
           <div className="max-w-2xl">
             {!mounted || !userInfo ? (
-              <div className="h-96 skeleton rounded-card" aria-hidden="true" />
+              <div className="h-96 skeleton rounded-panel" aria-hidden="true" />
             ) : (
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
-              <h2 className="mb-6 text-h3">Your details</h2>
+              <h2 className="mb-8 text-display">Your details</h2>
 
               <Field label="Full name" error={errors.name?.message} required>
                 {(id, describedBy, invalid) => (
@@ -128,10 +128,10 @@ export default function ProfilePage() {
                 )}
               </Field>
 
-              <h2 className="pt-6 mt-10 mb-2 border-t text-h3 border-cream-300">
+              <h2 className="pt-8 mt-12 mb-2 border-t text-display border-espresso-200/60">
                 Change password
               </h2>
-              <p className="mb-6 text-sm text-charcoal-500">
+              <p className="mb-6 text-sm text-espresso-500">
                 Leave these blank to keep your current password.
               </p>
 
@@ -177,7 +177,7 @@ export default function ProfilePage() {
                 )}
               </Field>
 
-              <h2 className="pt-6 mt-10 mb-6 border-t text-h3 border-cream-300">
+              <h2 className="pt-8 mt-12 mb-8 border-t text-display border-espresso-200/60">
                 Social links
               </h2>
 
@@ -222,7 +222,7 @@ export default function ProfilePage() {
 
               <Button
                 type="submit"
-                variant="accent"
+                variant="order"
                 size="lg"
                 loading={isSubmitting}
                 className="mt-2"

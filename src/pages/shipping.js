@@ -4,11 +4,11 @@ import Layout from "components/common/Layout";
 import Button from "components/ui/Button";
 import EmptyState from "components/ui/EmptyState";
 import Field, { inputClass } from "components/ui/Field";
-import PageHeader from "components/ui/PageHeader";
+import PageMasthead from "components/ui/PageMasthead";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { MdOutlineShoppingBasket } from "react-icons/md";
+import { LuShoppingBasket } from "react-icons/lu";
 import { Store } from "utils/Store";
 import { useMounted } from "utils/useMounted";
 
@@ -51,24 +51,24 @@ export default function ShippingPage() {
   };
 
   return (
-    <Layout title="Delivery details">
+    <Layout heroPage title="Delivery details">
       {/* The banner renders even before hydration, so the server response
           always carries the page's <h1> rather than an empty shell. */}
-      <PageHeader
-        eyebrow="Checkout"
+      <PageMasthead
+        label="Checkout"
         title="Where's it going?"
         crumbs={[{ label: "Basket", href: "/cartFood" }, { label: "Delivery" }]}
       />
 
-      <div className="section">
+      <div className="section surface-cream">
         <div className="container">
           <CheckoutSteps current={1} />
 
           {!mounted ? (
-            <div className="h-96 skeleton rounded-card" aria-hidden="true" />
+            <div className="h-96 skeleton rounded-panel" aria-hidden="true" />
           ) : cart.cartItems.length === 0 ? (
             <EmptyState
-              icon={MdOutlineShoppingBasket}
+              icon={LuShoppingBasket}
               title="There's nothing to deliver yet"
               description="Add something to your basket and we'll take it from there."
               action={{ label: "Browse the menu", href: "/foods" }}
@@ -185,7 +185,7 @@ export default function ShippingPage() {
 
                   <Button
                     type="submit"
-                    variant="accent"
+                    variant="order"
                     size="lg"
                     loading={isSubmitting}
                     className="mt-2"

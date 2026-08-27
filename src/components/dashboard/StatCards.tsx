@@ -33,14 +33,14 @@ export default function StatCards({ foods = [], orders = [], users = [], reviews
   return (
     <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-5">
       {STATS.map(({ label, value, icon: Icon }) => (
-        <div key={label} className="p-5 bg-white border rounded-card border-cream-300">
+        <div key={label} className="p-5 bg-white border rounded-card border-oat-300">
           <div className="flex items-center gap-3 mb-3">
-            <span className="flex items-center justify-center w-9 h-9 rounded-full bg-ember-100 text-ember-700">
+            <span className="flex items-center justify-center w-9 h-9 rounded-full bg-saffron-100 text-saffron-700">
               <Icon className="w-5 h-5" aria-hidden="true" />
             </span>
-            <dt className="text-sm font-medium text-charcoal-500">{label}</dt>
+            <dt className="text-sm font-medium text-espresso-500">{label}</dt>
           </div>
-          <dd className="text-2xl font-bold font-heading text-charcoal-900">{value}</dd>
+          <dd className="text-2xl font-semibold font-display text-espresso-900">{value}</dd>
         </div>
       ))}
     </dl>

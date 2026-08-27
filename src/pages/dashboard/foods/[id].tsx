@@ -6,7 +6,7 @@ import foodRepo from "repositories/foodRepo";
 export default function EditFoodPage({ food }: any) {
   return (
     <DashboardLayout title={`Edit ${food.name}`}>
-      <p className="max-w-prose mb-8 -mt-4 text-charcoal-500">
+      <p className="max-w-prose mb-8 -mt-4 text-espresso-500">
         Changes go live on{" "}
         <Link href={`/foods/${food.slug}`} className="link">
           the dish page

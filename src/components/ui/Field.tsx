@@ -37,7 +37,7 @@ export default function Field({
   return (
     <div className={`field ${className}`}>
       {label && (
-        <label htmlFor={id} className="label">
+        <label htmlFor={id} className="field-label">
           {label}
           {required && (
             <span className="ml-0.5 text-danger" aria-hidden="true">

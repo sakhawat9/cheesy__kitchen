@@ -6,6 +6,7 @@ import { BiHome, BiLogOutCircle, BiPlusCircle, BiReceipt, BiSolidDashboard } fro
 import { BiMenu, BiX } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import Cookies from "js-cookie";
+import Wordmark from "../common/Wordmark";
 import { Store } from "../../utils/Store";
 import { useMounted } from "../../utils/useMounted";
 
@@ -62,40 +63,37 @@ export default function DashboardLayout({ title, children }: any) {
         <Head>
           <title>Dashboard | Cheesy_Kitchen</title>
         </Head>
-        <div className="min-h-screen bg-cream-100" />
+        <div className="min-h-screen bg-oat-100" />
       </>
     );
   }
 
   const sidebar = (
     <div className="flex flex-col h-full">
-      <div className="flex items-center justify-between px-5 border-b h-[var(--header-height)] border-cream-300">
-        <Link
-          href="/"
-          className="text-base font-bold tracking-[0.12em] uppercase font-heading text-charcoal-900"
-        >
-          Cheesy<span className="text-ember-600">_</span>Kitchen
+      <div className="flex items-center justify-between px-5 border-b h-[var(--header-height)] border-oat-300">
+        <Link href="/" aria-label="Cheesy Kitchen — home">
+          <Wordmark size="sm" />
         </Link>
         <button
           type="button"
           onClick={() => setOpen(false)}
           aria-label="Close menu"
-          className="flex items-center justify-center w-10 h-10 rounded text-charcoal-700 lg:hidden"
+          className="flex items-center justify-center w-10 h-10 rounded text-espresso-700 lg:hidden"
         >
           <BiX className="w-6 h-6" aria-hidden="true" />
         </button>
       </div>
 
-      <div className="px-5 py-5 border-b border-cream-200">
+      <div className="px-5 py-5 border-b border-oat-200">
         <div className="flex items-center gap-3">
-          <span className="flex items-center justify-center w-10 h-10 text-sm font-semibold text-white rounded-full bg-ember-600 shrink-0">
+          <span className="flex items-center justify-center w-10 h-10 text-sm font-semibold text-white rounded-full bg-chilli-600 shrink-0 font-display">
             {userInfo.name?.charAt(0)?.toUpperCase()}
           </span>
           <div className="min-w-0">
-            <p className="text-sm font-semibold truncate text-charcoal-900">
+            <p className="text-sm font-semibold truncate text-espresso-900">
               {userInfo.name}
             </p>
-            <p className="text-xs truncate text-charcoal-500">{userInfo.email}</p>
+            <p className="text-xs truncate text-espresso-500">{userInfo.email}</p>
           </div>
         </div>
       </div>
@@ -111,8 +109,8 @@ export default function DashboardLayout({ title, children }: any) {
                   aria-current={active ? "page" : undefined}
                   className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded transition-colors ${
                     active
-                      ? "bg-ember-50 text-ember-700"
-                      : "text-charcoal-700 hover:bg-cream-100"
+                      ? "bg-saffron-100 text-saffron-800"
+                      : "text-espresso-700 hover:bg-oat-100"
                   }`}
                 >
                   <Icon className="w-5 h-5 shrink-0" aria-hidden="true" />
@@ -124,10 +122,10 @@ export default function DashboardLayout({ title, children }: any) {
         </ul>
       </nav>
 
-      <div className="p-3 space-y-1 border-t border-cream-300">
+      <div className="p-3 space-y-1 border-t border-oat-300">
         <Link
           href="/"
-          className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors rounded text-charcoal-700 hover:bg-cream-100"
+          className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors rounded text-espresso-700 hover:bg-oat-100"
         >
           <BiHome className="w-5 h-5 shrink-0" aria-hidden="true" />
           Back to the site
@@ -152,9 +150,9 @@ export default function DashboardLayout({ title, children }: any) {
         <meta name="robots" content="noindex" />
       </Head>
 
-      <div className="min-h-screen bg-cream-100">
+      <div className="min-h-screen bg-oat-100">
         {/* Desktop sidebar */}
-        <aside className="fixed inset-y-0 left-0 z-30 hidden bg-white border-r w-72 border-cream-300 lg:block">
+        <aside className="fixed inset-y-0 left-0 z-30 hidden bg-white border-r w-72 border-oat-300 lg:block">
           {sidebar}
         </aside>
 
@@ -165,7 +163,7 @@ export default function DashboardLayout({ title, children }: any) {
         >
           <div
             onClick={() => setOpen(false)}
-            className={`absolute inset-0 transition-opacity duration-200 bg-charcoal-950/60 ${
+            className={`absolute inset-0 transition-opacity duration-200 bg-espresso-950/60 ${
               open ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -183,17 +181,17 @@ export default function DashboardLayout({ title, children }: any) {
 
         <div className="lg:pl-72">
           {/* Mobile top bar */}
-          <div className="sticky top-0 z-20 flex items-center gap-3 px-4 bg-white border-b h-14 border-cream-300 lg:hidden">
+          <div className="sticky top-0 z-20 flex items-center gap-3 px-4 bg-white border-b h-14 border-oat-300 lg:hidden">
             <button
               type="button"
               onClick={() => setOpen(true)}
               aria-label="Open menu"
               aria-expanded={open}
-              className="flex items-center justify-center w-10 h-10 rounded text-charcoal-800"
+              className="flex items-center justify-center w-10 h-10 rounded text-espresso-800"
             >
               <BiMenu className="w-6 h-6" aria-hidden="true" />
             </button>
-            <span className="text-sm font-semibold text-charcoal-900">{title}</span>
+            <span className="text-sm font-semibold text-espresso-900">{title}</span>
           </div>
 
           <main className="px-4 py-8 sm:px-6 lg:px-8 lg:py-10">

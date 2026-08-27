@@ -58,8 +58,8 @@ export default function RevenueChart({ orders = [] }: any) {
 
   if (orders.length === 0) {
     return (
-      <div className="p-5 bg-white border rounded-card border-cream-300">
-        <h2 className="mb-4 text-h4">Revenue</h2>
+      <div className="p-5 bg-white border rounded-card border-oat-300">
+        <h2 className="mb-4 text-xl">Revenue</h2>
         <EmptyState
           compact
           icon={BiLineChart}
@@ -71,29 +71,29 @@ export default function RevenueChart({ orders = [] }: any) {
   }
 
   return (
-    <div className="p-5 bg-white border rounded-card border-cream-300">
-      <h2 className="mb-1 text-h4">Revenue</h2>
-      <p className="mb-6 text-sm text-charcoal-500">Last 12 weeks</p>
+    <div className="p-5 bg-white border rounded-card border-oat-300">
+      <h2 className="mb-1 text-xl">Revenue</h2>
+      <p className="mb-6 text-sm text-espresso-500">Last 12 weeks</p>
 
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
             <defs>
               <linearGradient id="revenueFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#C0492B" stopOpacity={0.28} />
-                <stop offset="100%" stopColor="#C0492B" stopOpacity={0} />
+                <stop offset="0%" stopColor="#C0342A" stopOpacity={0.28} />
+                <stop offset="100%" stopColor="#C0342A" stopOpacity={0} />
               </linearGradient>
             </defs>
 
-            <CartesianGrid strokeDasharray="3 3" stroke="#E8DECE" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#EADCC0" vertical={false} />
             <XAxis
               dataKey="label"
-              tick={{ fontSize: 12, fill: "#8A7E74" }}
+              tick={{ fontSize: 12, fill: "#968276" }}
               tickLine={false}
-              axisLine={{ stroke: "#E8DECE" }}
+              axisLine={{ stroke: "#EADCC0" }}
             />
             <YAxis
-              tick={{ fontSize: 12, fill: "#8A7E74" }}
+              tick={{ fontSize: 12, fill: "#968276" }}
               tickLine={false}
               axisLine={false}
               tickFormatter={(value) => formatPrice(value)}
@@ -102,15 +102,15 @@ export default function RevenueChart({ orders = [] }: any) {
             <Tooltip
               formatter={(value: any) => [formatPrice(value), "Revenue"]}
               contentStyle={{
-                borderRadius: "0.5rem",
-                border: "1px solid #E8DECE",
+                borderRadius: "0.75rem",
+                border: "1px solid #EADCC0",
                 fontSize: "0.875rem",
               }}
             />
             <Area
               type="monotone"
               dataKey="revenue"
-              stroke="#C0492B"
+              stroke="#C0342A"
               strokeWidth={2}
               fill="url(#revenueFill)"
             />

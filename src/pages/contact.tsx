@@ -2,20 +2,22 @@ import axios from "axios";
 import Layout from "components/common/Layout";
 import Button from "components/ui/Button";
 import Field, { inputClass } from "components/ui/Field";
-import PageHeader from "components/ui/PageHeader";
-import SectionHeading from "components/ui/SectionHeading";
-import { useForm } from "react-hook-form";
-import { BiCheckCircle } from "react-icons/bi";
-import { MdOutlineEmail, MdOutlinePlace, MdOutlineSchedule } from "react-icons/md";
-import { toast } from "react-toastify";
+import PageMasthead from "components/ui/PageMasthead";
+import Reveal from "components/ui/Reveal";
+import SectionIntro from "components/ui/SectionIntro";
+import Link from "next/link";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { LuCheck, LuClock, LuMail, LuMapPin, LuUtensils } from "react-icons/lu";
+import { toast } from "react-toastify";
+import foodRepo from "repositories/foodRepo";
 
 const HOURS = [
   { days: "Monday – Saturday", time: "8:00 AM – 11:00 PM" },
   { days: "Sunday", time: "11:00 AM – 3:00 PM" },
 ];
 
-export default function ContactPage() {
+export default function ContactPage({ heroImage }: any) {
   const [sent, setSent] = useState(false);
   const {
     register,
@@ -29,8 +31,6 @@ export default function ContactPage() {
       await axios.post("/api/contact", values, {
         headers: { "Content-Type": "application/json" },
       });
-      // The old page imported animate.css purely to zoom a toast in, and
-      // mounted its own <ToastContainer> alongside the one in _app.
       toast.success("Thanks — your message is on its way to the kitchen.");
       setSent(true);
       reset();
@@ -44,30 +44,96 @@ export default function ContactPage() {
 
   return (
     <Layout
-      title="Contact"
-      description="Get in touch with Cheesy_Kitchen — opening hours, delivery area and a direct line to the kitchen."
+      heroPage
+      title="Visit"
+      description="Find Cheesy Kitchen — opening hours, our address in Kalabagan, and a direct line to the kitchen."
     >
-      <PageHeader
-        eyebrow="Say hello"
-        title="Get in touch"
-        description="Questions about an order, an allergy, or a large booking? The fastest answers come from the kitchen itself."
-        crumbs={[{ label: "Contact" }]}
+      <PageMasthead
+        label="Come and eat"
+        title="Visit the kitchen"
+        description="Walk in, book a table, or ask us anything — questions about an order, an allergy, or a large booking."
+        crumbs={[{ label: "Visit" }]}
+        image={heroImage}
       />
 
-      <div className="section">
+      {/* Details first: most people arriving here want the address and the
+          hours, not a form. */}
+      <section className="section-sm surface-cream">
         <div className="container">
-          <div className="grid gap-10 lg:grid-cols-12 lg:gap-14 lg:items-start">
-            {/* Form */}
-            <div className="lg:col-span-7">
-              <h2 className="mb-2 text-h3">Send us a message</h2>
-              <p className="mb-8 text-charcoal-500">
-                We read everything that comes through here and usually reply the
-                same day.
-              </p>
+          <div className="grid gap-5 md:grid-cols-3">
+            <Reveal className="p-8 rounded-panel bg-espresso-900 on-dark">
+              <LuMapPin className="w-6 h-6 mb-5 text-saffron-400" aria-hidden="true" />
+              <h2 className="mb-3 text-2xl text-oat-50">Where we are</h2>
+              <address className="not-italic leading-relaxed text-oat-400">
+                15/e Lake Circus, Kalabagan
+                <br />
+                Dhaka, Bangladesh
+              </address>
+            </Reveal>
 
+            <Reveal delay={100} className="p-8 rounded-panel bg-oat-200" id="hours">
+              <LuClock className="w-6 h-6 mb-5 text-chilli-600" aria-hidden="true" />
+              <h2 className="mb-4 text-2xl">Kitchen hours</h2>
+              <dl className="space-y-3 text-sm">
+                {HOURS.map((entry) => (
+                  <div key={entry.days}>
+                    <dt className="text-espresso-500">{entry.days}</dt>
+                    <dd className="font-medium text-espresso-900">{entry.time}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+
+            <Reveal delay={180} className="p-8 rounded-panel bg-oat-200">
+              <LuMail className="w-6 h-6 mb-5 text-chilli-600" aria-hidden="true" />
+              <h2 className="mb-4 text-2xl">Email us</h2>
+              <p className="mb-3 text-sm text-espresso-500">
+                We read everything and usually reply the same day.
+              </p>
+              <a
+                href="mailto:sakhawathossain7969@gmail.com"
+                className="text-sm break-all link"
+              >
+                sakhawathossain7969@gmail.com
+              </a>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* The form */}
+      <section className="section surface-cream">
+        <div className="container">
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-5">
+              <SectionIntro
+                label="Say hello"
+                title="Send us a message"
+                description="Booking for a group, an allergy we should know about, or something that went wrong with an order — this reaches the kitchen directly."
+              />
+
+              <Reveal
+                delay={140}
+                className="flex gap-4 p-6 mt-10 rounded-panel bg-oat-200"
+              >
+                <LuUtensils
+                  className="w-5 h-5 mt-1 shrink-0 text-saffron-600"
+                  aria-hidden="true"
+                />
+                <p className="text-sm leading-relaxed text-espresso-600">
+                  Placing an order? You don&apos;t need this form —{" "}
+                  <Link href="/foods" className="link">
+                    order from the menu
+                  </Link>{" "}
+                  and it goes straight to the pass.
+                </p>
+              </Reveal>
+            </div>
+
+            <div className="lg:col-span-7">
               {sent && (
-                <p className="mb-6 alert alert-success" role="status">
-                  <BiCheckCircle className="w-5 h-5 shrink-0" aria-hidden="true" />
+                <p className="mb-8 alert alert-success" role="status">
+                  <LuCheck className="w-5 h-5 shrink-0" aria-hidden="true" />
                   <span>
                     Message sent. We&apos;ll get back to you at the email address
                     you gave us.
@@ -95,19 +161,14 @@ export default function ContactPage() {
                     )}
                   </Field>
 
-                  <Field
-                    label="Phone"
-                    hint="Optional"
-                    error={errors.phone?.message as string}
-                  >
-                    {(id, describedBy, invalid) => (
+                  <Field label="Phone" hint="Optional">
+                    {(id, describedBy) => (
                       <input
                         id={id}
                         type="tel"
                         autoComplete="tel"
                         aria-describedby={describedBy}
-                        aria-invalid={invalid}
-                        className={inputClass(invalid)}
+                        className="input"
                         {...register("phone")}
                       />
                     )}
@@ -147,14 +208,12 @@ export default function ContactPage() {
                   {(id, describedBy, invalid) => (
                     <textarea
                       id={id}
-                      rows={6}
+                      rows={7}
                       aria-describedby={describedBy}
                       aria-invalid={invalid}
                       className={inputClass(invalid, "textarea")}
                       {...register("message", {
                         required: "Please write us a message.",
-                        // The old form demanded a 50-character minimum, which
-                        // rejected perfectly reasonable one-line questions.
                         minLength: {
                           value: 10,
                           message: "Could you give us a little more detail?",
@@ -168,89 +227,19 @@ export default function ContactPage() {
                   )}
                 </Field>
 
-                <Button
-                  type="submit"
-                  variant="accent"
-                  size="lg"
-                  loading={isSubmitting}
-                >
+                <Button type="submit" variant="order" size="lg" loading={isSubmitting}>
                   Send message
                 </Button>
               </form>
             </div>
-
-            {/* Details */}
-            <aside className="lg:col-span-5">
-              <div className="card card-pad">
-                <h2 className="mb-6 text-h4">Find us</h2>
-
-                <ul className="space-y-6">
-                  <li className="flex gap-4">
-                    <span className="flex items-center justify-center rounded-full shrink-0 w-11 h-11 bg-ember-100 text-ember-700">
-                      <MdOutlinePlace className="w-5 h-5" aria-hidden="true" />
-                    </span>
-                    <div>
-                      <h3 className="mb-1 font-sans text-base font-semibold">
-                        The kitchen
-                      </h3>
-                      <address className="text-sm not-italic leading-relaxed text-charcoal-500">
-                        15/e Lake Circus, Kalabagan
-                        <br />
-                        Dhaka, Bangladesh
-                      </address>
-                    </div>
-                  </li>
-
-                  <li className="flex gap-4">
-                    <span className="flex items-center justify-center rounded-full shrink-0 w-11 h-11 bg-ember-100 text-ember-700">
-                      <MdOutlineEmail className="w-5 h-5" aria-hidden="true" />
-                    </span>
-                    <div>
-                      <h3 className="mb-1 font-sans text-base font-semibold">Email</h3>
-                      <a
-                        href="mailto:sakhawathossain7969@gmail.com"
-                        className="text-sm break-all link"
-                      >
-                        sakhawathossain7969@gmail.com
-                      </a>
-                    </div>
-                  </li>
-
-                  <li className="flex gap-4" id="hours">
-                    <span className="flex items-center justify-center rounded-full shrink-0 w-11 h-11 bg-ember-100 text-ember-700">
-                      <MdOutlineSchedule className="w-5 h-5" aria-hidden="true" />
-                    </span>
-                    <div>
-                      <h3 className="mb-2 font-sans text-base font-semibold">
-                        Opening hours
-                      </h3>
-                      <dl className="space-y-1.5 text-sm">
-                        {HOURS.map((entry) => (
-                          <div key={entry.days} className="flex justify-between gap-4">
-                            <dt className="text-charcoal-500">{entry.days}</dt>
-                            <dd className="font-medium text-charcoal-800 whitespace-nowrap">
-                              {entry.time}
-                            </dd>
-                          </div>
-                        ))}
-                      </dl>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="mt-6 card card-pad bg-cream-50">
-                <h3 className="mb-2 font-sans text-base font-semibold">Delivery</h3>
-                <p className="text-sm leading-relaxed text-charcoal-500">
-                  We deliver across Dhaka, free on every order with no minimum
-                  spend. Everything is cooked to order, so allow a little longer
-                  at peak times.
-                </p>
-              </div>
-            </aside>
           </div>
         </div>
-      </div>
+      </section>
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  const foods = await foodRepo.listAll();
+  return { props: { heroImage: foods[3]?.image ?? foods[0]?.image ?? null } };
 }

@@ -1,34 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { MdArrowForward, MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { LuChevronDown } from "react-icons/lu";
 import { formatPrice } from "../../utils/format";
 
-const ROTATE_MS = 6000;
+const ROTATE_MS = 7000;
 
 /**
- * Featured-dish hero.
+ * Full-bleed photographic hero.
  *
- * Three problems with the original are fixed here:
+ * The whole viewport is the food. A slow ken-burns drift keeps the plate alive
+ * without asking anything of the reader, the headline is fixed brand copy
+ * rather than a dish name (so it reads as a restaurant, not a product page),
+ * and the rotating dish is credited in a small card at the bottom corner —
+ * which doubles as the link into that dish.
  *
- *  1. It stretched a bare <img> full-bleed with copy absolutely positioned on
- *     top, and every slide printed the same "Welcome Cheesy__kitchen" heading
- *     regardless of which dish was showing — so the <h1> was duplicated once
- *     per slide. This is a split layout that reflows, and the dish's own name
- *     is the heading.
- *
- *  2. react-multi-carousel derives slide widths by measuring its container on
- *     mount and needs an explicit `deviceType` to render anything during SSR.
- *     At narrow viewports that measurement collapsed the hero to a bare strip.
- *     Slides here are plain stacked elements toggled by opacity, so the height
- *     comes from the content and never depends on JS measurement.
- *
- *  3. It also shipped a module-level `images` array of five URLs pointing at a
- *     third-party WordPress demo site, which nothing rendered.
+ * Slides are stacked and cross-faded rather than measured by a carousel
+ * library: the height comes from the layout, so nothing can collapse before
+ * JS runs.
  */
 export default function Hero({ foods = [] }: any) {
   const featured = foods.filter((food: any) => food?.prichard === true);
-  const slides = featured.length > 0 ? featured : foods.slice(0, 3);
+  const slides = (featured.length > 0 ? featured : foods).slice(0, 4);
 
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -42,154 +35,140 @@ export default function Hero({ foods = [] }: any) {
     return () => clearInterval(timer);
   }, [count, paused]);
 
-  if (count === 0) return null;
+  const current = slides[index];
 
   return (
     <section
-      aria-label="Featured dishes"
-      aria-roledescription="carousel"
-      className="relative bg-charcoal-900"
+      aria-label="Welcome"
+      className="relative flex flex-col justify-end min-h-[100svh] overflow-hidden bg-espresso-950 on-dark"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <div className="container">
-        <div className="relative">
-          {slides.map((food: any, i: number) => (
-            <Slide
-              key={food._id}
-              food={food}
-              active={i === index}
-              // The first slide holds the layout height; the rest are stacked
-              // on top of it and faded in.
-              stacked={i !== 0}
-              position={`${i + 1} of ${count}`}
-              priority={i === 0}
-            />
-          ))}
-        </div>
-      </div>
-
-      {count > 1 && (
-        <div className="absolute left-0 right-0 flex items-center justify-center gap-3 bottom-5">
-          <button
-            type="button"
-            onClick={() => go(index - 1)}
-            aria-label="Previous featured dish"
-            className="flex items-center justify-center transition-colors border rounded-full w-9 h-9 border-white/25 text-white/70 hover:bg-white hover:text-charcoal-900"
+      {/* Photography */}
+      <div aria-hidden="true" className="absolute inset-0">
+        {slides.map((food: any, i: number) => (
+          <div
+            key={food._id}
+            className={`absolute inset-0 transition-opacity duration-[1200ms] ease-out-soft ${
+              i === index ? "opacity-100" : "opacity-0"
+            }`}
           >
-            <MdChevronLeft className="w-5 h-5" aria-hidden="true" />
-          </button>
-
-          <div className="flex items-center gap-2">
-            {slides.map((food: any, i: number) => (
-              /* The visible dot stays small, but the button itself is a
-                 24px-tall target — bare 8px dots are below the minimum touch
-                 size and near-impossible to hit on a phone. */
-              <button
-                key={food._id}
-                type="button"
-                onClick={() => go(i)}
-                aria-label={`Show ${food.name}`}
-                aria-current={i === index}
-                className="flex items-center justify-center w-6 h-6 group"
-              >
-                <span
-                  aria-hidden="true"
-                  className={`block h-2 transition-all rounded-full ${
-                    i === index
-                      ? "w-6 bg-ember-500"
-                      : "w-2 bg-white/30 group-hover:bg-white/60"
-                  }`}
-                />
-              </button>
-            ))}
-          </div>
-
-          <button
-            type="button"
-            onClick={() => go(index + 1)}
-            aria-label="Next featured dish"
-            className="flex items-center justify-center transition-colors border rounded-full w-9 h-9 border-white/25 text-white/70 hover:bg-white hover:text-charcoal-900"
-          >
-            <MdChevronRight className="w-5 h-5" aria-hidden="true" />
-          </button>
-        </div>
-      )}
-    </section>
-  );
-}
-
-function Heading({ active, className, children }: any) {
-  return active ? (
-    <h1 className={className}>{children}</h1>
-  ) : (
-    <p className={`font-bold font-heading ${className}`} aria-hidden="true">
-      {children}
-    </p>
-  );
-}
-
-function Slide({ food, active, stacked, position, priority }: any) {
-  return (
-    <div
-      role="group"
-      aria-roledescription="slide"
-      aria-label={`${food.name}, ${position}`}
-      aria-hidden={!active}
-      // Inactive slides are inert: no pointer events and no tab stops, so the
-      // hidden CTAs can't be reached by keyboard.
-      inert={!active || undefined}
-      className={`transition-opacity duration-500 ${
-        stacked ? "absolute inset-0" : ""
-      } ${active ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-    >
-      <div className="grid items-center gap-8 py-14 md:py-20 lg:py-24 md:grid-cols-2 lg:gap-16">
-        <div className="order-2 md:order-1">
-          <p className="mb-4 eyebrow text-ember-400">On the pass tonight</p>
-
-          {/* Only the visible slide contributes an <h1>: the carousel keeps
-              every slide in the DOM, so rendering all of them as <h1> gave the
-              homepage three competing top-level headings. */}
-          <Heading active={active} className="mb-4 text-white text-display">
-            {food.name}
-          </Heading>
-
-          <p className="max-w-md mb-6 leading-relaxed text-cream-400 md:text-lg">
-            {food.shortDesc}
-          </p>
-
-          <p className="flex items-baseline gap-3 mb-8">
-            <span className="text-2xl font-semibold text-white">
-              {formatPrice(food.price)}
-            </span>
-          </p>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <Link href={`/foods/${food.slug}`} className="btn btn-accent btn-lg">
-              See the dish
-              <MdArrowForward className="w-5 h-5" aria-hidden="true" />
-            </Link>
-            <Link href="/foods" className="btn btn-on-dark btn-lg">
-              Full menu
-            </Link>
-          </div>
-        </div>
-
-        <div className="order-1 md:order-2">
-          <div className="relative overflow-hidden aspect-[4/3] rounded-card bg-charcoal-800">
             <Image
               src={food.image}
-              alt={food.name}
+              alt=""
               fill
-              sizes="(max-width: 768px) 92vw, 46vw"
-              className="object-cover"
-              priority={priority}
+              sizes="100vw"
+              priority={i === 0}
+              className="object-cover animate-kenburns"
             />
+          </div>
+        ))}
+
+        {/* Scrims are weighted to the left, where the copy sits, rather than
+            flooding the whole frame. A flat 55% wash made the headline safe but
+            left the food looking grey — which is the one thing a restaurant
+            hero cannot afford. The photograph stays bright on the right. */}
+        <div className="absolute inset-0 bg-gradient-to-r from-espresso-950/95 via-espresso-950/60 to-espresso-950/25" />
+        <div className="absolute inset-0 bg-gradient-to-t from-espresso-950 via-transparent to-espresso-950/45" />
+      </div>
+
+      <div className="container relative pb-16 pt-32 sm:pb-20">
+        <div className="max-w-3xl">
+          <p className="mb-6 label-rule text-saffron-400">
+            Kitchen open daily &middot; Dhaka
+          </p>
+
+          <h1 className="text-hero text-oat-50">
+            Four things,
+            <br />
+            <em className="italic font-normal text-saffron-400">cooked properly.</em>
+          </h1>
+
+          <p className="max-w-lg mt-7 text-lg leading-relaxed sm:text-xl text-oat-300">
+            Burgers smashed to order, dough proved for forty-eight hours and
+            chickens brined overnight. A short menu, because a long one is a lie.
+          </p>
+
+          {/* Equal-width on a phone: two pills of different lengths stacked
+              on top of each other read as untidy rather than as a pair. */}
+          <div className="grid max-w-md gap-3 mt-10 sm:flex sm:max-w-none sm:flex-wrap sm:items-center sm:gap-4">
+            <Link href="/foods" className="btn btn-order btn-lg">
+              Explore the menu
+            </Link>
+            <Link href="/aboutUs" className="btn btn-line-light btn-lg">
+              Our story
+            </Link>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Now-serving card: credits the photograph and links into the dish. */}
+      {current && (
+        <div className="container relative pb-10">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <Link
+              href={`/foods/${current.slug}`}
+              className="inline-flex items-center gap-4 p-2 pr-6 transition-colors border rounded-full group border-white/15 bg-white/5 hover:bg-white/10 backdrop-blur-sm max-w-full"
+            >
+              <span className="relative w-12 h-12 overflow-hidden rounded-full shrink-0">
+                <Image
+                  src={current.image}
+                  alt=""
+                  fill
+                  sizes="48px"
+                  className="object-cover"
+                />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-[0.625rem] uppercase tracking-[0.2em] text-saffron-400">
+                  On the pass
+                </span>
+                <span className="block text-base truncate font-display text-oat-100">
+                  {current.name}
+                  <span className="ml-2 text-saffron-400">
+                    {formatPrice(current.price)}
+                  </span>
+                </span>
+              </span>
+            </Link>
+
+            {count > 1 && (
+              <div className="flex items-center gap-3">
+                {slides.map((food: any, i: number) => (
+                  <button
+                    key={food._id}
+                    type="button"
+                    onClick={() => go(i)}
+                    aria-label={`Show ${food.name}`}
+                    aria-current={i === index}
+                    className="flex items-center justify-center w-6 h-6 group"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={`block h-1.5 rounded-full transition-all duration-500 ${
+                        i === index
+                          ? "w-8 bg-saffron-400"
+                          : "w-1.5 bg-oat-100/40 group-hover:bg-oat-100/70"
+                      }`}
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Scroll cue */}
+      <a
+        href="#story"
+        aria-label="Skip to the story"
+        className="absolute z-10 hidden -translate-x-1/2 left-1/2 bottom-4 text-oat-100/50 hover:text-oat-100 transition-colors md:block"
+      >
+        <LuChevronDown className="w-6 h-6 animate-bounce" aria-hidden="true" />
+      </a>
+    </section>
   );
 }

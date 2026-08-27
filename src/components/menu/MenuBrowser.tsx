@@ -1,28 +1,19 @@
 import { useMemo, useState } from "react";
-import { MdOutlineRestaurantMenu, MdSearch } from "react-icons/md";
+import { LuLayoutGrid, LuList, LuSearch, LuUtensilsCrossed } from "react-icons/lu";
 import { categoryLabel } from "../../utils/format";
 import EmptyState from "../ui/EmptyState";
-import Pagination from "../ui/Pagination";
+import Reveal from "../ui/Reveal";
 import { CATEGORIES } from "./categories";
-import FoodGrid from "./FoodGrid";
-
-const PER_PAGE = 6;
-
-const SORTS = [
-  { value: "featured", label: "Featured first" },
-  { value: "price-asc", label: "Price: low to high" },
-  { value: "price-desc", label: "Price: high to low" },
-  { value: "rating", label: "Highest rated" },
-  { value: "name", label: "Name: A to Z" },
-];
+import DishGrid from "./DishGrid";
+import MenuList from "./MenuList";
 
 /**
- * The menu listing: search, category filter, sort and pagination in one place.
+ * The menu page's browsing surface.
  *
- * The old /foods page had none of this — it sliced the array six at a time and
- * rendered a pagination bar of `<a href="#">` links, with no way to filter or
- * sort, while six hand-written category pages each duplicated a filtered copy
- * of the same list.
+ * Two views. "Menu" is the default and groups every dish under its course as a
+ * printed list — which is how a restaurant menu is read, and shows the whole
+ * short menu at once with no paging. "Photos" switches to the card grid for
+ * people who want to see the food before choosing.
  *
  * Filtering is client-side because the whole menu is a handful of records; it
  * keeps the interaction instant and avoids a round trip per keystroke.
@@ -30,10 +21,8 @@ const SORTS = [
 export default function MenuBrowser({ foods = [], initialCategory = "" }: any) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState(initialCategory);
-  const [sort, setSort] = useState("featured");
-  const [page, setPage] = useState(1);
+  const [view, setView] = useState<"list" | "grid">("list");
 
-  // Only offer categories that actually have dishes behind them.
   const availableCategories = useMemo(
     () =>
       CATEGORIES.filter((entry) =>
@@ -44,8 +33,7 @@ export default function MenuBrowser({ foods = [], initialCategory = "" }: any) {
 
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
-
-    let result = foods.filter((food: any) => {
+    return foods.filter((food: any) => {
       const matchesCategory = !category || food.category === category;
       const matchesQuery =
         !needle ||
@@ -53,147 +41,172 @@ export default function MenuBrowser({ foods = [], initialCategory = "" }: any) {
         food.shortDesc?.toLowerCase().includes(needle);
       return matchesCategory && matchesQuery;
     });
+  }, [foods, query, category]);
 
-    result = [...result].sort((a: any, b: any) => {
-      switch (sort) {
-        case "price-asc":
-          return a.price - b.price;
-        case "price-desc":
-          return b.price - a.price;
-        case "rating":
-          return (b.rating ?? 0) - (a.rating ?? 0);
-        case "name":
-          return a.name.localeCompare(b.name);
-        default:
-          return Number(b.prichard ?? false) - Number(a.prichard ?? false);
-      }
-    });
-
-    return result;
-  }, [foods, query, category, sort]);
-
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
-  // Clamp rather than store an out-of-range page: changing the filter used to
-  // be able to leave you on page 4 of a 1-page result, showing nothing.
-  const currentPage = Math.min(page, totalPages);
-  const visible = filtered.slice(
-    (currentPage - 1) * PER_PAGE,
-    currentPage * PER_PAGE,
+  // Group the filtered dishes under their course for the list view.
+  const grouped = useMemo(
+    () =>
+      availableCategories
+        .map((entry) => ({
+          ...entry,
+          items: filtered.filter((food: any) => food.category === entry.slug),
+        }))
+        .filter((entry) => entry.items.length > 0),
+    [availableCategories, filtered],
   );
 
   const resetFilters = () => {
     setQuery("");
     setCategory("");
-    setSort("featured");
-    setPage(1);
   };
 
-  const hasFilters = Boolean(query.trim() || category || sort !== "featured");
+  const hasFilters = Boolean(query.trim() || category);
 
   return (
     <>
       {/* Controls */}
-      <div className="flex flex-col gap-4 mb-8 lg:flex-row lg:items-end lg:justify-between">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
-          <div className="w-full sm:w-64">
-            <label htmlFor="menu-search" className="label">
-              Search the menu
-            </label>
-            <div className="relative">
+      <div className="flex flex-col gap-6 mb-14">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          {/* Course filter */}
+          <div className="flex flex-wrap gap-2">
+            <FilterChip
+              active={!category}
+              onClick={() => setCategory("")}
+              label="Everything"
+            />
+            {availableCategories.map((entry) => (
+              <FilterChip
+                key={entry.slug}
+                active={category === entry.slug}
+                onClick={() => setCategory(entry.slug)}
+                label={entry.name}
+              />
+            ))}
+          </div>
+
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            {/* Search */}
+            <div className="relative sm:w-64">
+              <label htmlFor="menu-search" className="sr-only">
+                Search the menu
+              </label>
               <input
                 id="menu-search"
                 type="search"
                 value={query}
-                onChange={(event) => {
-                  setQuery(event.target.value);
-                  setPage(1);
-                }}
-                placeholder="Burger, pasta, chicken…"
-                className="input py-2.5 pl-10 text-sm"
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Search the menu"
+                className="py-2.5 pl-11 text-sm input"
               />
-              <MdSearch
-                className="absolute w-5 h-5 -translate-y-1/2 pointer-events-none left-3 top-1/2 text-charcoal-400"
+              <LuSearch
+                className="absolute w-4 h-4 -translate-y-1/2 pointer-events-none left-4 top-1/2 text-espresso-400"
                 aria-hidden="true"
               />
             </div>
-          </div>
 
-          <div className="w-full sm:w-48">
-            <label htmlFor="menu-category" className="label">
-              Category
-            </label>
-            <select
-              id="menu-category"
-              value={category}
-              onChange={(event) => {
-                setCategory(event.target.value);
-                setPage(1);
-              }}
-              className="select py-2.5 text-sm"
+            {/* View toggle */}
+            <div
+              role="group"
+              aria-label="Menu view"
+              className="flex self-start p-1 rounded-full bg-oat-200 shrink-0"
             >
-              <option value="">All categories</option>
-              {availableCategories.map((entry) => (
-                <option key={entry.slug} value={entry.slug}>
-                  {entry.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="w-full sm:w-52">
-            <label htmlFor="menu-sort" className="label">
-              Sort by
-            </label>
-            <select
-              id="menu-sort"
-              value={sort}
-              onChange={(event) => setSort(event.target.value)}
-              className="select py-2.5 text-sm"
-            >
-              {SORTS.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+              <ViewButton
+                active={view === "list"}
+                onClick={() => setView("list")}
+                icon={LuList}
+                label="Menu list"
+              />
+              <ViewButton
+                active={view === "grid"}
+                onClick={() => setView("grid")}
+                icon={LuLayoutGrid}
+                label="Photo grid"
+              />
+            </div>
           </div>
         </div>
 
-        {/* Result count, announced so filtering is perceivable without sight. */}
-        <p className="text-sm text-charcoal-500" role="status" aria-live="polite">
+        <p
+          className="text-sm text-espresso-500"
+          role="status"
+          aria-live="polite"
+        >
           {filtered.length} {filtered.length === 1 ? "dish" : "dishes"}
-          {category ? ` in ${categoryLabel(category)}` : ""}
+          {category ? ` in ${categoryLabel(category)}` : " on the menu"}
           {query.trim() ? ` matching “${query.trim()}”` : ""}
         </p>
       </div>
 
-      {/* The cards below are <h3>s. Without a heading at this level the
-          document outline jumps straight from the page <h1> to <h3>. */}
-      <h2 className="sr-only">Dishes</h2>
-
-      {visible.length === 0 ? (
+      {filtered.length === 0 ? (
         <EmptyState
-          icon={MdOutlineRestaurantMenu}
+          icon={LuUtensilsCrossed}
           title="Nothing on the menu matches that"
-          description="Try a different search term, or clear the filters to see everything the kitchen is cooking."
-          action={hasFilters ? { label: "Clear filters", onClick: resetFilters } : undefined}
+          description="Try a different search, or clear the filters to see everything the kitchen is cooking."
+          action={
+            hasFilters ? { label: "Clear filters", onClick: resetFilters } : undefined
+          }
           secondaryAction={{ label: "Back to the full menu", href: "/foods" }}
         />
+      ) : view === "grid" ? (
+        <DishGrid foods={filtered} />
       ) : (
-        <>
-          <FoodGrid foods={visible} />
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={(next: number) => {
-              setPage(next);
-              // Jump back to the top of the grid rather than leaving the reader
-              // stranded mid-list after the content swaps underneath them.
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          />
-        </>
+        <div className="space-y-16">
+          {grouped.map((group) => (
+            <Reveal key={group.slug} as="section" aria-labelledby={`course-${group.slug}`}>
+              <div className="flex items-baseline gap-5 mb-8">
+                <h2 id={`course-${group.slug}`} className="text-h2 shrink-0">
+                  {group.name}
+                </h2>
+                <span
+                  aria-hidden="true"
+                  className="flex-1 h-px bg-espresso-200"
+                />
+                <span className="text-sm shrink-0 text-espresso-400">
+                  {group.items.length}
+                </span>
+              </div>
+
+              <MenuList items={group.items} className="max-w-3xl" />
+            </Reveal>
+          ))}
+        </div>
       )}
     </>
+  );
+}
+
+function FilterChip({ active, onClick, label }: any) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`px-5 py-2 text-label font-medium uppercase rounded-full border transition-all duration-300 ${
+        active
+          ? "bg-espresso-900 border-espresso-900 text-oat-50"
+          : "border-espresso-200 text-espresso-600 hover:border-espresso-900 hover:text-espresso-900"
+      }`}
+    >
+      {label}
+    </button>
+  );
+}
+
+function ViewButton({ active, onClick, icon: Icon, label }: any) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      aria-label={label}
+      title={label}
+      className={`flex items-center justify-center w-10 h-9 rounded-full transition-colors ${
+        active
+          ? "bg-oat-50 text-espresso-900 shadow-subtle"
+          : "text-espresso-500 hover:text-espresso-900"
+      }`}
+    >
+      <Icon className="w-4 h-4" aria-hidden="true" />
+    </button>
   );
 }

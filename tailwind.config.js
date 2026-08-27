@@ -1,78 +1,97 @@
 /** @type {import('tailwindcss').Config} */
 
 // ---------------------------------------------------------------------------
-// Cheesy_Kitchen design tokens
+// Cheesy Kitchen design tokens
 //
-// Three families carry the whole brand:
-//   charcoal — warm near-black. Body text, dark surfaces, the footer.
-//   ember    — toasted paprika. CTAs, prices, active states. Used sparingly.
-//   cream    — warm oat. Section backgrounds and hairline borders.
+// The brand is a warm, dimly-lit dining room. Two decisions drive everything:
 //
-// A food brand wants warmth, so every neutral is tinted toward red/yellow
-// rather than blue — a "gray" here is never a true gray.
+//   1. Dark-first. The dominant surface is `espresso` — a warm brown-black —
+//      with `oat` cream as the relief, not the other way round. Light sections
+//      are the exception that makes the dark ones feel like a room.
 //
-// Everything else (success/warning/danger/info) exists only for feedback
-// states, so a page never invents a colour that isn't in this file.
+//   2. Two accents, not one. `saffron` is the warm golden light: labels,
+//      rules, star ratings, numerals. `chilli` is the appetite: every button
+//      that takes an order. Splitting decoration from action keeps the CTAs
+//      loud without the whole page shouting.
+//
+// Geometry is round throughout — pill buttons, deep card radii, circular
+// "plate" image crops — because nothing in a kitchen has a sharp corner.
 // ---------------------------------------------------------------------------
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       fontFamily: {
-        heading: ["var(--font-heading)", "Georgia", "serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
         sans: ["var(--font-body)", "system-ui", "sans-serif"],
       },
 
       colors: {
-        charcoal: {
-          DEFAULT: "#1A1512",
-          50: "#F7F5F3",
-          100: "#EAE6E1",
-          200: "#D4CCC4",
-          300: "#B0A69C",
-          400: "#8A7E74",
-          500: "#665C53",
-          600: "#4A423B",
-          700: "#332D28",
-          800: "#241F1B",
-          900: "#1A1512",
-          950: "#0F0C0A",
+        // Warm brown-black. Every step is tinted toward red so the dark
+        // surfaces read as candlelit rather than as a slate UI chrome.
+        espresso: {
+          DEFAULT: "#191110",
+          50: "#FAF7F5",
+          100: "#F0E9E5",
+          200: "#DED2CB",
+          300: "#BFAEA4",
+          400: "#968276",
+          500: "#6E5C52",
+          600: "#4F4038",
+          700: "#382C26",
+          800: "#261D19",
+          900: "#191110",
+          950: "#0D0908",
         },
 
-        ember: {
-          DEFAULT: "#C0492B",
-          50: "#FDF5F2",
-          100: "#FBE8E2",
-          200: "#F5CEC1",
-          300: "#EDAC97",
-          400: "#E08163",
-          500: "#D0603C",
-          600: "#C0492B",
-          700: "#9E3822",
-          800: "#772A19",
-          900: "#4B1A10",
+        // Golden lamplight. Decorative only — labels, rules, ratings, numerals.
+        saffron: {
+          DEFAULT: "#E9A23B",
+          50: "#FEF9EF",
+          100: "#FCEFD6",
+          200: "#F8DCAB",
+          300: "#F3C577",
+          400: "#EDB253",
+          500: "#E9A23B",
+          600: "#CE8324",
+          700: "#A5641C",
+          800: "#754618",
+          900: "#432810",
         },
 
-        cream: {
-          DEFAULT: "#FAF6F0",
-          50: "#FEFCF9",
-          100: "#FAF6F0",
-          200: "#F3EDE3",
-          300: "#E8DECE",
-          400: "#D8C9B2",
-          500: "#FAF6F0",
-          600: "#C0AC8E",
-          700: "#9C8869",
-          800: "#736450",
-          900: "#4A4034",
+        // Deep tomato. Reserved for actions: order, add, checkout, submit.
+        chilli: {
+          DEFAULT: "#C0342A",
+          50: "#FDF3F2",
+          100: "#FBE2DF",
+          200: "#F5BFB9",
+          300: "#EC948B",
+          400: "#DD6154",
+          500: "#CE4638",
+          600: "#C0342A",
+          700: "#9A2620",
+          800: "#6E1A16",
+          900: "#42100D",
         },
 
-        // A single supporting hue, for "fresh"/veg signals and the dashboard
-        // charts. Deliberately muted so it never competes with ember.
-        basil: { DEFAULT: "#3F6B4A", soft: "#EAF1EB", strong: "#2F5238" },
+        // Warm cream. The light surfaces and the type that sits on dark ones.
+        oat: {
+          DEFAULT: "#FBF5EA",
+          50: "#FEFCF7",
+          100: "#FBF5EA",
+          200: "#F5EBD8",
+          300: "#EADCC0",
+          400: "#D9C6A3",
+          500: "#FBF5EA",
+          600: "#BFA983",
+          700: "#9A8465",
+          800: "#6F5E47",
+          900: "#453A2C",
+        },
 
-        // Feedback colours. Each has a `soft` tint for backgrounds so alerts
-        // never need an off-palette gray.
+        // Supporting green for "fresh" signals and the dashboard charts.
+        basil: { DEFAULT: "#4A7A55", soft: "#EDF3EC", strong: "#33573A" },
+
         success: { DEFAULT: "#2F7A52", soft: "#E8F3EC", strong: "#1F5C3B" },
         warning: { DEFAULT: "#9A6700", soft: "#FBF2E0", strong: "#7A5200" },
         danger: { DEFAULT: "#B3261E", soft: "#FBEAE9", strong: "#8C1D17" },
@@ -80,56 +99,68 @@ module.exports = {
       },
 
       fontSize: {
-        // [size, { lineHeight, letterSpacing }] — the whole type scale lives
-        // here so headings stay consistent without per-component overrides.
-        "display-lg": ["clamp(2.75rem, 5vw, 4rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
-        display: ["clamp(2.25rem, 4vw, 3.25rem)", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
-        h1: ["clamp(2rem, 3.2vw, 2.75rem)", { lineHeight: "1.15", letterSpacing: "-0.015em" }],
-        h2: ["clamp(1.625rem, 2.6vw, 2.125rem)", { lineHeight: "1.2", letterSpacing: "-0.01em" }],
+        // Display sizes run large and tight: the serif is high-contrast and
+        // only earns its keep at size.
+        hero: ["clamp(3rem, 8vw, 6.5rem)", { lineHeight: "0.95", letterSpacing: "-0.02em" }],
+        "display-lg": ["clamp(2.5rem, 6vw, 4.5rem)", { lineHeight: "1.02", letterSpacing: "-0.015em" }],
+        display: ["clamp(2.125rem, 4.5vw, 3.5rem)", { lineHeight: "1.06", letterSpacing: "-0.01em" }],
+        h1: ["clamp(1.875rem, 3.4vw, 2.875rem)", { lineHeight: "1.12" }],
+        h2: ["clamp(1.625rem, 2.8vw, 2.25rem)", { lineHeight: "1.18" }],
         h3: ["clamp(1.25rem, 1.9vw, 1.5rem)", { lineHeight: "1.3" }],
         h4: ["1.125rem", { lineHeight: "1.4" }],
-        eyebrow: ["0.75rem", { lineHeight: "1.2", letterSpacing: "0.18em" }],
+        // Letterspaced small caps, used for every label and nav item.
+        label: ["0.6875rem", { lineHeight: "1.2", letterSpacing: "0.22em" }],
       },
 
       spacing: {
-        section: "clamp(3.5rem, 7vw, 6rem)",
-        "section-sm": "clamp(2.5rem, 5vw, 4rem)",
+        section: "clamp(4rem, 9vw, 8rem)",
+        "section-sm": "clamp(3rem, 6vw, 5rem)",
       },
 
       maxWidth: {
-        container: "82rem",
-        prose: "68ch",
+        container: "84rem",
+        prose: "64ch",
       },
 
-      // Softer than the watch brand's near-square corners: food packaging and
-      // plates are round, and the extra radius reads as friendly rather than
-      // clinical.
       borderRadius: {
-        DEFAULT: "0.5rem",
-        card: "0.875rem",
+        DEFAULT: "0.625rem",
+        card: "1.25rem",
+        panel: "1.75rem",
       },
 
       boxShadow: {
-        // Warm-tinted shadows: neutral black reads cold against the cream palette.
-        subtle: "0 1px 2px rgba(26, 21, 18, 0.05)",
-        card: "0 1px 3px rgba(26, 21, 18, 0.06), 0 6px 16px -8px rgba(26, 21, 18, 0.10)",
-        lift: "0 4px 8px rgba(26, 21, 18, 0.06), 0 18px 32px -12px rgba(26, 21, 18, 0.18)",
-        popover: "0 8px 32px -8px rgba(26, 21, 18, 0.22)",
+        subtle: "0 1px 2px rgba(25, 17, 16, 0.06)",
+        card: "0 2px 8px -2px rgba(25, 17, 16, 0.08), 0 12px 28px -12px rgba(25, 17, 16, 0.16)",
+        lift: "0 8px 16px -6px rgba(25, 17, 16, 0.10), 0 28px 56px -20px rgba(25, 17, 16, 0.28)",
+        popover: "0 12px 40px -10px rgba(25, 17, 16, 0.32)",
+        // Warm glow behind the chilli CTAs.
+        glow: "0 10px 30px -10px rgba(192, 52, 42, 0.55)",
       },
 
-      transitionDuration: { DEFAULT: "200ms" },
+      transitionTimingFunction: {
+        "out-soft": "cubic-bezier(0.22, 1, 0.36, 1)",
+      },
 
       keyframes: {
-        "fade-in-up": {
-          from: { opacity: "0", transform: "translateY(8px)" },
+        rise: {
+          from: { opacity: "0", transform: "translateY(1.25rem)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
-        shimmer: {
-          "100%": { transform: "translateX(100%)" },
+        // Slow drift across a hero photograph, so the plate is never static.
+        kenburns: {
+          from: { transform: "scale(1) translate3d(0,0,0)" },
+          to: { transform: "scale(1.08) translate3d(0,-1.5%,0)" },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
+        shimmer: { "100%": { transform: "translateX(100%)" } },
       },
       animation: {
-        "fade-in-up": "fade-in-up 400ms ease-out both",
+        rise: "rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both",
+        kenburns: "kenburns 18s ease-out alternate infinite",
+        marquee: "marquee 38s linear infinite",
         shimmer: "shimmer 1.6s infinite",
       },
     },

@@ -8,12 +8,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { BiErrorCircle } from "react-icons/bi";
+import { LuCircleAlert } from "react-icons/lu";
 import { toast } from "react-toastify";
+import foodRepo from "repositories/foodRepo";
 import { Store } from "utils/Store";
 import { useMounted } from "utils/useMounted";
 
-export default function RegisterPage() {
+export default function RegisterPage({ heroImage }: any) {
   const router = useRouter();
   const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
@@ -55,6 +56,7 @@ export default function RegisterPage() {
   return (
     <Layout title="Create an account" description="Create a Cheesy_Kitchen account.">
       <AuthShell
+        image={heroImage}
         title="Create an account"
         subtitle="It takes about thirty seconds and saves you typing your address every time."
         footer={
@@ -69,7 +71,7 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           {formError && (
             <p className="mb-5 alert alert-danger" role="alert">
-              <BiErrorCircle className="w-5 h-5 shrink-0" aria-hidden="true" />
+              <LuCircleAlert className="w-5 h-5 shrink-0" aria-hidden="true" />
               <span>{formError}</span>
             </p>
           )}
@@ -157,11 +159,16 @@ export default function RegisterPage() {
             )}
           </Field>
 
-          <Button type="submit" variant="accent" size="lg" block loading={isSubmitting}>
+          <Button type="submit" variant="order" size="lg" block loading={isSubmitting}>
             Create account
           </Button>
         </form>
       </AuthShell>
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  const foods = await foodRepo.listAll();
+  return { props: { heroImage: foods[1]?.image ?? foods[0]?.image ?? null } };
 }

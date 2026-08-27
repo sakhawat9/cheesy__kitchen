@@ -21,8 +21,8 @@ export default function CheckoutSteps({ current = 0 }: { current: number }) {
                   done
                     ? "bg-success text-white"
                     : active
-                      ? "bg-ember-600 text-white"
-                      : "bg-cream-200 text-charcoal-400"
+                      ? "bg-chilli-600 text-white"
+                      : "bg-oat-200 text-espresso-400"
                 }`}
                 aria-hidden="true"
               >
@@ -32,7 +32,7 @@ export default function CheckoutSteps({ current = 0 }: { current: number }) {
               <span
                 aria-current={active ? "step" : undefined}
                 className={`text-sm font-medium ${
-                  active ? "text-charcoal-900" : "text-charcoal-500"
+                  active ? "text-espresso-900" : "text-espresso-500"
                 }`}
               >
                 {label}
@@ -42,7 +42,7 @@ export default function CheckoutSteps({ current = 0 }: { current: number }) {
               {index < STEPS.length - 1 && (
                 <span
                   aria-hidden="true"
-                  className="hidden w-8 h-px sm:block bg-cream-300"
+                  className="hidden w-8 h-px sm:block bg-oat-300"
                 />
               )}
             </li>

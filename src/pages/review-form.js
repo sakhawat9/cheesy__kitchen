@@ -2,11 +2,11 @@ import axios from "axios";
 import Layout from "components/common/Layout";
 import Button from "components/ui/Button";
 import Field, { inputClass } from "components/ui/Field";
-import PageHeader from "components/ui/PageHeader";
+import PageMasthead from "components/ui/PageMasthead";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { BiCheckCircle } from "react-icons/bi";
+import { LuCircleCheck } from "react-icons/lu";
 import { toast } from "react-toastify";
 import { Store } from "utils/Store";
 import { useMounted } from "utils/useMounted";
@@ -62,32 +62,32 @@ export default function ReviewFormPage() {
   };
 
   return (
-    <Layout title="Leave a review">
-      <PageHeader
-        eyebrow="Your account"
+    <Layout heroPage title="Leave a review">
+      <PageMasthead
+        label="Guest book"
         title="Leave a review"
         description="Tell us what you thought — good or bad, it goes straight to the people who cooked it."
         crumbs={[{ label: "Leave a review" }]}
       />
 
-      <div className="section">
+      <div className="section surface-cream">
         <div className="container">
           <div className="max-w-2xl">
             {!mounted || !userInfo ? (
-              <div className="h-80 skeleton rounded-card" aria-hidden="true" />
+              <div className="h-80 skeleton rounded-panel" aria-hidden="true" />
             ) : (
             <>
             {sent && (
               <p className="mb-8 alert alert-success" role="status">
-                <BiCheckCircle className="w-5 h-5 shrink-0" aria-hidden="true" />
+                <LuCircleCheck className="w-5 h-5 shrink-0" aria-hidden="true" />
                 <span>
                   Review posted. Thanks for taking the time — it genuinely helps.
                 </span>
               </p>
             )}
 
-            <p className="mb-6 text-sm text-charcoal-500">
-              Posting as <strong className="text-charcoal-800">{userInfo.name}</strong>.
+            <p className="mb-6 text-sm text-espresso-500">
+              Posting as <strong className="text-espresso-800">{userInfo.name}</strong>.
             </p>
 
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -121,7 +121,7 @@ export default function ReviewFormPage() {
 
               <Button
                 type="submit"
-                variant="accent"
+                variant="order"
                 size="lg"
                 loading={isSubmitting}
               >

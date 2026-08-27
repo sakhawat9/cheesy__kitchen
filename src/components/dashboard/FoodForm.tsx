@@ -181,7 +181,7 @@ export default function FoodForm({ food, mode = "create" }: any) {
         <img
           src={image}
           alt=""
-          className="object-cover w-40 h-32 mb-5 rounded-card bg-cream-100"
+          className="object-cover w-40 h-32 mb-5 rounded-card bg-oat-100"
           onError={(event) => {
             (event.target as HTMLImageElement).style.display = "none";
           }}
@@ -233,14 +233,14 @@ export default function FoodForm({ food, mode = "create" }: any) {
         <label className="flex items-start gap-3 cursor-pointer">
           <input
             type="checkbox"
-            className="mt-1 rounded w-4 h-4 border-charcoal-300 text-ember-600 focus:ring-ember-600"
+            className="mt-1 rounded w-4 h-4 border-espresso-300 text-chilli-600 focus:ring-chilli-600"
             {...register("prichard")}
           />
           <span>
-            <span className="block text-sm font-medium text-charcoal-800">
+            <span className="block text-sm font-medium text-espresso-800">
               Feature this dish
             </span>
-            <span className="block text-sm text-charcoal-500">
+            <span className="block text-sm text-espresso-500">
               Featured dishes appear in the homepage hero and the chef&apos;s table.
             </span>
           </span>
@@ -248,10 +248,10 @@ export default function FoodForm({ food, mode = "create" }: any) {
       </div>
 
       <div className="flex flex-wrap gap-3 mt-2">
-        <Button type="submit" variant="accent" size="lg" loading={isSubmitting}>
+        <Button type="submit" variant="order" size="lg" loading={isSubmitting}>
           {mode === "edit" ? "Save changes" : "Add to the menu"}
         </Button>
-        <Button href="/dashboard/foods/managefoods" variant="outline" size="lg">
+        <Button href="/dashboard/foods/managefoods" variant="line" size="lg">
           Cancel
         </Button>
       </div>

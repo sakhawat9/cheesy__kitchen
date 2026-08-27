@@ -37,7 +37,7 @@ export default function ConfirmDialog({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-charcoal-950/60" aria-hidden="true" />
+          <div className="fixed inset-0 bg-espresso-950/70 backdrop-blur-sm" aria-hidden="true" />
         </TransitionChild>
 
         <div className="fixed inset-0 flex items-center justify-center p-4 overflow-y-auto">
@@ -50,7 +50,7 @@ export default function ConfirmDialog({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <DialogPanel className="w-full max-w-md p-6 bg-white rounded-card shadow-popover">
+            <DialogPanel className="w-full max-w-md p-7 bg-oat-50 rounded-panel shadow-popover">
               <div className="flex gap-4">
                 {destructive && (
                   <span className="flex items-center justify-center flex-shrink-0 w-10 h-10 rounded-full bg-danger-soft text-danger">
@@ -58,21 +58,21 @@ export default function ConfirmDialog({
                   </span>
                 )}
                 <div className="flex-1">
-                  <DialogTitle className="mb-1 font-bold text-h4 font-heading text-charcoal-900">
+                  <DialogTitle className="mb-1 text-h3 font-display text-espresso-900">
                     {title}
                   </DialogTitle>
                   {description && (
-                    <p className="text-sm text-charcoal-500">{description}</p>
+                    <p className="text-sm text-espresso-500">{description}</p>
                   )}
                 </div>
               </div>
 
               <div className="flex flex-col-reverse gap-3 mt-6 sm:flex-row sm:justify-end">
-                <Button variant="outline" onClick={onClose} disabled={loading}>
+                <Button variant="line" onClick={onClose} disabled={loading}>
                   {cancelLabel}
                 </Button>
                 <Button
-                  variant={destructive ? "danger" : "primary"}
+                  variant={destructive ? "danger" : "order"}
                   onClick={onConfirm}
                   loading={loading}
                 >

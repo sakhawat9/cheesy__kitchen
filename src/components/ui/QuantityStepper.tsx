@@ -16,20 +16,20 @@ export default function QuantityStepper({
   label = "Quantity",
 }: any) {
   return (
-    <div className="inline-flex items-center border rounded-full border-charcoal-200">
+    <div className="inline-flex items-center border rounded-full border-espresso-200">
       <button
         type="button"
         onClick={() => onChange(value - 1)}
         disabled={disabled || value <= min}
         aria-label={`Decrease ${label.toLowerCase()}`}
-        className="flex items-center justify-center transition-colors rounded-full w-9 h-9 text-charcoal-700 hover:bg-charcoal-50 disabled:opacity-40 disabled:cursor-not-allowed"
+        className="flex items-center justify-center transition-colors rounded-full w-9 h-9 text-espresso-700 hover:bg-oat-200 disabled:opacity-40 disabled:cursor-not-allowed"
       >
         <MdRemove className="w-4 h-4" aria-hidden="true" />
       </button>
 
       <span
         aria-live="polite"
-        className="w-10 text-sm font-semibold text-center tabular-nums text-charcoal-900"
+        className="w-10 text-sm font-semibold text-center tabular-nums text-espresso-900"
       >
         <span className="sr-only">{label}: </span>
         {value}
@@ -40,7 +40,7 @@ export default function QuantityStepper({
         onClick={() => onChange(value + 1)}
         disabled={disabled || value >= max}
         aria-label={`Increase ${label.toLowerCase()}`}
-        className="flex items-center justify-center transition-colors rounded-full w-9 h-9 text-charcoal-700 hover:bg-charcoal-50 disabled:opacity-40 disabled:cursor-not-allowed"
+        className="flex items-center justify-center transition-colors rounded-full w-9 h-9 text-espresso-700 hover:bg-oat-200 disabled:opacity-40 disabled:cursor-not-allowed"
       >
         <MdAdd className="w-4 h-4" aria-hidden="true" />
       </button>

@@ -2,12 +2,12 @@ import type { AppProps } from "next/app";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/styles/global.css";
-import { bodyFont, headingFont } from "../utils/fonts";
+import { bodyFont, displayFont } from "../utils/fonts";
 import StoreProvider from "../utils/Store";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className={`${headingFont.variable} ${bodyFont.variable} font-sans`}>
+    <div className={`${displayFont.variable} ${bodyFont.variable} font-sans`}>
       <StoreProvider>
         <Component {...pageProps} />
 

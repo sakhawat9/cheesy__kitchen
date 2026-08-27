@@ -27,9 +27,9 @@ export default function DashboardPage({ foods, orders, users, reviews }: any) {
         </div>
 
         <div className="xl:col-span-5">
-          <div className="p-5 bg-white border rounded-card border-cream-300">
+          <div className="p-5 bg-white border rounded-card border-oat-300">
             <div className="flex items-center justify-between gap-4 mb-5">
-              <h2 className="text-h4">Recent orders</h2>
+              <h2 className="text-xl">Recent orders</h2>
               {orders.length > 0 && (
                 <Link href="/dashboard/allOrder" className="text-sm link shrink-0">
                   View all
@@ -45,20 +45,20 @@ export default function DashboardPage({ foods, orders, users, reviews }: any) {
                 description="New orders will show up here as they come in."
               />
             ) : (
-              <ul className="divide-y divide-cream-200">
+              <ul className="divide-y divide-oat-200">
                 {recent.map((order: any) => (
                   <li key={order._id} className="flex items-center gap-4 py-3">
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate text-charcoal-900">
+                      <p className="text-sm font-medium truncate text-espresso-900">
                         {order.userInfo?.name ?? "Guest"}
                       </p>
-                      <p className="text-xs text-charcoal-500">
+                      <p className="text-xs text-espresso-500">
                         {formatDate(order.createdAt)} ·{" "}
                         {order.cartItems?.length ?? 0}{" "}
                         {order.cartItems?.length === 1 ? "item" : "items"}
                       </p>
                     </div>
-                    <p className="text-sm font-semibold text-charcoal-900 tabular-nums">
+                    <p className="text-sm font-semibold text-espresso-900 tabular-nums">
                       {formatPrice(
                         order.total ??
                           (order.cartItems ?? []).reduce(

@@ -58,10 +58,10 @@ export default function ManageFoodsPage({ foods = [] }: any) {
   return (
     <DashboardLayout title="Manage menu">
       <div className="flex flex-wrap items-center justify-between gap-4 mb-8 -mt-4">
-        <p className="text-charcoal-500">
+        <p className="text-espresso-500">
           {rows.length} {rows.length === 1 ? "dish" : "dishes"} on the menu.
         </p>
-        <Link href="/dashboard/foods/addFoods" className="btn btn-accent btn-sm">
+        <Link href="/dashboard/foods/addFoods" className="btn btn-order btn-sm">
           Add a dish
         </Link>
       </div>
@@ -94,7 +94,7 @@ export default function ManageFoodsPage({ foods = [] }: any) {
                 <tr key={food._id}>
                   <td>
                     <div className="flex items-center gap-3">
-                      <div className="relative w-12 h-12 overflow-hidden rounded shrink-0 bg-cream-100">
+                      <div className="relative w-12 h-12 overflow-hidden rounded shrink-0 bg-oat-100">
                         <Image
                           src={food.image}
                           alt=""
@@ -104,10 +104,10 @@ export default function ManageFoodsPage({ foods = [] }: any) {
                         />
                       </div>
                       <div className="min-w-0">
-                        <p className="font-medium truncate text-charcoal-900">
+                        <p className="font-medium truncate text-espresso-900">
                           {food.name}
                         </p>
-                        <p className="text-xs truncate text-charcoal-500">
+                        <p className="text-xs truncate text-espresso-500">
                           /foods/{food.slug}
                         </p>
                       </div>
@@ -117,18 +117,18 @@ export default function ManageFoodsPage({ foods = [] }: any) {
                   <td className="tabular-nums">{formatPrice(food.price)}</td>
                   <td>
                     {food.countInStock > 0 ? (
-                      <span className="badge badge-fresh">
+                      <span className="tag tag-fresh">
                         {food.countInStock} in stock
                       </span>
                     ) : (
-                      <span className="badge badge-neutral">Sold out</span>
+                      <span className="tag tag-neutral">Sold out</span>
                     )}
                   </td>
                   <td>
                     {food.prichard ? (
-                      <span className="badge badge-accent">Featured</span>
+                      <span className="tag tag-saffron">Featured</span>
                     ) : (
-                      <span className="text-charcoal-400">—</span>
+                      <span className="text-espresso-400">—</span>
                     )}
                   </td>
                   <td>
@@ -136,7 +136,7 @@ export default function ManageFoodsPage({ foods = [] }: any) {
                       <Link
                         href={`/dashboard/foods/${food._id}`}
                         aria-label={`Edit ${food.name}`}
-                        className="flex items-center justify-center transition-colors rounded-full w-9 h-9 text-charcoal-500 hover:bg-cream-100 hover:text-charcoal-900"
+                        className="flex items-center justify-center transition-colors rounded-full w-9 h-9 text-espresso-500 hover:bg-oat-100 hover:text-espresso-900"
                       >
                         <FiEdit className="w-4 h-4" aria-hidden="true" />
                       </Link>
@@ -144,7 +144,7 @@ export default function ManageFoodsPage({ foods = [] }: any) {
                         type="button"
                         onClick={() => setTarget(food)}
                         aria-label={`Delete ${food.name}`}
-                        className="flex items-center justify-center transition-colors rounded-full w-9 h-9 text-charcoal-500 hover:bg-danger-soft hover:text-danger"
+                        className="flex items-center justify-center transition-colors rounded-full w-9 h-9 text-espresso-500 hover:bg-danger-soft hover:text-danger"
                       >
                         <RiDeleteBin7Line className="w-4 h-4" aria-hidden="true" />
                       </button>

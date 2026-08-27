@@ -2,12 +2,14 @@ import Link from "next/link";
 import { forwardRef } from "react";
 
 const VARIANTS: Record<string, string> = {
-  primary: "btn-primary",
-  accent: "btn-accent",
-  outline: "btn-outline",
+  // `order` is the chilli call-to-action — anything that puts food in a
+  // basket or sends a form. `solid` is the quieter espresso button.
+  order: "btn-order",
+  solid: "btn-solid",
+  line: "btn-line",
+  lineLight: "btn-line-light",
   ghost: "btn-ghost",
   danger: "btn-danger",
-  onDark: "btn-on-dark",
 };
 
 const SIZES: Record<string, string> = {
@@ -24,7 +26,7 @@ const SIZES: Record<string, string> = {
  */
 const Button = forwardRef<any, any>(function Button(
   {
-    variant = "primary",
+    variant = "order",
     size = "md",
     block = false,
     href,
@@ -38,7 +40,7 @@ const Button = forwardRef<any, any>(function Button(
 ) {
   const classes = [
     "btn",
-    VARIANTS[variant] ?? VARIANTS.primary,
+    VARIANTS[variant] ?? VARIANTS.order,
     SIZES[size] ?? "",
     block ? "btn-block" : "",
     className,

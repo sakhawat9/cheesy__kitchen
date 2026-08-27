@@ -3,19 +3,16 @@
 @tailwind utilities;
 
 /* ==========================================================================
-   Base — typography defaults and global element styling.
-   Headings are a soft serif (Fraunces), body is sans (Inter). Sizes come from
-   the `fontSize` scale in tailwind.config.js so nothing is hand-tuned per page.
+   Base
    ========================================================================== */
 @layer base {
   :root {
-    --header-height: 4.5rem;
+    --header-height: 5rem;
   }
 
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
-    /* Anchor targets (menu category jump links) clear the sticky header. */
     scroll-padding-top: calc(var(--header-height) + 1.5rem);
   }
 
@@ -33,17 +30,19 @@
   }
 
   body {
-    @apply font-sans text-base bg-white text-charcoal-500 antialiased;
-    line-height: 1.65;
+    @apply font-sans text-base antialiased bg-oat-100 text-espresso-600;
+    line-height: 1.7;
   }
 
+  /* Headings are the serif, and they carry the brand almost single-handedly.
+     Weight stays light-to-medium: Cormorant at 700 loses its elegance. */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    @apply font-heading font-bold text-charcoal-900;
+    @apply font-display font-semibold text-espresso-900;
     text-wrap: balance;
   }
 
@@ -66,17 +65,20 @@
     @apply text-sm;
   }
 
-  /* A single visible focus treatment for every interactive element. Mouse
-     clicks stay clean (`:focus-visible`), keyboard users always see a ring. */
   :focus-visible {
-    @apply outline-none ring-2 ring-ember-600 ring-offset-2 ring-offset-white rounded-sm;
+    @apply rounded-sm outline-none ring-2 ring-saffron-500 ring-offset-2 ring-offset-oat-100;
+  }
+
+  /* On dark surfaces the light offset ring disappears; this one sits on the
+     dark ground instead. */
+  .on-dark :focus-visible {
+    @apply ring-offset-espresso-900;
   }
 
   ::selection {
-    @apply bg-ember-200 text-charcoal-900;
+    @apply bg-saffron-300 text-espresso-900;
   }
 
-  /* Native form controls inherit the body font instead of the UA default. */
   input,
   textarea,
   select,
@@ -98,13 +100,17 @@
 }
 
 /* ==========================================================================
-   Components — the shared visual language. Anything used on more than one
-   page belongs here rather than being re-typed as utility soup.
+   Components
    ========================================================================== */
 @layer components {
   /* ---------- Layout ---------- */
   .container {
-    @apply w-full px-4 mx-auto max-w-container sm:px-6 lg:px-8;
+    @apply w-full px-5 mx-auto max-w-container sm:px-8 lg:px-10;
+  }
+
+  /* A narrower measure for the editorial bands. */
+  .container-tight {
+    @apply w-full px-5 mx-auto max-w-5xl sm:px-8;
   }
 
   .section {
@@ -113,85 +119,140 @@
   .section-sm {
     @apply py-section-sm;
   }
-  .section-bg {
-    @apply bg-cream-100;
+
+  /* The three surfaces. `dark` is the brand's home ground. */
+  .surface-dark {
+    @apply bg-espresso-900 text-oat-300;
   }
-  .section-dark {
-    @apply bg-charcoal-900 text-cream-300;
+  .surface-cream {
+    @apply bg-oat-100 text-espresso-600;
+  }
+  .surface-deep {
+    @apply bg-espresso-950 text-oat-300;
   }
 
-  /* Screen-reader-only text that becomes visible on focus (skip link). */
   .sr-only-focusable {
     @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
     clip: rect(0, 0, 0, 0);
   }
   .sr-only-focusable:focus {
-    @apply fixed z-50 w-auto h-auto p-3 m-3 overflow-visible whitespace-normal bg-white rounded shadow-popover text-charcoal-900;
+    @apply fixed z-50 w-auto h-auto p-3 m-3 overflow-visible whitespace-normal rounded-full shadow-popover bg-oat-100 text-espresso-900;
     clip: auto;
     top: 0;
     left: 0;
   }
 
-  /* ---------- Eyebrow / section heading ---------- */
-  .eyebrow {
-    @apply block font-semibold uppercase text-eyebrow text-ember-600;
+  /* ---------- Labels ----------
+     Letterspaced small caps in saffron. Used above every section title and
+     for nav items, in place of a coloured "eyebrow" paragraph. */
+  .label {
+    @apply inline-block font-medium uppercase text-label text-saffron-600;
+  }
+  .label-on-dark {
+    @apply text-saffron-400;
+  }
+
+  /* A label flanked by a short rule — the section-opener mark. */
+  .label-rule {
+    @apply inline-flex items-center gap-3 font-medium uppercase text-label text-saffron-600;
+  }
+  .label-rule::before {
+    @apply block w-8 h-px bg-saffron-500;
+    content: "";
   }
 
   /* ---------- Buttons ----------
-     One base + intent modifiers. Every button is at least 44px tall on
-     touch targets and shows a disabled state. */
+     Fully pill. `order` is the loud chilli action; `soft` and `line` support it. */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold tracking-wide
-           transition-colors duration-200 border rounded-full cursor-pointer select-none whitespace-nowrap
+    @apply inline-flex items-center justify-center gap-2.5 px-7 py-3 text-sm font-medium uppercase tracking-[0.12em]
+           transition-all duration-300 border rounded-full cursor-pointer select-none whitespace-nowrap
            disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
-    min-height: 2.75rem;
+    min-height: 3rem;
   }
 
-  .btn-primary {
-    @apply text-white border-charcoal-900 bg-charcoal-900 hover:bg-charcoal-700 hover:border-charcoal-700 active:bg-charcoal-950;
+  .btn-order {
+    @apply text-white border-transparent bg-chilli-600 hover:bg-chilli-700 hover:shadow-glow active:bg-chilli-800;
   }
 
-  .btn-accent {
-    @apply text-white border-ember-600 bg-ember-600 hover:bg-ember-700 hover:border-ember-700 active:bg-ember-800;
+  .btn-solid {
+    @apply text-oat-100 border-transparent bg-espresso-900 hover:bg-espresso-800 active:bg-espresso-950;
   }
 
-  .btn-outline {
-    @apply bg-transparent border-charcoal-200 text-charcoal-900 hover:bg-charcoal-50 hover:border-charcoal-300;
+  .btn-line {
+    @apply bg-transparent border-espresso-300 text-espresso-900 hover:border-espresso-900 hover:bg-espresso-900 hover:text-oat-100;
+  }
+
+  /* On dark grounds. */
+  .btn-line-light {
+    @apply bg-transparent border-oat-100/35 text-oat-100 hover:bg-oat-100 hover:text-espresso-900 hover:border-oat-100;
   }
 
   .btn-ghost {
-    @apply text-charcoal-600 bg-transparent border-transparent hover:bg-charcoal-50 hover:text-charcoal-900;
+    @apply text-espresso-600 bg-transparent border-transparent hover:text-chilli-600;
   }
 
   .btn-danger {
     @apply text-white bg-danger border-danger hover:bg-danger-strong hover:border-danger-strong;
   }
 
-  /* Inverted outline, for use on dark surfaces. */
-  .btn-on-dark {
-    @apply text-white bg-transparent border-white/40 hover:bg-white hover:text-charcoal-900 hover:border-white;
-  }
-
   .btn-sm {
-    @apply px-3 py-1.5 text-xs;
-    min-height: 2.25rem;
+    @apply px-5 py-2 text-xs;
+    min-height: 2.5rem;
   }
   .btn-lg {
-    @apply px-7 py-3 text-base;
-    min-height: 3.25rem;
+    @apply px-9 py-4 text-base;
+    min-height: 3.5rem;
   }
   .btn-block {
     @apply w-full;
   }
 
-  /* Round icon-only button. Always pair with an aria-label. */
+  /* Circular icon button — a plate, not a square. */
   .btn-icon {
-    @apply inline-flex items-center justify-center transition-colors bg-white border rounded-full w-11 h-11
-           border-charcoal-200 text-charcoal-700 hover:bg-charcoal-900 hover:text-white hover:border-charcoal-900
+    @apply inline-flex items-center justify-center transition-all duration-300 border rounded-full w-11 h-11
+           border-espresso-200 text-espresso-700 bg-transparent hover:bg-espresso-900 hover:text-oat-100 hover:border-espresso-900
            disabled:opacity-50 disabled:cursor-not-allowed;
   }
   .btn-icon-sm {
     @apply w-9 h-9;
+  }
+
+  /* ---------- The printed menu ----------
+     The signature pattern: dish name, a dotted leader, then the price — the
+     way a menu has set prices since long before the web. The leader is a
+     flexible repeating gradient so it stretches to whatever gap is left. */
+  .menu-row {
+    @apply flex items-baseline gap-3 w-full text-left;
+  }
+  .menu-row__name {
+    @apply font-display text-[1.375rem] font-medium leading-snug text-espresso-900 shrink-0 max-w-[70%] transition-colors;
+  }
+  .menu-row__leader {
+    @apply flex-1 translate-y-[-0.3rem] h-px;
+    background-image: radial-gradient(circle, currentColor 1px, transparent 1.4px);
+    background-size: 7px 2px;
+    background-repeat: repeat-x;
+    @apply text-espresso-300;
+  }
+  .menu-row__price {
+    @apply font-display text-[1.375rem] font-semibold text-chilli-600 shrink-0 tabular-nums;
+  }
+  .menu-row:hover .menu-row__name {
+    @apply text-chilli-700;
+  }
+
+  /* Dark variant, for the menu preview on the dark home band. */
+  .menu-row--dark .menu-row__name {
+    @apply text-oat-100;
+  }
+  .menu-row--dark .menu-row__leader {
+    @apply text-espresso-600;
+  }
+  .menu-row--dark .menu-row__price {
+    @apply text-saffron-400;
+  }
+  .menu-row--dark:hover .menu-row__name {
+    @apply text-saffron-300;
   }
 
   /* ---------- Forms ---------- */
@@ -199,30 +260,30 @@
     @apply block mb-5;
   }
 
-  .label {
-    @apply block mb-1.5 text-sm font-medium text-charcoal-800;
+  .field-label {
+    @apply block mb-2 text-xs font-medium uppercase tracking-[0.14em] text-espresso-500;
   }
 
   .input,
   .textarea,
   .select {
-    @apply block w-full px-4 py-3 text-base bg-white border rounded
-           border-charcoal-200 text-charcoal-900 placeholder:text-charcoal-300
+    @apply block w-full px-5 py-3.5 text-base bg-white border rounded-full
+           border-espresso-200 text-espresso-900 placeholder:text-espresso-300
            transition-colors duration-200
-           hover:border-charcoal-300
-           focus:border-ember-600 focus:ring-1 focus:ring-ember-600 focus:outline-none
-           disabled:bg-charcoal-50 disabled:text-charcoal-400 disabled:cursor-not-allowed;
+           hover:border-espresso-300
+           focus:border-saffron-500 focus:ring-1 focus:ring-saffron-500 focus:outline-none
+           disabled:bg-oat-200 disabled:text-espresso-400 disabled:cursor-not-allowed;
   }
 
+  /* Multi-line controls can't be pills. */
   .textarea {
-    @apply min-h-[7.5rem] resize-y;
+    @apply min-h-[8rem] resize-y rounded-panel;
   }
 
   .select {
-    @apply pr-10 bg-no-repeat appearance-none;
-    /* Inline chevron so no icon font/network request is needed. */
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23665C53' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
-    background-position: right 0.75rem center;
+    @apply pr-11 bg-no-repeat appearance-none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%236E5C52' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 1rem center;
     background-size: 1.25rem;
   }
 
@@ -231,47 +292,40 @@
   }
 
   .field-error {
-    @apply flex items-start gap-1.5 mt-1.5 text-sm text-danger;
+    @apply flex items-start gap-1.5 mt-2 ml-1 text-sm text-danger;
   }
 
   .field-hint {
-    @apply mt-1.5 text-sm text-charcoal-400;
+    @apply mt-2 ml-1 text-sm text-espresso-400;
   }
 
   /* ---------- Surfaces ---------- */
   .card {
-    @apply bg-white border rounded-card border-cream-300;
+    @apply bg-white border rounded-card border-oat-300;
   }
 
   .card-pad {
-    @apply p-5 sm:p-6;
+    @apply p-6 sm:p-7;
   }
 
-  .card-interactive {
-    @apply transition-shadow duration-200 hover:shadow-lift;
+  /* ---------- Tags ---------- */
+  .tag {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 text-[0.6875rem] font-medium tracking-[0.14em] uppercase rounded-full;
   }
-
-  /* ---------- Badges ---------- */
-  .badge {
-    @apply inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase rounded-full;
+  .tag-saffron {
+    @apply text-saffron-800 bg-saffron-100;
   }
-  .badge-accent {
-    @apply text-ember-800 bg-ember-100;
+  .tag-chilli {
+    @apply text-chilli-700 bg-chilli-100;
   }
-  .badge-neutral {
-    @apply text-charcoal-700 bg-charcoal-100;
+  .tag-neutral {
+    @apply bg-oat-200 text-espresso-600;
   }
-  .badge-fresh {
+  .tag-fresh {
     @apply bg-basil-soft text-basil-strong;
   }
-  .badge-success {
-    @apply bg-success-soft text-success-strong;
-  }
-  .badge-warning {
-    @apply bg-warning-soft text-warning-strong;
-  }
-  .badge-danger {
-    @apply bg-danger-soft text-danger-strong;
+  .tag-on-dark {
+    @apply text-oat-100 bg-white/10 backdrop-blur-sm;
   }
 
   /* ---------- Alerts ---------- */
@@ -291,37 +345,50 @@
     @apply bg-danger-soft border-danger/20 text-danger-strong;
   }
 
-  /* ---------- Tables ---------- */
+  /* ---------- Tables (admin only) ---------- */
   .table-wrap {
-    @apply w-full overflow-x-auto border rounded-card border-cream-300;
+    @apply w-full overflow-x-auto bg-white border rounded-card border-oat-300;
   }
   .table {
-    @apply w-full text-sm text-left border-collapse min-w-[40rem];
+    @apply w-full text-sm text-left border-collapse min-w-[42rem];
   }
   .table thead th {
-    @apply px-4 py-3 text-xs font-semibold tracking-wider uppercase border-b bg-cream-100 text-charcoal-600 border-cream-300 whitespace-nowrap;
+    @apply px-5 py-4 text-xs font-medium tracking-[0.12em] uppercase border-b bg-oat-100 text-espresso-500 border-oat-300 whitespace-nowrap;
   }
   .table tbody td {
-    @apply px-4 py-3 align-middle border-b border-cream-200 text-charcoal-700;
+    @apply px-5 py-4 align-middle border-b border-oat-200 text-espresso-700;
   }
   .table tbody tr:last-child td {
     @apply border-b-0;
   }
   .table tbody tr {
-    @apply transition-colors hover:bg-cream-50;
+    @apply transition-colors hover:bg-oat-50;
   }
 
   /* ---------- Links ---------- */
   .link {
-    @apply font-medium underline transition-colors text-ember-700 hover:text-ember-800 underline-offset-4 decoration-ember-300 hover:decoration-ember-600;
+    @apply font-medium underline transition-colors text-chilli-600 hover:text-chilli-700 underline-offset-4 decoration-chilli-300 hover:decoration-chilli-600;
   }
   .link-quiet {
-    @apply transition-colors text-charcoal-600 hover:text-ember-700;
+    @apply transition-colors text-espresso-500 hover:text-chilli-600;
   }
 
-  /* ---------- Skeleton loader ---------- */
+  /* An underline that draws itself in on hover — used for nav and footer. */
+  .link-wipe {
+    @apply relative transition-colors;
+  }
+  .link-wipe::after {
+    @apply absolute left-0 w-0 transition-all duration-300 -bottom-1 h-px bg-current;
+    content: "";
+  }
+  .link-wipe:hover::after,
+  .link-wipe[aria-current="page"]::after {
+    @apply w-full;
+  }
+
+  /* ---------- Skeleton ---------- */
   .skeleton {
-    @apply relative overflow-hidden rounded bg-cream-200;
+    @apply relative overflow-hidden rounded bg-oat-200;
   }
   .skeleton::after {
     @apply absolute inset-0 animate-shimmer;
@@ -330,49 +397,40 @@
     background-image: linear-gradient(
       90deg,
       rgba(255, 255, 255, 0) 0,
-      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 255, 255, 0.65) 50%,
       rgba(255, 255, 255, 0) 100%
     );
+  }
+
+  /* ---------- Scroll reveal ----------
+     Elements start shifted and fade up when they enter the viewport. The
+     `is-visible` class is added by the Reveal component's observer. */
+  .reveal {
+    @apply transition-all duration-700 opacity-0 translate-y-6 ease-out-soft;
+  }
+  .reveal.is-visible {
+    @apply translate-y-0 opacity-100;
   }
 }
 
 /* ==========================================================================
-   Third-party overrides — scoped as tightly as possible.
+   Third-party overrides
    ========================================================================== */
-
-/* react-slick: hide the default pseudo-element arrows; we render our own. */
-.slick-prev::before,
-.slick-next::before {
-  display: none !important;
-}
-.slick-track {
-  /* Equal-height slides so testimonial cards line up. */
-  @apply flex;
-}
-.slick-slide {
-  height: inherit !important;
-}
-.slick-slide > div {
-  @apply h-full;
-}
-
-/* sweetalert2: match the brand rather than its default blue. */
 .swal2-popup {
   @apply font-sans rounded-card;
 }
 .swal2-title {
-  @apply font-heading text-charcoal-900;
+  @apply font-display text-espresso-900;
 }
 .swal2-styled.swal2-confirm {
-  background-color: #c0492b !important;
+  background-color: #c0342a !important;
   border-radius: 9999px !important;
-  font-weight: 600 !important;
+  font-weight: 500 !important;
   box-shadow: none !important;
 }
 
-/* react-toastify */
 .Toastify__toast {
-  @apply font-sans text-sm rounded-card text-charcoal-800;
+  @apply font-sans text-sm rounded-card text-espresso-800;
 }
 .Toastify__progress-bar--success {
   @apply bg-success;

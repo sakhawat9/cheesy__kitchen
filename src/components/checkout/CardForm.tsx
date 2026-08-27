@@ -84,12 +84,12 @@ function Form({ onSuccess, submitting }: any) {
   };
 
   const elementClass =
-    "block w-full px-4 py-3 bg-white border rounded border-charcoal-200 transition-colors focus-within:border-ember-600 focus-within:ring-1 focus-within:ring-ember-600";
+    "block w-full px-4 py-3 bg-white border rounded border-espresso-200 transition-colors focus-within:border-chilli-600 focus-within:ring-1 focus-within:ring-chilli-600";
 
   return (
     <form onSubmit={handleSubmit} noValidate>
       <div className="field">
-        <label htmlFor="card-number" className="label">
+        <label htmlFor="card-number" className="field-label">
           Card number
         </label>
         <div className={elementClass}>
@@ -99,7 +99,7 @@ function Form({ onSuccess, submitting }: any) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="field">
-          <label htmlFor="card-expiry" className="label">
+          <label htmlFor="card-expiry" className="field-label">
             Expiry date
           </label>
           <div className={elementClass}>
@@ -108,7 +108,7 @@ function Form({ onSuccess, submitting }: any) {
         </div>
 
         <div className="field">
-          <label htmlFor="card-cvc" className="label">
+          <label htmlFor="card-cvc" className="field-label">
             Security code
           </label>
           <div className={elementClass}>
@@ -126,7 +126,7 @@ function Form({ onSuccess, submitting }: any) {
 
       <Button
         type="submit"
-        variant="accent"
+        variant="order"
         size="lg"
         block
         disabled={!stripe}
@@ -136,12 +136,12 @@ function Form({ onSuccess, submitting }: any) {
         Place order
       </Button>
 
-      <p className="mt-4 text-xs text-center text-charcoal-400">
+      <p className="mt-4 text-xs text-center text-espresso-400">
         Card details go straight to Stripe and are never stored on our servers.
       </p>
 
-      <p className="p-3 mt-5 text-xs rounded bg-cream-100 text-charcoal-500">
-        <strong className="font-semibold text-charcoal-700">Test mode.</strong>{" "}
+      <p className="p-3 mt-5 text-xs rounded bg-oat-100 text-espresso-500">
+        <strong className="font-semibold text-espresso-700">Test mode.</strong>{" "}
         Use card <span className="tabular-nums">4242 4242 4242 4242</span> with
         any future expiry and any CVC.
       </p>

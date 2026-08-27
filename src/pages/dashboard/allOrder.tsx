@@ -48,14 +48,14 @@ export default function AllOrdersPage({ orders = [] }: any) {
 
                 return (
                   <tr key={order._id}>
-                    <td className="font-mono text-xs text-charcoal-500">
+                    <td className="font-mono text-xs text-espresso-500">
                       {String(order._id).slice(-8)}
                     </td>
                     <td>
-                      <p className="font-medium text-charcoal-900">
+                      <p className="font-medium text-espresso-900">
                         {order.userInfo?.name ?? "Guest"}
                       </p>
-                      <p className="text-xs text-charcoal-500">
+                      <p className="text-xs text-espresso-500">
                         {order.userInfo?.email}
                       </p>
                     </td>
@@ -71,11 +71,11 @@ export default function AllOrdersPage({ orders = [] }: any) {
                     <td className="max-w-[14rem] text-xs">
                       {order.address}
                       {order.phone && (
-                        <span className="block text-charcoal-500">{order.phone}</span>
+                        <span className="block text-espresso-500">{order.phone}</span>
                       )}
                     </td>
                     <td className="whitespace-nowrap">{formatDate(order.createdAt)}</td>
-                    <td className="font-semibold text-right text-charcoal-900 tabular-nums">
+                    <td className="font-semibold text-right text-espresso-900 tabular-nums">
                       {formatPrice(total)}
                     </td>
                   </tr>

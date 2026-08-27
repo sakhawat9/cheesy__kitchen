@@ -1,38 +1,51 @@
 import Layout from "components/common/Layout";
-import CategoryShowcase from "components/home/CategoryShowcase";
-import ChefsTable from "components/home/ChefsTable";
-import ClosingCTA from "components/home/ClosingCTA";
+import Experience from "components/home/Experience";
 import Hero from "components/home/Hero";
-import MenuHighlights from "components/home/MenuHighlights";
-import Testimonials from "components/home/Testimonials";
-import ValueProps from "components/home/ValueProps";
+import Marquee from "components/home/Marquee";
+import MenuPreview from "components/home/MenuPreview";
+import OrderCTA from "components/home/OrderCTA";
+import Reviews from "components/home/Reviews";
+import SignatureDishes from "components/home/SignatureDishes";
+import Story from "components/home/Story";
+import VisitUs from "components/home/VisitUs";
 import foodRepo from "repositories/foodRepo";
 import reviewRepo from "repositories/reviewRepo";
 
-export default function HomePage({ foods = [], review = [] }: any) {
-  // Split the menu so no dish appears in two bands of the same page — the old
-  // homepage rendered LatestFoods and FeaturedFoods back to back from the same
-  // six records.
+/**
+ * The homepage, ordered the way you'd walk into a restaurant: the room, the
+ * promise, who we are, what we're known for, the menu, the experience, what
+ * other people thought, and finally how to order and where to find us.
+ */
+export default function HomePage({ foods = [], reviews = [] }: any) {
   const featured = foods.filter((food: any) => food?.prichard === true);
-  const rest = foods.filter((food: any) => !food?.prichard);
+  const signature = featured.length > 0 ? featured : foods;
+
+  // The story band borrows two dishes for its imagery; take them from the end
+  // of the list so they aren't the same plates the hero is already showing.
+  const storyImages = [...foods].reverse();
 
   return (
-    <Layout description="A short menu cooked properly — smashed burgers, 48-hour pizza dough and overnight-brined chicken, delivered free across Dhaka.">
+    <Layout
+      heroPage
+      description="A short menu cooked properly — smashed burgers, 48-hour pizza dough and overnight-brined chicken, delivered free across Dhaka."
+    >
       <Hero foods={foods} />
-      <ValueProps />
-      <CategoryShowcase foods={foods} />
-      <ChefsTable foods={featured.length > 0 ? featured : foods} />
-      <MenuHighlights foods={rest.length > 0 ? rest : foods} />
-      <Testimonials data={review} />
-      <ClosingCTA />
+      <Marquee />
+      <Story foods={storyImages} />
+      <SignatureDishes foods={signature} />
+      <MenuPreview foods={foods} />
+      <Experience />
+      <Reviews reviews={reviews} />
+      <OrderCTA image={signature[0]?.image} />
+      <VisitUs />
     </Layout>
   );
 }
 
 export async function getServerSideProps() {
-  const [foods, review] = await Promise.all([
+  const [foods, reviews] = await Promise.all([
     foodRepo.listAll(),
     reviewRepo.listAll(),
   ]);
-  return { props: { foods, review } };
+  return { props: { foods, reviews } };
 }

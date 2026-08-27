@@ -1,13 +1,13 @@
 import Layout from "components/common/Layout";
 import Button from "components/ui/Button";
 import EmptyState from "components/ui/EmptyState";
-import PageHeader from "components/ui/PageHeader";
+import PageMasthead from "components/ui/PageMasthead";
 import QuantityStepper from "components/ui/QuantityStepper";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext } from "react";
-import { MdDeleteOutline, MdOutlineShoppingBasket } from "react-icons/md";
+import { LuShoppingBasket, LuTrash2 } from "react-icons/lu";
 import { cartTotals, formatPrice } from "utils/format";
 import { Store } from "utils/Store";
 import { useCart } from "utils/useCart";
@@ -35,20 +35,20 @@ export default function CartPage() {
   const { itemCount, subtotal, total } = cartTotals(cartItems);
 
   return (
-    <Layout title="Your Basket">
-      <PageHeader
-        eyebrow="Checkout"
-        title="Your basket"
+    <Layout heroPage title="Your Basket">
+      <PageMasthead
+        label="Your order"
+        title="The basket"
         crumbs={[{ label: "Basket" }]}
       />
 
-      <div className="section">
+      <div className="section surface-cream">
         <div className="container">
           {!mounted ? (
             <BasketSkeleton />
           ) : cartItems.length === 0 ? (
             <EmptyState
-              icon={MdOutlineShoppingBasket}
+              icon={LuShoppingBasket}
               title="Your basket is empty"
               description="Nothing in here yet. Have a look at what the kitchen is cooking tonight."
               action={{ label: "Browse the menu", href: "/foods" }}
@@ -58,7 +58,7 @@ export default function CartPage() {
             <div className="grid gap-8 lg:grid-cols-12 lg:gap-10 lg:items-start">
               {/* Items */}
               <div className="lg:col-span-8">
-                <ul className="divide-y divide-cream-300 border-y border-cream-300">
+                <ul className="divide-y divide-espresso-200/60 border-y border-espresso-200/60">
                   {cartItems.map((item) => (
                     <li
                       key={item._id}
@@ -66,7 +66,7 @@ export default function CartPage() {
                     >
                       <Link
                         href={`/foods/${item.slug}`}
-                        className="relative w-full overflow-hidden shrink-0 sm:w-24 aspect-[4/3] sm:aspect-square rounded-card bg-cream-100"
+                        className="relative w-full overflow-hidden shrink-0 sm:w-24 aspect-[4/3] sm:aspect-square rounded-panel bg-oat-200"
                       >
                         <Image
                           src={item.image}
@@ -81,12 +81,12 @@ export default function CartPage() {
                         <h2 className="text-base font-semibold">
                           <Link
                             href={`/foods/${item.slug}`}
-                            className="transition-colors hover:text-ember-700"
+                            className="transition-colors hover:text-chilli-600"
                           >
                             {item.name}
                           </Link>
                         </h2>
-                        <p className="mt-0.5 text-sm text-charcoal-500">
+                        <p className="mt-0.5 text-sm text-espresso-500">
                           {formatPrice(item.price)} each
                         </p>
                       </div>
@@ -100,7 +100,7 @@ export default function CartPage() {
                           label={`Quantity of ${item.name}`}
                         />
 
-                        <p className="w-20 text-base font-semibold text-right text-charcoal-900 tabular-nums">
+                        <p className="w-20 text-base font-semibold text-right text-espresso-900 tabular-nums">
                           {formatPrice(item.price * item.quantity)}
                         </p>
 
@@ -108,9 +108,9 @@ export default function CartPage() {
                           type="button"
                           onClick={() => removeFromCart(item)}
                           aria-label={`Remove ${item.name} from your basket`}
-                          className="flex items-center justify-center transition-colors rounded-full w-9 h-9 text-charcoal-400 hover:bg-danger-soft hover:text-danger"
+                          className="flex items-center justify-center transition-colors rounded-full w-9 h-9 text-espresso-400 hover:bg-danger-soft hover:text-danger"
                         >
-                          <MdDeleteOutline className="w-5 h-5" aria-hidden="true" />
+                          <LuTrash2 className="w-5 h-5" aria-hidden="true" />
                         </button>
                       </div>
                     </li>
@@ -126,34 +126,34 @@ export default function CartPage() {
 
               {/* Summary */}
               <aside className="lg:col-span-4 lg:sticky lg:top-24">
-                <div className="card card-pad">
-                  <h2 className="mb-5 text-h4">Order summary</h2>
+                <div className="p-7 rounded-panel bg-oat-200">
+                  <h2 className="mb-6 text-2xl">Order summary</h2>
 
                   <dl className="space-y-3 text-sm">
                     <div className="flex justify-between">
-                      <dt className="text-charcoal-500">
+                      <dt className="text-espresso-500">
                         Subtotal ({itemCount} {itemCount === 1 ? "item" : "items"})
                       </dt>
-                      <dd className="font-medium text-charcoal-900">
+                      <dd className="font-medium text-espresso-900">
                         {formatPrice(subtotal)}
                       </dd>
                     </div>
                     <div className="flex justify-between">
-                      <dt className="text-charcoal-500">Delivery</dt>
+                      <dt className="text-espresso-500">Delivery</dt>
                       <dd className="font-medium text-success">Free</dd>
                     </div>
-                    <div className="flex justify-between pt-3 mt-3 border-t border-cream-300">
-                      <dt className="text-base font-semibold text-charcoal-900">
+                    <div className="flex justify-between pt-3 mt-3 border-t border-espresso-200/60">
+                      <dt className="text-base font-semibold text-espresso-900">
                         Total
                       </dt>
-                      <dd className="text-base font-semibold text-charcoal-900">
+                      <dd className="text-base font-semibold text-espresso-900">
                         {formatPrice(total)}
                       </dd>
                     </div>
                   </dl>
 
                   <Button
-                    variant="accent"
+                    variant="order"
                     size="lg"
                     block
                     className="mt-6"
@@ -162,7 +162,7 @@ export default function CartPage() {
                     Checkout
                   </Button>
 
-                  <p className="mt-4 text-xs text-center text-charcoal-400">
+                  <p className="mt-4 text-xs text-center text-espresso-400">
                     Free delivery across Dhaka on every order.
                   </p>
                 </div>
@@ -182,7 +182,7 @@ function BasketSkeleton() {
       <div className="space-y-5 lg:col-span-8">
         {Array.from({ length: 2 }, (_, i) => (
           <div key={i} className="flex gap-4 py-5">
-            <div className="w-24 h-24 skeleton rounded-card shrink-0" />
+            <div className="w-24 h-24 skeleton rounded-panel shrink-0" />
             <div className="flex-1 space-y-3">
               <div className="w-1/2 h-4 skeleton" />
               <div className="w-1/4 h-3 skeleton" />
@@ -191,7 +191,7 @@ function BasketSkeleton() {
         ))}
       </div>
       <div className="lg:col-span-4">
-        <div className="h-64 skeleton rounded-card" />
+        <div className="h-64 skeleton rounded-panel" />
       </div>
     </div>
   );

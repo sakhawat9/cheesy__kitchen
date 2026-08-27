@@ -1,18 +1,20 @@
 import { formatPrice } from "../../utils/format";
 
-/** Dish price. One component so currency formatting can't drift per screen. */
-export default function Price({ price, size = "md", className = "" }: any) {
+/** Dish price, set in the display serif so it reads as a menu price. */
+export default function Price({ price, size = "md", dark = false, className = "" }: any) {
   const sizes: Record<string, string> = {
-    sm: "text-base",
-    md: "text-lg",
-    lg: "text-2xl",
+    sm: "text-lg",
+    md: "text-xl",
+    lg: "text-3xl",
   };
 
   return (
-    <p className={`flex flex-wrap items-baseline gap-2 ${className}`}>
-      <span className={`font-semibold text-charcoal-900 ${sizes[size] ?? sizes.md}`}>
-        {formatPrice(price)}
-      </span>
+    <p
+      className={`font-display font-semibold tabular-nums ${
+        dark ? "text-saffron-400" : "text-chilli-600"
+      } ${sizes[size] ?? sizes.md} ${className}`}
+    >
+      {formatPrice(price)}
     </p>
   );
 }
