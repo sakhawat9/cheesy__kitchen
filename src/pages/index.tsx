@@ -1,47 +1,38 @@
-import Categories from "components/Categories/Categories";
 import Layout from "components/common/Layout";
-import ContactAvailable from "components/ContactAvailable";
-import FeaturedFoods from "components/FeaturedFoods/FeaturedFoods";
-import Hero from "components/Home/Hero/Hero";
-import LatestFoods from "components/LatestFoods/LatestFoods";
-import Testimonials from "components/Testimonials/Testimonials";
-import Food from "models/Food";
-import Review from "models/Review";
-import React from "react";
-import "react-multi-carousel/lib/styles.css";
-import db from "utils/db";
+import CategoryShowcase from "components/home/CategoryShowcase";
+import ChefsTable from "components/home/ChefsTable";
+import ClosingCTA from "components/home/ClosingCTA";
+import Hero from "components/home/Hero";
+import MenuHighlights from "components/home/MenuHighlights";
+import Testimonials from "components/home/Testimonials";
+import ValueProps from "components/home/ValueProps";
+import foodRepo from "repositories/foodRepo";
+import reviewRepo from "repositories/reviewRepo";
 
-const HomePage = (props) => {
-  const { foods, review } = props;
+export default function HomePage({ foods = [], review = [] }: any) {
+  // Split the menu so no dish appears in two bands of the same page — the old
+  // homepage rendered LatestFoods and FeaturedFoods back to back from the same
+  // six records.
+  const featured = foods.filter((food: any) => food?.prichard === true);
+  const rest = foods.filter((food: any) => !food?.prichard);
 
   return (
-    <Layout>
-      <Hero
-        foods={foods}
-        infinite="true"
-        autoPlay="true"
-        deviceType="desktop"
-      />
-      <Categories foods={foods} />
-      <LatestFoods foods={foods} />
+    <Layout description="A short menu cooked properly — smashed burgers, 48-hour pizza dough and overnight-brined chicken, delivered free across Dhaka.">
+      <Hero foods={foods} />
+      <ValueProps />
+      <CategoryShowcase foods={foods} />
+      <ChefsTable foods={featured.length > 0 ? featured : foods} />
+      <MenuHighlights foods={rest.length > 0 ? rest : foods} />
       <Testimonials data={review} />
-      <FeaturedFoods foods={foods} />
-      <ContactAvailable />
+      <ClosingCTA />
     </Layout>
   );
-};
-
-export default HomePage;
+}
 
 export async function getServerSideProps() {
-  await db.connect();
-  const foods = await Food.find({}).lean();
-  const review = await Review.find({}).lean();
-  await db.disconnect();
-  return {
-    props: {
-      foods: foods.map(db.convertDocToObj),
-      review: review.map(db.convertDocToObj),
-    },
-  };
+  const [foods, review] = await Promise.all([
+    foodRepo.listAll(),
+    reviewRepo.listAll(),
+  ]);
+  return { props: { foods, review } };
 }

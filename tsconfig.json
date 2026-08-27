@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -16,21 +16,6 @@
     "jsx": "preserve",
     "baseUrl": "./src"
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/pages/api/foods/index.js",
-    "src/pages/foods/[slug].tsx",
-    "src/utils/Store.js",
-    "src/components/CartItem/CartItem.tsx",
-    "src/pages/cartFood.js",
-    "src/pages/shipping.js",
-    "src/components/Login/Login.js",
-    "src/pages/api/comments/index.js",
-    "src/components/AddNewFood/AddNewFood.js",
-    "src/pages/contact-form.js",
-    "src/pages/api/contact/index.js"
-, "src/pages/category/chicken.js"  ],
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
   "exclude": ["node_modules"]
 }

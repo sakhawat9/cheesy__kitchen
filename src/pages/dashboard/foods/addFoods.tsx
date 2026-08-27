@@ -1,24 +1,13 @@
-import AddNewFood from "components/AddNewFood/AddNewFood";
-import Title from "components/common/Title";
-import Sidebar from "components/Dashboard/Sidebar";
-import React from "react";
+import DashboardLayout from "components/dashboard/DashboardLayout";
+import FoodForm from "components/dashboard/FoodForm";
 
-const addFood = () => {
+export default function AddFoodPage() {
   return (
-    <>
-      <div className="flex items-stretch w-full bg-gray-200">
-        <Sidebar />
-        <div className="w-full min-h-screen p-5 m-5 transition-all bg-white section-padding">
-          <Title
-            title="Add new food"
-            subtitle=""
-            description="Dear Admin, Welcome to your Add food page. You may add new food by filling below form and start your earning instantly."
-          ></Title>
-          <AddNewFood />
-        </div>
-      </div>
-    </>
+    <DashboardLayout title="Add a dish">
+      <p className="max-w-prose mb-8 -mt-4 text-charcoal-500">
+        Everything here shows on the public menu as soon as it&apos;s saved.
+      </p>
+      <FoodForm mode="create" />
+    </DashboardLayout>
   );
-};
-
-export default addFood;
+}

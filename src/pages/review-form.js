@@ -1,156 +1,138 @@
-// eslint-disable-next-line react/jsx-props-no-spreading
 import axios from "axios";
 import Layout from "components/common/Layout";
-import Title from "components/common/Title";
+import Button from "components/ui/Button";
+import Field, { inputClass } from "components/ui/Field";
+import PageHeader from "components/ui/PageHeader";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
+import { BiCheckCircle } from "react-icons/bi";
+import { toast } from "react-toastify";
 import { Store } from "utils/Store";
+import { useMounted } from "utils/useMounted";
 
-const ReviewForm = () => {
-  const { state, dispatch } = useContext(Store);
+/**
+ * Leave a review.
+ *
+ * The old page called `router.push` inside an effect declared above the
+ * `useRouter()` call that created `router`, so a signed-out visitor hit a
+ * ReferenceError instead of being redirected. On success it dispatched
+ * `USER_LOGIN` with the review response as the payload, which overwrote the
+ * signed-in user object with a review record.
+ *
+ * It also exposed name, email and an image-URL field as editable inputs
+ * prefilled from the account, letting anyone submit a review under any name.
+ * Those now come from the session and aren't part of the form.
+ */
+export default function ReviewFormPage() {
+  const router = useRouter();
+  const { state } = useContext(Store);
   const { userInfo } = state;
+  const mounted = useMounted();
+  const [sent, setSent] = useState(false);
 
   const {
     handleSubmit,
     register,
-    formState: { errors },
-    setValue,
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm();
 
   useEffect(() => {
-    if (!userInfo) {
-      return router.push("/login");
-    }
-    setValue("name", userInfo?.name);
-    setValue("email", userInfo?.email);
-    setValue("img", userInfo?.img);
-    setValue("description", userInfo?.description);
-  }, []);
+    if (mounted && !userInfo) router.replace("/login?redirect=/review-form");
+  }, [mounted, userInfo, router]);
 
-  const router = useRouter();
-
-  const submitHandler = async ({ name, email, img, description }) => {
+  const onSubmit = async ({ description }) => {
     try {
-      const { data } = await axios.post("/api/review", {
-        name,
-        email,
-        img,
+      await axios.post("/api/review", {
+        name: userInfo.name,
+        email: userInfo.email,
+        img: userInfo.img,
         description,
       });
-
-      dispatch({ type: "USER_LOGIN", payload: data });
-      Swal.fire({
-        icon: "success",
-        text: "Your Email successfully",
-      });
-      router.push("/");
-    } catch (err) {
-      Swal.fire({
-        icon: "error",
-        text: err.message,
-      });
+      setSent(true);
+      reset();
+      toast.success("Thanks — your review is with the kitchen.");
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message ??
+          "We couldn't post that review. Please try again.",
+      );
     }
   };
 
   return (
-    <Layout title="Review Form | Restaurant Website.">
-      <div className="register">
-        <div className="register__wrapper">
-          <Title title="Add Review" subtitle="" description="" />
+    <Layout title="Leave a review">
+      <PageHeader
+        eyebrow="Your account"
+        title="Leave a review"
+        description="Tell us what you thought — good or bad, it goes straight to the people who cooked it."
+        crumbs={[{ label: "Leave a review" }]}
+      />
+
+      <div className="section">
+        <div className="container">
+          <div className="max-w-2xl">
+            {!mounted || !userInfo ? (
+              <div className="h-80 skeleton rounded-card" aria-hidden="true" />
+            ) : (
+            <>
+            {sent && (
+              <p className="mb-8 alert alert-success" role="status">
+                <BiCheckCircle className="w-5 h-5 shrink-0" aria-hidden="true" />
+                <span>
+                  Review posted. Thanks for taking the time — it genuinely helps.
+                </span>
+              </p>
+            )}
+
+            <p className="mb-6 text-sm text-charcoal-500">
+              Posting as <strong className="text-charcoal-800">{userInfo.name}</strong>.
+            </p>
+
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <Field
+                label="Your review"
+                error={errors.description?.message}
+                hint="What did you order, and how was it?"
+                required
+              >
+                {(id, describedBy, invalid) => (
+                  <textarea
+                    id={id}
+                    rows={7}
+                    aria-describedby={describedBy}
+                    aria-invalid={invalid}
+                    className={inputClass(invalid, "textarea")}
+                    {...register("description", {
+                      required: "Please write your review.",
+                      minLength: {
+                        value: 10,
+                        message: "Could you give us a little more detail?",
+                      },
+                      maxLength: {
+                        value: 1000,
+                        message: "Please keep it under 1000 characters.",
+                      },
+                    })}
+                  />
+                )}
+              </Field>
+
+              <Button
+                type="submit"
+                variant="accent"
+                size="lg"
+                loading={isSubmitting}
+              >
+                Post review
+              </Button>
+            </form>
+            </>
+            )}
+          </div>
         </div>
-        <form className="register__form" onSubmit={handleSubmit(submitHandler)}>
-          <label>
-            <span className="register__form__title">Name</span>
-            <input
-              type="text"
-              name="name"
-              {...register("name", {
-                required: {
-                  value: true,
-                  message: "You most enter name",
-                },
-              })}
-              className={`${errors.name ? "ring-2 ring-red-500" : null}`}
-              placeholder="Full name"
-            />
-            <span className="py-2 text-sm text-red-400">
-              {errors?.name?.message}
-            </span>
-          </label>
-          <label>
-            <span className="register__form__title">Email</span>
-            <input
-              type="email"
-              name="Email"
-              {...register("email", {
-                required: {
-                  value: true,
-                  message: "You most enter email address",
-                },
-                minLength: {
-                  value: 8,
-                  message: "This is not long enough to be an email",
-                },
-                maxLength: {
-                  value: 120,
-                  message: "This is too long",
-                },
-                pattern: {
-                  value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                  message: "invalid email address",
-                },
-              })}
-              className={`${errors.email ? "ring-2 ring-red-500" : null}`}
-              placeholder="Email"
-            />
-            <span className="py-2 text-sm text-red-400">
-              {errors?.email?.message}
-            </span>
-          </label>
-          <label>
-            <span className="login__form__title">Image</span>
-            <span className="block">
-              <input
-                onChange={() => {}}
-                type="text"
-                name="img"
-                {...register("img", {})}
-                placeholder="Image URL"
-              />
-              <span className="py-2 text-sm text-red-400"></span>
-            </span>
-          </label>
-          <label>
-            <span className="register__form__title">Description</span>
-            <input
-              type="text"
-              name="description"
-              {...register("description", {
-                required: {
-                  value: true,
-                  message: "You most enter description",
-                },
-              })}
-              className={`${errors.description ? "ring-2 ring-red-500" : null}`}
-              placeholder="Your Description"
-            />
-            <span className="py-2 text-sm text-red-400">
-              {errors?.description?.message}
-            </span>
-          </label>
-          <span className="w-full">
-            <input
-              type="submit"
-              className="w-full text-white rounded bg-saffron-600"
-              value="Add Review"
-            />
-          </span>
-        </form>
       </div>
     </Layout>
   );
-};
-
-export default ReviewForm;
+}

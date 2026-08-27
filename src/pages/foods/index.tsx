@@ -1,55 +1,31 @@
 import Layout from "components/common/Layout";
-import Title from "components/common/Title";
-import LatestFood from "components/LatestFoods/LatestFood";
-import Pagination from "components/Pagination";
-import Food from "models/Food";
-import React, { useState } from "react";
-import db from "utils/db";
+import MenuBrowser from "components/menu/MenuBrowser";
+import PageHeader from "components/ui/PageHeader";
+import foodRepo from "repositories/foodRepo";
 
-const AllFoods = (props) => {
-  const { foods } = props;
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(6);
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = foods.slice(indexOfFirstPost, indexOfLastPost);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+export default function MenuPage({ foods = [] }: any) {
   return (
-    <Layout title="Cheesy__kitchen all food">
-      <div className="all-food">
-        <div className="all-food__wrapper">
-          <Title title="All Foods" subtitle="Find your food" description="" />
-          <div className="latest-food__wrapper__cart">
-            {currentPosts.map((food) => (
-              <LatestFood key={food._id} food={food} />
-            ))}
-          </div>
-        </div>
+    <Layout
+      title="The Menu"
+      description="Every dish Cheesy_Kitchen is cooking right now — burgers, pizza, chicken and pasta, with free delivery across Dhaka."
+    >
+      <PageHeader
+        eyebrow="What we're cooking"
+        title="The menu"
+        description="A short list, changed only when something earns its place. Search it, filter it, or just scroll."
+        crumbs={[{ label: "Menu" }]}
+      />
+
+      <div className="section">
         <div className="container">
-          <Pagination
-            postsPerPage={postsPerPage}
-            totalPosts={foods.length}
-            paginate={paginate}
-          />
+          <MenuBrowser foods={foods} />
         </div>
       </div>
     </Layout>
   );
-};
-
-export default AllFoods;
+}
 
 export async function getServerSideProps() {
-  await db.connect();
-  const foods = await Food.find({}).lean();
-  await db.disconnect();
-  return {
-    props: {
-      foods: foods.map(db.convertDocToObj),
-    },
-  };
+  const foods = await foodRepo.listAll();
+  return { props: { foods } };
 }

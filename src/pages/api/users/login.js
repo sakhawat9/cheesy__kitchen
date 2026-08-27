@@ -1,33 +1,25 @@
 import bcrypt from "bcryptjs";
-import nc from "next-connect";
-import User from "../../../models/User";
-import { signToken } from "../../../utils/auth";
-import db from "../../../utils/db";
+import userRepo from "../../../repositories/userRepo";
+import { publicUser, signToken } from "../../../utils/auth";
 
-const handler = nc();
-
-handler.post(async (req, res) => {
-  await db.connect();
-  const user = await User.findOne({ email: req.body.email });
-  await db.disconnect();
-  if (user && bcrypt.compareSync(req.body.password, user.password)) {
-    const token = signToken(user);
-    res.send({
-      token,
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      img: user.img,
-      facebook: user.facebook,
-      linkedIn: user.linkedIn,
-      twitter: user.twitter,
-      user: user.user,
-      instructor: user.instructor,
-    });
-  } else {
-    res.status(401).send({ message: "Invalid user or password" });
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return res.status(405).json({ message: "Method not allowed" });
   }
-});
 
-export default handler;
+  const { email, password } = req.body ?? {};
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
+  const user = await userRepo.getByEmail(String(email).trim().toLowerCase());
+
+  if (!user || !bcrypt.compareSync(password, user.password)) {
+    // Deliberately the same message for both cases, so the endpoint can't be
+    // used to test which email addresses have accounts.
+    return res.status(401).json({ message: "Invalid email or password" });
+  }
+
+  return res.status(200).json({ token: signToken(user), ...publicUser(user) });
+}

@@ -1,179 +1,207 @@
-// eslint-disable-next-line react/jsx-props-no-spreading
+import CheckoutSteps from "components/checkout/CheckoutSteps";
+import OrderSummary from "components/checkout/OrderSummary";
 import Layout from "components/common/Layout";
-import Title from "components/common/Title";
-import Cookies from "js-cookie";
+import Button from "components/ui/Button";
+import EmptyState from "components/ui/EmptyState";
+import Field, { inputClass } from "components/ui/Field";
+import PageHeader from "components/ui/PageHeader";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { MdOutlineShoppingBasket } from "react-icons/md";
 import { Store } from "utils/Store";
+import { useMounted } from "utils/useMounted";
 
-const Shipping = () => {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-    setValue,
-  } = useForm();
+export default function ShippingPage() {
   const router = useRouter();
   const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
-  const {
-    userInfo,
-    cart: { shippingAddress },
-  } = state;
-  useEffect(() => {
-    if (!userInfo) {
-      return router.push("/login?redirect=/shipping");
-    }
-    setValue("fullName", shippingAddress?.fullName);
-    setValue("address", shippingAddress?.address);
-    setValue("city", shippingAddress?.city);
-    setValue("postalCode", shippingAddress?.postalCode);
-    setValue("country", shippingAddress?.country);
-  }, []);
+  const { userInfo, cart } = state;
+  const mounted = useMounted();
 
-  const submitHandler = ({ fullName, address, city, postalCode, country }) => {
-    dispatch({
-      type: "SAVE_SHIPPING_ADDRESS",
-      payload: { fullName, address, city, postalCode, country },
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  // The old page ran this effect with an empty dependency array while reading
+  // `shippingAddress` from context, so a saved address never prefilled unless
+  // it happened to be present on the very first render.
+  useEffect(() => {
+    if (!mounted) return;
+    if (!userInfo) {
+      router.replace("/login?redirect=/shipping");
+      return;
+    }
+    reset({
+      fullName: cart.shippingAddress?.fullName ?? userInfo.name ?? "",
+      phone: cart.shippingAddress?.phone ?? "",
+      address: cart.shippingAddress?.address ?? "",
+      city: cart.shippingAddress?.city ?? "",
+      postalCode: cart.shippingAddress?.postalCode ?? "",
+      notes: cart.shippingAddress?.notes ?? "",
     });
-    Cookies.set(
-      "shippingAddress",
-      JSON.stringify({
-        fullName,
-        address,
-        city,
-        postalCode,
-        country,
-      })
-    );
+  }, [mounted, userInfo, cart.shippingAddress, reset, router]);
+
+  const onSubmit = (values) => {
+    dispatch({ type: "SAVE_SHIPPING_ADDRESS", payload: values });
     router.push(redirect || "/payments");
   };
 
   return (
-    <Layout title="Shipping Page">
-      <div className="shipping">
-        <div className="shipping__wrapper">
-          <Title
-            title="Shipping Address"
-            subtitle="select your shipping address"
-            description=""
-          />
-          <form
-            className="shipping__form"
-            onSubmit={handleSubmit(submitHandler)}
-          >
-            <label>
-              <span className="shipping__form__title">Name</span>
-              <span className="block">
-                <input
-                  type="text"
-                  name="name"
-                  {...register("name", {
-                    required: {
-                      value: true,
-                      message: "You most enter name",
-                    },
-                  })}
-                  className={`${errors.name ? "ring-1 ring-red-500" : null}`}
-                  placeholder="Full name"
-                />
-                <span className="py-2 text-sm text-red-400">
-                  {errors?.name?.message}
-                </span>
-              </span>
-            </label>
-            <label>
-              <span className="shipping__form__title">Address</span>
-              <span className="block">
-                <input
-                  type="text"
-                  name="address"
-                  {...register("address", {
-                    required: {
-                      value: true,
-                      message: "You most enter address",
-                    },
-                  })}
-                  className={`${errors.name ? "ring-1 ring-red-500" : null}`}
-                  placeholder="Address"
-                />
-                <span className="py-2 text-sm text-red-400">
-                  {errors?.name?.message}
-                </span>
-              </span>
-            </label>
-            <label>
-              <span className="shipping__form__title">City</span>
-              <span className="block">
-                <input
-                  type="text"
-                  name="city"
-                  {...register("city", {
-                    required: {
-                      value: true,
-                      message: "You most enter city",
-                    },
-                  })}
-                  className={`${errors.name ? "ring-1 ring-red-500" : null}`}
-                  placeholder="City"
-                />
-                <span className="py-2 text-sm text-red-400">
-                  {errors?.name?.message}
-                </span>
-              </span>
-            </label>
-            <label>
-              <span className="shipping__form__title">Postal Code</span>
-              <span className="block">
-                <input
-                  type="text"
-                  name="postalCode"
-                  {...register("postalCode", {
-                    required: {
-                      value: true,
-                      message: "You most enter postal code",
-                    },
-                  })}
-                  className={`${errors.name ? "ring-1 ring-red-500" : null}`}
-                  placeholder="Postal Code"
-                />
-                <span className="py-2 text-sm text-red-400">
-                  {errors?.name?.message}
-                </span>
-              </span>
-            </label>
-            <label>
-              <span className="shipping__form__title">Country</span>
-              <span className="block">
-                <input
-                  type="text"
-                  name="country"
-                  {...register("country", {
-                    required: {
-                      value: true,
-                      message: "You most enter country",
-                    },
-                  })}
-                  className={`${errors.name ? "ring-1 ring-red-500" : null}`}
-                  placeholder="Country"
-                />
-                <span className="py-2 text-sm text-red-400">
-                  {errors?.name?.message}
-                </span>
-              </span>
-            </label>
+    <Layout title="Delivery details">
+      {/* The banner renders even before hydration, so the server response
+          always carries the page's <h1> rather than an empty shell. */}
+      <PageHeader
+        eyebrow="Checkout"
+        title="Where's it going?"
+        crumbs={[{ label: "Basket", href: "/cartFood" }, { label: "Delivery" }]}
+      />
 
-            <div className="mt-4 form-element ">
-              <span className="block w-full mx-auto ">
-                <input type="submit" className="btn-brand" value="Continue" />
-              </span>
+      <div className="section">
+        <div className="container">
+          <CheckoutSteps current={1} />
+
+          {!mounted ? (
+            <div className="h-96 skeleton rounded-card" aria-hidden="true" />
+          ) : cart.cartItems.length === 0 ? (
+            <EmptyState
+              icon={MdOutlineShoppingBasket}
+              title="There's nothing to deliver yet"
+              description="Add something to your basket and we'll take it from there."
+              action={{ label: "Browse the menu", href: "/foods" }}
+            />
+          ) : (
+            <div className="grid gap-8 lg:grid-cols-12 lg:gap-10 lg:items-start">
+              <div className="lg:col-span-7">
+                <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                  <Field label="Full name" error={errors.fullName?.message} required>
+                    {(id, describedBy, invalid) => (
+                      <input
+                        id={id}
+                        type="text"
+                        autoComplete="name"
+                        aria-describedby={describedBy}
+                        aria-invalid={invalid}
+                        className={inputClass(invalid)}
+                        {...register("fullName", {
+                          required: "Please tell us who the order is for.",
+                        })}
+                      />
+                    )}
+                  </Field>
+
+                  <Field
+                    label="Phone number"
+                    error={errors.phone?.message}
+                    hint="The rider will call this number if they can't find the door."
+                    required
+                  >
+                    {(id, describedBy, invalid) => (
+                      <input
+                        id={id}
+                        type="tel"
+                        autoComplete="tel"
+                        aria-describedby={describedBy}
+                        aria-invalid={invalid}
+                        className={inputClass(invalid)}
+                        {...register("phone", {
+                          required: "We need a number in case the rider gets stuck.",
+                          minLength: {
+                            value: 7,
+                            message: "That doesn't look like a full phone number.",
+                          },
+                        })}
+                      />
+                    )}
+                  </Field>
+
+                  <Field
+                    label="Street address"
+                    error={errors.address?.message}
+                    required
+                  >
+                    {(id, describedBy, invalid) => (
+                      <input
+                        id={id}
+                        type="text"
+                        autoComplete="street-address"
+                        aria-describedby={describedBy}
+                        aria-invalid={invalid}
+                        className={inputClass(invalid)}
+                        {...register("address", {
+                          required: "Please enter the delivery address.",
+                        })}
+                      />
+                    )}
+                  </Field>
+
+                  <div className="grid gap-x-5 sm:grid-cols-2">
+                    <Field label="City" error={errors.city?.message} required>
+                      {(id, describedBy, invalid) => (
+                        <input
+                          id={id}
+                          type="text"
+                          autoComplete="address-level2"
+                          aria-describedby={describedBy}
+                          aria-invalid={invalid}
+                          className={inputClass(invalid)}
+                          {...register("city", { required: "Please enter a city." })}
+                        />
+                      )}
+                    </Field>
+
+                    <Field label="Postal code" error={errors.postalCode?.message}>
+                      {(id, describedBy, invalid) => (
+                        <input
+                          id={id}
+                          type="text"
+                          autoComplete="postal-code"
+                          aria-describedby={describedBy}
+                          aria-invalid={invalid}
+                          className={inputClass(invalid)}
+                          {...register("postalCode")}
+                        />
+                      )}
+                    </Field>
+                  </div>
+
+                  <Field
+                    label="Delivery notes"
+                    hint="Optional — gate codes, floor number, anything the rider should know."
+                  >
+                    {(id, describedBy) => (
+                      <textarea
+                        id={id}
+                        rows={3}
+                        aria-describedby={describedBy}
+                        className="textarea"
+                        {...register("notes")}
+                      />
+                    )}
+                  </Field>
+
+                  <Button
+                    type="submit"
+                    variant="accent"
+                    size="lg"
+                    loading={isSubmitting}
+                    className="mt-2"
+                  >
+                    Continue to payment
+                  </Button>
+                </form>
+              </div>
+
+              <aside className="lg:col-span-5 lg:sticky lg:top-24">
+                <OrderSummary cartItems={cart.cartItems} />
+              </aside>
             </div>
-          </form>
+          )}
         </div>
       </div>
     </Layout>
   );
-};
-
-export default Shipping;
+}

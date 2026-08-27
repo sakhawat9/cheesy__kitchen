@@ -1,275 +1,239 @@
-// eslint-disable-next-line react/jsx-props-no-spreading
 import axios from "axios";
 import Layout from "components/common/Layout";
-import Title from "components/common/Title";
+import Button from "components/ui/Button";
+import Field, { inputClass } from "components/ui/Field";
+import PageHeader from "components/ui/PageHeader";
 import Cookies from "js-cookie";
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 import { Store } from "utils/Store";
+import { useMounted } from "utils/useMounted";
 
-function Profile() {
+/**
+ * Account settings.
+ *
+ * The old page was wrapped in `dynamic(..., { ssr: false })` and ran its
+ * prefill effect with an empty dependency array, so the fields were blank on
+ * the first paint. Password mismatch was reported by a modal after submission;
+ * it's now validated in the field. Every control had a placeholder but no
+ * label.
+ */
+export default function ProfilePage() {
+  const router = useRouter();
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
+  const mounted = useMounted();
+
   const {
     handleSubmit,
     register,
-    formState: { errors },
-    setValue,
+    reset,
+    watch,
+    formState: { errors, isSubmitting },
   } = useForm();
-  const router = useRouter();
-  const { redirect } = router.query;
-  const { state, dispatch } = useContext(Store);
-  const { userInfo } = state;
 
   useEffect(() => {
+    if (!mounted) return;
     if (!userInfo) {
-      return router.push("/login");
-    }
-    setValue("name", userInfo?.name);
-    setValue("email", userInfo?.email);
-    setValue("img", userInfo?.img);
-    setValue("facebook", userInfo?.facebook);
-    setValue("linkedIn", userInfo?.linkedIn);
-    setValue("twitter", userInfo?.twitter);
-  }, []);
-
-  const submitHandler = async ({
-    name,
-    email,
-    img,
-    facebook,
-    twitter,
-    linkedIn,
-    password,
-    confirmPassword,
-  }) => {
-    if (password !== confirmPassword) {
-      Swal.fire({
-        icon: "error",
-        text: "Password don't match",
-      });
+      router.replace("/login?redirect=/profile");
       return;
     }
+    reset({
+      name: userInfo.name ?? "",
+      email: userInfo.email ?? "",
+      facebook: userInfo.facebook ?? "",
+      linkedIn: userInfo.linkedIn ?? "",
+      twitter: userInfo.twitter ?? "",
+    });
+  }, [mounted, userInfo, reset, router]);
+
+  const onSubmit = async (values) => {
     try {
       const { data } = await axios.put(
         "/api/users/profile",
         {
-          name,
-          email,
-          password,
-          img,
-          facebook,
-          linkedIn,
-          twitter,
+          name: values.name,
+          email: values.email,
+          facebook: values.facebook,
+          linkedIn: values.linkedIn,
+          twitter: values.twitter,
+          // Only send a password when one was actually typed, so saving the
+          // form without changing it doesn't reset the account's password.
+          ...(values.password ? { password: values.password } : {}),
         },
-        { headers: { authorization: `Bearer ${userInfo.token}` } }
+        { headers: { authorization: `Bearer ${userInfo.token}` } },
       );
 
       dispatch({ type: "USER_LOGIN", payload: data });
-      Cookies.set("userInfo", JSON.stringify(data));
-      Swal.fire({
-        icon: "success",
-        text: "Profile updated successfully",
-      });
-      router.push("/");
-    } catch (err) {
-      Swal.fire({
-        icon: "error",
-        text: err.message ? "Profile updated failed" : "",
-      });
+      Cookies.set("userInfo", JSON.stringify(data), { expires: 30, sameSite: "lax" });
+      toast.success("Your details have been saved.");
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message ??
+          "We couldn't save those changes. Please try again.",
+      );
     }
   };
 
   return (
-    <Layout title={`${userInfo.name} profile | Restaurant Website.`}>
-      <div className="register">
-        <div className="register__wrapper">
-          <Title title="Update your account" subtitle="" description="" />
-        </div>
-        <form className="login__form" onSubmit={handleSubmit(submitHandler)}>
-          <label>
-            <span className="login__form__title">
-              Name<span className="text-red-600"> *</span>
-            </span>
-            <span className="block">
-              <input
-                onChange={() => {}}
-                type="text"
-                name="name"
-                {...register("name", {
-                  required: {
-                    value: true,
-                    message: "You most enter name",
-                  },
-                })}
-                className={` ${errors.name ? "ring-2 ring-red-500" : null}`}
-                placeholder="Full name"
-              />
-              <span className="py-2 text-sm text-red-400">
-                {errors?.name?.message}
-              </span>
-            </span>
-          </label>
-          <label>
-            <span className="login__form__title">
-              Email<span className="text-red-600"> *</span>
-            </span>
-            <span className="block">
-              <input
-                onChange={() => {}}
-                type="email"
-                name="Email"
-                {...register("email", {
-                  required: {
-                    value: true,
-                    message: "You most enter email address",
-                  },
-                  minLength: {
-                    value: 8,
-                    message: "This is not long enough to be an email",
-                  },
-                  maxLength: {
-                    value: 120,
-                    message: "This is too long",
-                  },
-                  pattern: {
-                    value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
-                    message: "invalid email address",
-                  },
-                })}
-                className={`${errors.email ? "ring-2 ring-red-500" : null}`}
-                placeholder="Email"
-              />
-              <span className="py-2 text-sm text-red-400">
-                {errors?.email?.message}
-              </span>
-            </span>
-          </label>
-          <label>
-            <span className="login__form__title">
-              Password<span className="text-red-600"> *</span>
-            </span>
-            <span className="block">
-              <input
-                type="password"
-                name="password"
-                {...register("password", {
-                  required: {
-                    value: true,
-                    message: "You most enter password",
-                  },
-                  minLength: {
-                    value: 6,
-                    message: "Password lenth is more then 5",
-                  },
-                })}
-                className={`${errors.password ? "ring-2 ring-red-500" : null}`}
-                placeholder="Password"
-              />
-              <span className="py-2 text-sm text-red-400">
-                {errors?.password?.message}
-              </span>
-            </span>
-          </label>
-          <label>
-            <span className="login__form__title">
-              Conform Password<span className="text-red-600"> *</span>
-            </span>
-            <span className="block">
-              <input
-                type="password"
-                name="confirmPassword"
-                {...register("confirmPassword", {
-                  required: {
-                    value: true,
-                    message: "You most enter confirm Password",
-                  },
-                  minLength: {
-                    value: 6,
-                    message: "confirm Password lenth is more then 5",
-                  },
-                })}
-                className={`${errors.confirmPassword ? "ring-2 ring-red-500" : null}`}
-                placeholder="Confirm Password"
-              />
-              <span className="py-2 text-sm text-red-400">
-                {errors?.confirmPassword?.message}
-              </span>
-            </span>
-          </label>
-          <label>
-            <span className="login__form__title">
-              Image
-            </span>
-            <span className="block">
-              <input
-                onChange={() => {}}
-                type="text"
-                name="img"
-                {...register("img", {})}
-                placeholder="Image URL"
-              />
-              <span className="py-2 text-sm text-red-400"></span>
-            </span>
-          </label>
-          <label>
-            <span className="login__form__title">
-              Facebook
-            </span>
-            <span className="block">
-              <input
-                onChange={() => {}}
-                type="text"
-                name="facebook"
-                {...register("facebook", {})}
-                placeholder="Facebook URL"
-              />
-              <span className="py-2 text-sm text-red-400"></span>
-            </span>
-          </label>
-          <label>
-            <span className="login__form__title">
-              LinkedIn
-            </span>
-            <span className="block">
-              <input
-                onChange={() => {}}
-                type="text"
-                name="linkedIn"
-                {...register("linkedIn", {})}
-                placeholder="LinkedIn URL"
-              />
-              <span className="py-2 text-sm text-red-400"></span>
-            </span>
-          </label>
-          <label>
-            <span className="login__form__title">
-              Twitter
-            </span>
-            <span className="block">
-              <input
-                onChange={() => {}}
-                type="text"
-                name="twitter"
-                {...register("twitter", {})}
+    <Layout title="Account settings">
+      <PageHeader
+        eyebrow="Your account"
+        title="Account settings"
+        crumbs={[{ label: "Account settings" }]}
+      />
 
-                placeholder="Twitter URL"
-              />
-              <span className="py-2 text-sm text-red-400"></span>
-            </span>
-          </label>
-          <span className="block w-full mx-auto lg:w-4/5 ">
-            <input
-              type="submit"
-              className="flex w-full px-6 py-3 text-lg text-white bg-indigo-600 border-0 rounded cursor-pointer focus:outline-none hover:bg-aquamarine-800"
-              value="Update Account"
-            />
-          </span>
-        </form>
+      <div className="section">
+        <div className="container">
+          <div className="max-w-2xl">
+            {!mounted || !userInfo ? (
+              <div className="h-96 skeleton rounded-card" aria-hidden="true" />
+            ) : (
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <h2 className="mb-6 text-h3">Your details</h2>
+
+              <Field label="Full name" error={errors.name?.message} required>
+                {(id, describedBy, invalid) => (
+                  <input
+                    id={id}
+                    type="text"
+                    autoComplete="name"
+                    aria-describedby={describedBy}
+                    aria-invalid={invalid}
+                    className={inputClass(invalid)}
+                    {...register("name", { required: "Please enter your name." })}
+                  />
+                )}
+              </Field>
+
+              <Field label="Email address" error={errors.email?.message} required>
+                {(id, describedBy, invalid) => (
+                  <input
+                    id={id}
+                    type="email"
+                    autoComplete="email"
+                    aria-describedby={describedBy}
+                    aria-invalid={invalid}
+                    className={inputClass(invalid)}
+                    {...register("email", {
+                      required: "Please enter your email address.",
+                      pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: "That doesn't look like a valid email address.",
+                      },
+                    })}
+                  />
+                )}
+              </Field>
+
+              <h2 className="pt-6 mt-10 mb-2 border-t text-h3 border-cream-300">
+                Change password
+              </h2>
+              <p className="mb-6 text-sm text-charcoal-500">
+                Leave these blank to keep your current password.
+              </p>
+
+              <Field
+                label="New password"
+                error={errors.password?.message}
+                hint="At least 6 characters."
+              >
+                {(id, describedBy, invalid) => (
+                  <input
+                    id={id}
+                    type="password"
+                    autoComplete="new-password"
+                    aria-describedby={describedBy}
+                    aria-invalid={invalid}
+                    className={inputClass(invalid)}
+                    {...register("password", {
+                      minLength: {
+                        value: 6,
+                        message: "Passwords need to be at least 6 characters.",
+                      },
+                    })}
+                  />
+                )}
+              </Field>
+
+              <Field label="Confirm new password" error={errors.confirmPassword?.message}>
+                {(id, describedBy, invalid) => (
+                  <input
+                    id={id}
+                    type="password"
+                    autoComplete="new-password"
+                    aria-describedby={describedBy}
+                    aria-invalid={invalid}
+                    className={inputClass(invalid)}
+                    {...register("confirmPassword", {
+                      validate: (value) =>
+                        !watch("password") ||
+                        value === watch("password") ||
+                        "The two passwords don't match.",
+                    })}
+                  />
+                )}
+              </Field>
+
+              <h2 className="pt-6 mt-10 mb-6 border-t text-h3 border-cream-300">
+                Social links
+              </h2>
+
+              <Field label="Facebook" hint="Optional">
+                {(id, describedBy) => (
+                  <input
+                    id={id}
+                    type="url"
+                    aria-describedby={describedBy}
+                    className="input"
+                    placeholder="https://facebook.com/…"
+                    {...register("facebook")}
+                  />
+                )}
+              </Field>
+
+              <Field label="LinkedIn" hint="Optional">
+                {(id, describedBy) => (
+                  <input
+                    id={id}
+                    type="url"
+                    aria-describedby={describedBy}
+                    className="input"
+                    placeholder="https://linkedin.com/in/…"
+                    {...register("linkedIn")}
+                  />
+                )}
+              </Field>
+
+              <Field label="Twitter" hint="Optional">
+                {(id, describedBy) => (
+                  <input
+                    id={id}
+                    type="url"
+                    aria-describedby={describedBy}
+                    className="input"
+                    placeholder="https://twitter.com/…"
+                    {...register("twitter")}
+                  />
+                )}
+              </Field>
+
+              <Button
+                type="submit"
+                variant="accent"
+                size="lg"
+                loading={isSubmitting}
+                className="mt-2"
+              >
+                Save changes
+              </Button>
+            </form>
+            )}
+          </div>
+        </div>
       </div>
     </Layout>
   );
 }
-
-export default dynamic(() => Promise.resolve(Profile), { ssr: false });

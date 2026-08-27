@@ -1,6 +1,11 @@
+/** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["cdn.pixabay.com", "img-c.udemycdn.com", "res.cloudinary.com"],
+    remotePatterns: [
+      { protocol: "https", hostname: "cdn.pixabay.com" },
+      { protocol: "https", hostname: "res.cloudinary.com" },
+      { protocol: "https", hostname: "images.unsplash.com" },
+    ],
   },
 };

@@ -1,14 +1,11 @@
-import nc from 'next-connect';
-import Food from '../../../models/Food';
-import db from '../../../utils/db';
+import foodRepo from "../../../repositories/foodRepo";
 
-const handler = nc();
+export default async function handler(req, res) {
+  if (req.method !== "GET") {
+    res.setHeader("Allow", "GET");
+    return res.status(405).json({ message: "Method not allowed" });
+  }
 
-handler.get(async (req, res) => {
-  await db.connect();
-  const foods = await Food.find({});
-  await db.disconnect();
-  res.send(foods);
-});
-
-export default handler;
+  const foods = await foodRepo.listAll();
+  return res.status(200).json(foods);
+}

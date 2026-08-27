@@ -1,30 +1,39 @@
-import React from "react";
-import AboutUsContent from "components/AboutUs/AboutUsContent";
-import AboutUsChief from "components/AboutUs/AboutUsChief";
+import AboutStory from "components/about/AboutStory";
+import AboutTeam from "components/about/AboutTeam";
+import AboutValues from "components/about/AboutValues";
 import Layout from "components/common/Layout";
-import Testimonials from "components/Testimonials/Testimonials";
-import Review from "models/Review";
-import db from "utils/db";
+import ClosingCTA from "components/home/ClosingCTA";
+import Testimonials from "components/home/Testimonials";
+import PageHeader from "components/ui/PageHeader";
+import foodRepo from "repositories/foodRepo";
+import reviewRepo from "repositories/reviewRepo";
 
-const aboutUs = ({ review }) => {
+export default function AboutPage({ review = [], foods = [] }: any) {
   return (
-    <Layout title="About Us | Restaurant Website.">
-      <AboutUsContent />
-      <AboutUsChief />
+    <Layout
+      title="Our Kitchen"
+      description="How Cheesy_Kitchen cooks: a short menu, prepped daily, with dough proved for 48 hours and chickens brined overnight."
+    >
+      <PageHeader
+        eyebrow="About us"
+        title="Our kitchen"
+        description="Why the menu is short, and what happens to your order between the ticket printing and the door."
+        crumbs={[{ label: "Our Kitchen" }]}
+      />
+
+      <AboutStory foods={foods} />
+      <AboutValues />
+      <AboutTeam />
       <Testimonials data={review} />
+      <ClosingCTA />
     </Layout>
   );
-};
-
-export default aboutUs;
+}
 
 export async function getServerSideProps() {
-  await db.connect();
-  const review = await Review.find({}).lean();
-  await db.disconnect();
-  return {
-    props: {
-      review: review.map(db.convertDocToObj),
-    },
-  };
+  const [review, foods] = await Promise.all([
+    reviewRepo.listAll(),
+    foodRepo.listAll(),
+  ]);
+  return { props: { review, foods } };
 }

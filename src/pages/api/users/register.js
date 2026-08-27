@@ -1,42 +1,47 @@
 import bcrypt from "bcryptjs";
-import nc from "next-connect";
-import User from "../../../models/User";
-import { signToken } from "../../../utils/auth";
-import db from "../../../utils/db";
+import userRepo from "../../../repositories/userRepo";
+import { publicUser, signToken } from "../../../utils/auth";
 
-const handler = nc();
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return res.status(405).json({ message: "Method not allowed" });
+  }
 
-handler.post(async (req, res) => {
-  await db.connect();
-  const newUser = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password),
+  const { name, email, password } = req.body ?? {};
+
+  if (!name?.trim() || !email?.trim() || !password) {
+    return res
+      .status(400)
+      .json({ message: "Name, email and password are all required" });
+  }
+  if (password.length < 6) {
+    return res
+      .status(400)
+      .json({ message: "Passwords must be at least 6 characters" });
+  }
+
+  const normalisedEmail = String(email).trim().toLowerCase();
+
+  // The old handler had no duplicate check and relied on the unique index
+  // throwing, which surfaced to the client as an unhandled 500.
+  const existing = await userRepo.getByEmail(normalisedEmail);
+  if (existing) {
+    return res
+      .status(409)
+      .json({ message: "An account already exists with that email address" });
+  }
+
+  const user = await userRepo.create({
+    name: name.trim(),
+    email: normalisedEmail,
+    password: bcrypt.hashSync(password),
+    // `isAdmin` is deliberately not taken from the request body: the old
+    // handler spread client-controlled fields (`user`, `instructor`) straight
+    // onto the record.
     isAdmin: false,
-    img: req.body.img,
-    facebook: req.body.facebook,
-    linkedIn: req.body.linkedIn,
-    twitter: req.body.twitter,
-    user: req.body.user,
-    instructor: req.body.instructor,
+    user: true,
   });
 
-  const user = await newUser.save();
-  await db.disconnect();
-
-  const token = signToken(user);
-  res.send({
-    token,
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-    isAdmin: user.isAdmin,
-    img: user.img,
-    facebook: user.facebook,
-    linkedIn: user.linkedIn,
-    twitter: user.twitter,
-    user: user.user,
-    instructor: user.instructor,
-  });
-});
-export default handler;
+  return res.status(201).json({ token: signToken(user), ...publicUser(user) });
+}

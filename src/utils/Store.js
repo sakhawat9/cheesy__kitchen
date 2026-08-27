@@ -3,75 +3,97 @@ import { createContext, useReducer } from "react";
 
 export const Store = createContext();
 
+// Cookies are only readable in the browser. During SSR every slice starts
+// empty and is filled in on the client, which is what `useMounted` guards.
+function readCookie(key, fallback) {
+  if (typeof window === "undefined") return fallback;
+  const raw = Cookies.get(key);
+  if (!raw) return fallback;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    // A corrupt cookie used to throw during module evaluation and take the
+    // whole app down with it.
+    Cookies.remove(key);
+    return fallback;
+  }
+}
+
 const initialState = {
   cart: {
-    cartItems: Cookies.get("cartItems")
-      ? JSON.parse(Cookies.get("cartItems"))
-      : [],
+    cartItems: readCookie("cartItems", []),
+    shippingAddress: readCookie("shippingAddress", {}),
   },
-  shippingAddress: Cookies.get("shippingAddress")
-    ? JSON.parse(Cookies.get("shippingAddress"))
-    : {},
-
-  billingAddress: Cookies.get("billingAddress")
-    ? JSON.parse(Cookies.get("billingAddress"))
-    : null,
-
-  paymentInfo: Cookies.get("paymentInfo")
-    ? JSON.parse(Cookies.get("paymentInfo"))
-    : null,
-
-  userInfo: Cookies.get("userInfo")
-    ? JSON.parse(Cookies.get("userInfo"))
-    : null,
+  billingAddress: readCookie("billingAddress", null),
+  paymentInfo: readCookie("paymentInfo", null),
+  userInfo: readCookie("userInfo", null),
 };
+
+function persist(key, value) {
+  Cookies.set(key, JSON.stringify(value), { expires: 30, sameSite: "lax" });
+}
 
 function reducer(state, action) {
   switch (action.type) {
     case "CART_ADD_ITEM": {
       const newItem = action.payload;
       const existItem = state.cart.cartItems.find(
-        (item) => item._id === newItem._id
+        (item) => item._id === newItem._id,
       );
+      // Matching on `_id` rather than the old `item.name === existItem.name`,
+      // which replaced every item sharing a name.
       const cartItems = existItem
         ? state.cart.cartItems.map((item) =>
-            item.name === existItem.name ? newItem : item
+            item._id === existItem._id ? newItem : item,
           )
         : [...state.cart.cartItems, newItem];
-      Cookies.set("cartItems", JSON.stringify(cartItems));
-      return { ...state, cart: { ...state.cart, cartItems } };
-    }
-    case "CART_REMOVE_ITEM": {
-      const cartItems = state.cart.cartItems.filter(
-        (item) => item._id !== action.payload._id
-      );
-      Cookies.set("cartItems", JSON.stringify(cartItems));
+      persist("cartItems", cartItems);
       return { ...state, cart: { ...state.cart, cartItems } };
     }
 
-    case "CART_CLEAR":
+    case "CART_REMOVE_ITEM": {
+      const cartItems = state.cart.cartItems.filter(
+        (item) => item._id !== action.payload._id,
+      );
+      persist("cartItems", cartItems);
+      return { ...state, cart: { ...state.cart, cartItems } };
+    }
+
+    case "CART_CLEAR": {
+      Cookies.remove("cartItems");
       return { ...state, cart: { ...state.cart, cartItems: [] } };
-    case "SAVE_SHIPPING_ADDRESS":
+    }
+
+    case "SAVE_SHIPPING_ADDRESS": {
+      persist("shippingAddress", action.payload);
       return {
         ...state,
         cart: { ...state.cart, shippingAddress: action.payload },
       };
+    }
+
     case "USER_LOGIN":
       return { ...state, userInfo: action.payload };
+
     case "USER_LOGOUT":
       return {
         ...state,
         userInfo: null,
-        cart: {
-          cartItems: [],
-        },
+        billingAddress: null,
+        paymentInfo: null,
+        cart: { cartItems: [], shippingAddress: {} },
       };
+
     case "BILLING_ADDRESS":
       return { ...state, billingAddress: action.payload };
+
     case "PAYMENT_DETAILS":
       return { ...state, paymentInfo: action.payload };
+
+    // The old default arm was a bare `state;` expression with no `return`, so
+    // any unrecognised action wiped the entire store to `undefined`.
     default:
-      state;
+      return state;
   }
 }
 
