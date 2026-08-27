@@ -12,11 +12,11 @@ const HOURS = [
 const SOCIALS = [
   {
     label: "Facebook",
-    href: "https://www.facebook.com/sakawat.hossain.338211",
+    href: "https://www.facebook.com/shshakib2001/",
     icon: FaFacebookF,
   },
-  { label: "Instagram", href: "https://www.instagram.com", icon: FaInstagram },
-  { label: "WhatsApp", href: "https://www.whatsapp.com", icon: FaWhatsapp },
+  { label: "Instagram", href: "https://www.instagram.com/imshshakib/", icon: FaInstagram },
+  { label: "WhatsApp", href: "http://wa.me/+8801849687969", icon: FaWhatsapp },
 ];
 
 /**
@@ -32,7 +32,7 @@ export default function Footer() {
     <footer className="surface-deep on-dark">
       {/* Closing invitation, straddling the top edge of the footer. */}
       <div className="container">
-        <div className="py-14 border-b border-white/10 lg:py-16">
+        <div className="border-b py-14 border-white/10 lg:py-16">
           <div className="flex flex-col items-center gap-8 text-center lg:flex-row lg:justify-between lg:text-left">
             <div>
               <p className="mb-3 label-rule text-saffron-400">Hungry?</p>
